@@ -1,0 +1,25 @@
+.ad{
+  color: rgb(0, 0, 0);/*色の指定*/
+  text-align: center; /*文字を中央え*/
+  font-size: 400%;/*文字のサイズ*/
+}
+.saito{
+  background-color: black;
+  color: cornsilk;
+  width: 40%;
+  text-align:cente ;
+}
+.botan{
+  margin:auto;
+  text-align:cente ;
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  height: 100%;
+
+}
+.waku{ 
+  border: none;
+  font-size: 250%
+
+}

@@ -1,0 +1,721 @@
+@charset "UTF-8";
+/* ==========================================
+   Template: modern（https://do.gt-gt.org/）
+   Copyright: 2020 do.
+   利用規約を遵守の上お使いください。二次配布・販売を禁じます
+   ========================================== */
+/* ==========================================
+  リセットCSS
+  基本的には触らないでください
+  ========================================== */
+@import url("https://fonts.googleapis.com/css2?family=Monomaniac+One&display=swap");
+input[type="submit"] {
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+
+html {
+  box-sizing: border-box;
+  -ms-overflow-style: scrollbar;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+img {
+  border: none;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  text-decoration: none;
+}
+
+ol,
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+img,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background: #f1eded;
+  margin: 2em auto;
+  width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  line-height: 1.6em;
+}
+
+.container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.flex {
+  display: -webkit-box;
+  display: flex;
+}
+
+.wrap {
+  flex-wrap: wrap;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .wrap {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+            flex-direction: row;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1029px) {
+  .container {
+    max-width: 720px;
+  }
+}
+
+@media (min-width: 1030px) {
+  .container {
+    max-width: 960px;
+  }
+}
+
+body {
+  background: #e8f3f3;
+  color: #242424;
+  margin: 0;
+  padding: 0;
+  font-size: 15px;
+  font-family: 'メイリオ', Meiryo,'ヒラギノ角ゴシック','Hiragino Sans',sans-serif;
+}
+
+.container {
+  background: white;
+  padding-bottom: 30px;
+}
+
+h1 {
+ font-weight: normal;
+  font-family: "Cookie", "Monomaniac One", cursive;
+}
+
+h2 {
+  border-bottom: 3px solid #f5f5f5;
+  position: relative;
+  margin-bottom: 1.5em;
+}
+
+h2:after {
+  content: '';
+  display: block;
+  width: 100px;
+  height: 3px;
+  background: #caefff;
+  position: relative;
+  top: 3px;
+}
+
+h3 {
+  border-left: 3px solid #caefff;
+  padding: 0px 15px;
+  margin: 2em 0 1em;
+}
+
+a {
+  color: #242424;
+  text-decoration: underline;
+  -webkit-transition: color .3s;
+  transition: color .3s;
+}
+
+a:focus, a:visited, a:active {
+  color: #242424;
+}
+
+a:hover {
+  color: #caefff;
+}
+
+p {
+  margin: 1.5em 0;
+}
+
+
+
+header p {
+  text-align: center;
+  font-size: 12px;
+}
+
+header h1 {
+  text-align: center;
+  font-size: 30px;
+  color: #402f26;
+  -webkit-transform: rotate(-4deg);
+          transform: rotate(-4deg);
+  /* ※サイトタイトルの傾き */
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 5px auto;
+}
+
+header h1:after {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 30px;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: -1;
+  background-size: auto auto;
+  background-color: #ffffff;
+  /* ※サイトタイトル背景のシマシマのベースカラー */
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 4px, #caefff 4px, #caefff 8px);
+  /* ※サイトタイトル背景のシマシマカラー */
+}
+
+header ul#menu {
+  display: block;
+  margin: 0 auto;
+}
+
+header ul#menu li {
+  padding: 0;
+}
+
+header ul#menu li:before {
+  display: none;
+}
+
+header ul#menu li a {
+  display: block;
+  color: #242424;
+  text-decoration: none;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  border: none;
+  background: #eeffff;
+  border-radius: 4px;
+  padding: 5px 10px;
+}
+
+header ul#menu li a:hover {
+  background: #d69fda;
+}
+
+section {
+  margin: 50px auto;
+  max-width: 600px;
+}
+
+section.flexbox {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+}
+
+section.flexbox div.flexbox_inner {
+  margin-bottom: 20px;
+  -webkit-box-flex: 1;
+          flex: 1;
+}
+
+ul li {
+  padding-left: 25px;
+  position: relative;
+  margin-bottom: .5rem;
+}
+
+ul li:before {
+  content: '';
+  width: 12px;
+  height: 3px;
+  display: block;
+  position: absolute;
+  margin: auto;
+  top: .6em;
+  left: 0;
+}
+
+strong.marker {
+  background-size: auto auto;
+  background-color: #ffffff;
+  /* ※マーカー付き強調のシマシマのベースカラー */
+  background-image: repeating-linear-gradient(45deg, transparent, transparent 3px, #F5E3FA 2px, #F5E3FA 5px);
+  /* ※マーカー付き強調のシマシマカラー */
+}
+
+a.bigcard {
+  display: -webkit-box;
+  display: flex;
+  text-decoration: none;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  margin-bottom: 20px;
+  -webkit-transition: background .3s;
+  transition: background .3s;
+}
+
+a.bigcard:hover {
+  background: #f7f6f3;
+  /* ※リンクカードをホバーしたときの背景色 */
+  color: inherit;
+}
+
+a.bigcard h5 {
+  font-size: 20px;
+  margin: 10px 0 0;
+}
+
+a.bigcard .memo {
+  font-size: 13px;
+  margin-top: 0;
+  color: #aba9a5;
+}
+
+a.bigcard figure {
+  margin: 0;
+  width: 100%;
+  height: 150px;
+  overflow: hidden;
+}
+
+a.bigcard figure img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+a.btn, a.btn01, a.btn02, a.btn03, a.btn04 {
+  display: block;
+  background: #eadbee;
+  text-decoration: none;
+  text-align: center;
+  padding: 8px;
+  border-radius: 4px;
+  box-shadow: 0 3px #dbc8e0;
+  margin: 2em 0;
+  -webkit-transition: box-shadow .3s, -webkit-transform .3s;
+  transition: box-shadow .3s, -webkit-transform .3s;
+  transition: transform .3s, box-shadow .3s;
+  transition: transform .3s, box-shadow .3s, -webkit-transform .3s;
+}
+
+a.btn01 {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 8px 20px;
+}
+
+a.btn02 {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* 追加ボタン */
+a.btn03 {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 8px 20px;
+  margin:0 auto;
+}
+
+a.btn04 {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 20px;
+  padding: 10px 20px;
+  border: none;
+}
+
+a.btn:hover, a.btn01:hover, a.btn02:hover, a.btn03:hover, a.btn04:hover {
+  -webkit-transform: translateY(3px);
+          transform: translateY(3px);
+  color: inherit;
+  box-shadow: 0 0 #dbc8e0;
+}
+
+.box01 {
+  background: #eadbee;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 1em 0;
+}
+
+.box01 *:first-child {
+  margin-top: 0;
+}
+
+.box01 *:last-child {
+  margin-bottom: 0;
+}
+
+.box02 {
+  border: 1px solid #e5e4e4;
+  padding: 10px;
+  border-radius: 4px;
+  margin: 1em 0;
+}
+
+.box02 *:first-child {
+  margin-top: 0;
+}
+
+.box02 *:last-child {
+  margin-bottom: 0;
+}
+
+
+
+.box03 {
+  width: 85%;
+  margin: 30px auto;
+  font-size: 13px;
+  border: 1px solid #e5e4e4;
+  border-radius: 4px;
+  padding: 20px;
+}
+
+
+
+dl.flex {
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: wrap;
+  width: 95%;
+  margin: 30px auto;
+  font-size: 13px;
+  border: 1px solid #e5e4e4;
+  border-radius: 4px;
+  padding: 15px 20px;
+}
+
+dl.flex dt {
+  width: 100px;
+  font-weight: bold;
+}
+
+dl.flex dd {
+  width: calc(100% - 120px);
+  margin-left: 0;
+}
+
+dl.flex dt, dl.flex dd {
+  padding: 5px 0;
+}
+
+dl.flex dt:not(:first-of-type), dl.flex dd:not(:first-of-type) {
+  border-top: 1px dashed #e5e4e4;
+}
+
+ul.illust {
+  display: -webkit-box;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px auto;
+}
+
+ul.illust li {
+  position: relative;
+  height: 70px;
+  width: 70px;
+  margin-bottom: 3px;
+  padding: 0;
+}
+
+ul.illust li:before {
+  display: none;
+}
+
+ul.illust li:not(:last-of-type) {
+  margin-right: 3px;
+}
+
+ul.illust li a {
+  display: block;
+  -webkit-transition: .3s;
+  transition: .3s;
+}
+
+ul.illust li a:hover {
+  opacity: .7;
+}
+
+ul.illust li a img {
+  border-radius: 3px;
+  height: 70px;
+  width: 70px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+table, table td, table th {
+  border: 1px solid #dfdfdf;
+  border-collapse: collapse;
+}
+
+table th {
+  word-break: keep-all;
+  text-align: left;
+  vertical-align: baseline;
+}
+
+table td, table th {
+  padding: 7px 10px;
+}
+
+.top {
+  text-align: center;
+  display: block;
+  font-size: 12px;
+  color: #cccccc;
+  margin-top: 50px;
+}
+
+form.mailform {
+  text-align: center;
+  max-width: 800px;
+  margin: 30px auto;
+}
+
+form.mailform textarea {
+  margin: 0 0 15px;
+  font-size: 14px;
+  line-height: 1.6em;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  height: 300px;
+  border-radius: 5px;
+  vertical-align: bottom;
+  border: 1px solid #e5e4e4;
+  background: #fcfcfc;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+form.mailform textarea:focus {
+  outline: none;
+  background: #ffffff;
+}
+
+form.mailform input {
+  margin: 0 0 15px;
+  font-size: 16px;
+  border: none;
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid #e5e4e4;
+  background: #fcfcfc;
+  -webkit-transition: background 0.3s;
+  transition: background 0.3s;
+}
+
+form.mailform input:focus {
+  outline: none;
+  background: #ffffff;
+}
+
+form.mailform input[type="submit"] {
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto 20px;
+  padding: 10px 20px;
+  background: #d69fda;
+  border: none;
+}
+
+form.mailform input[type="submit"]:focus, form.mailform input[type="submit"]:hover {
+  background: #96e9df;
+  cursor: pointer;
+}
+
+footer section {
+  margin: 50px auto 0;
+}
+
+footer a {
+  font-size: 11px;
+  text-align: right;
+  display: block;
+  text-decoration: none;
+  color: #d69fda;
+}
+
+@media only screen and (min-width: 768px) {
+
+  header ul#menu {
+    display: -webkit-box;
+    display: flex;
+    margin: 0 auto;
+    -webkit-box-pack: center;
+            justify-content: center;
+  }
+  header ul#menu li {
+    padding: 0;
+  }
+  header ul#menu li:before {
+    display: none;
+  }
+  header ul#menu li a {
+    display: block;
+    color: #242424;
+    -webkit-transition: color .3s;
+    transition: color .3s;
+    padding: 0px 15px;
+    background: transparent;
+    border-left: 1px solid #d69fda;
+    border-radius: 0;
+  }
+  header ul#menu li a:hover {
+    background: transparent;
+    color: #d69fda;
+  }
+  header ul#menu li:last-of-type a {
+    border-right: 1px solid #d69fda;
+  }
+  section.flexbox {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+            flex-direction: row;
+  }
+  section.flexbox div.flexbox_inner:first-of-type {
+    padding-right: 15px;
+  }
+  section.flexbox div.flexbox_inner:nth-of-type(2) {
+    padding-left: 15px;
+  }
+  a.bigcard {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+            flex-direction: row;
+    align-self: stretch;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+  }
+  a.bigcard h5 {
+    font-size: 20px;
+    margin: 0;
+  }
+  a.bigcard p {
+    margin: 0.8em 0;
+  }
+  a.bigcard .memo {
+    font-size: 13px;
+    margin-top: 0;
+    color: #aba9a5;
+  }
+  a.bigcard figure {
+    display: block;
+    width: auto;
+    -webkit-box-flex: 1;
+            flex: 1;
+    height: auto;
+    min-height: 150px;
+    margin-right: 10px;
+  }
+  a.bigcard figure img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+       object-fit: cover;
+  }
+  a.bigcard .text {
+    -webkit-box-flex: 2;
+            flex: 2;
+    padding: 5px;
+  }
+  ul.illust li {
+    height: 97px;
+    width: 97px;
+  }
+  ul.illust li a img {
+    width: 97px;
+    height: 97px;
+  }
+}
+
+
+/* listmenu用 */
+
+img.menu {
+vertical-align: middle;
+  margin-right: 5px;
+}
+
+header ul#menu li a.twitter:hover {
+      background: transparent;
+  color: #1DA1F2;
+}
+
+header ul#menu li a.youtube:hover {
+      background: transparent;
+  color: #cd201f;
+}
+
+header ul#menu li a.skeb:hover {
+      background: transparent;
+  color: #30B396;
+}
+
+header ul#menu li a.booth:hover {
+      background: transparent;
+  color: #FC4D50;
+}
+
+
+span.material-symbols-outlined {
+display: inline-flex;
+vertical-align: middle;
+}
+/* listmenu オワリ*/
+
+p.img {
+  text-align: center;
+        margin: 0 auto;
+}
+
+p.memo {
+color: #a587ad;
+}
+

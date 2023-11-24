@@ -1,0 +1,70 @@
+body {
+  font-family: 'Arial', sans-serif;
+  margin-left: 200px; /*左側の余白*/
+  margin-right: 200px; /* 右側の余白*/
+  padding: 0; 
+  background-color: #f8f8f8;
+}
+
+header {
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  padding: 1em;
+}
+
+main {
+  padding:20px;
+  }
+
+  .name-inputs {
+    display: flex;
+    justify-content: space-between; /* 姓と名を横に配置 */
+  }
+  
+  .name-input {
+    flex: 1; /* 各入力欄が均等に広がるようにする */
+    margin-right: 10px; /* 入力欄の間に10pxの余白を追加 */
+  }
+  
+
+  
+    
+section {
+  margin-bottom: 20px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 5px;
+}
+
+input, select, button {
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+button {
+  background-color: #333;
+  color: #fff;
+  cursor: pointer;
+  border: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 5px;
+  background-color: #fff;
+}
+
+
