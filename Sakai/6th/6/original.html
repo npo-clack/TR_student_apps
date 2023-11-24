@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="original.css">
+  <script defer src="original.js"></script>
+  <title>予約サイト</title>
+</head>
+<body>
+  <header>
+    <h1>予約サイト</h1>
+  </header>
+  <main>
+    <section id="reservationForm">
+      <h2>予約</h2>
+      <form>
+        <div class="name-inputs">
+          <div class="name-input">
+            <label for="last-name">姓:</label>
+            <input type="text" id="last-name" name="last-name" required>
+          </div>
+          <div class="name-input">
+            <label for="first-name">名:</label>
+            <input type="text" id="first-name" name="first-name" required>
+          </div>
+        </div>
+        
+      <label for="guests">人数</label>
+      <select name="item">
+        <option value="item1">1人</option>
+        <option value="item1">2人</option>
+        <option value="item1">3人</option>
+        <option value="item1">4人</option>
+        <option value="item1">5人</option>
+        <option value="item1">6人</option>
+        <option value="item1">7人</option>
+        <option value="item1">8人</option>
+        <option value="item1">9人</option>
+        <option value="item1">10人</option>
+        <option value="item1">11人</option>
+        <option value="item1">12人</option>
+        <option value="item1">13人</option>
+        <option value="item1">14人</option>
+        <option value="item1">15人</option>
+        <option value="item1">16人</option>
+        <option value="item1">17人</option>
+        <option value="item1">18人</option>
+        <option value="item1">19人</option>
+        <option value="item1">20人</option>
+      　</select>
+        <!-- 1人から20人まで選択-->
+
+        <label for="date">ご予約日時</label>
+        <input type="datetime-local" id="date" required>
+        <button type="submit">予約する</button>
+      </form>
+    </section>
+    <section id="reservationList">
+      <h2>予約一覧</h2>
+      <ul id="reservationList"
+      <!--予約一覧表示-->
+    </ul>
+    </section>
+  </main>
+  <footer>
+    <p>&copy; 2023 予約サイト</p>
+  </footer>
+</body>
+</html>
+
+
+

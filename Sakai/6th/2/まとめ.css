@@ -1,0 +1,5 @@
+h2 {
+  text-align: center; /* テキストを中央揃えにする */
+  margin: 0 auto; /* 左右の余白を自動で調整して中央に配置 */
+  width: fit-content; /* コンテンツの幅に合わせる */
+}

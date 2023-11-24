@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="style.css">
+  <title>咲来彩の部屋</title>
+  <script src="js/jquery.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/clipboard.min.js"></script>
+  <script>
+ function clipboard(){
+   var text = document.getElementById('campaign-code').innerText;
+   navigator.clipboard.writeText(text).then(e => {
+     document.getElementById("clipboard-info").innerText = "email address copied to.";
+   });
+ }
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/fuwaimg.css">
+  <link rel="stylesheet" href="css/fuwaimg.css">
+</link>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="header__inner">
+        <h1 class="header__title header-title">
+          <a href="#">
+            そらいろ
+          </a>
+        </h1>
+
+        <nav class="header__nav nav" id="js-nav">
+          <ul class="nav__items nav-items">
+            <li class="nav-items__item"><a href="">ホーム</a></li>
+            <li class="nav-items__item"><a href="illsut.html">イラスト集</a></li>
+            <li class="nav-items__item"><a href="achievements.html">依頼実績</a></li>
+          </ul>
+        </nav>
+
+        <button class="header__hamburger hamburger" id="js-hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </header>
+    <div class="main">
+      <div id="fuwaimg" class="hidden">
+        <div id="fuwaimg_mask"></div>
+        <div id="fuwaimg_inner">
+          <div id="fuwaimg_img">
+            <div id="fuwaimg_imginner"></div>
+          </div>
+          <div id="fuwaimg_caption">
+            <button id="fuwaimg_zoom">
+              <img id="fuwaimg_zoomimg" src="https://iroma0.art/js/../img/zoomin.svg">
+            </button>
+            <button id="fuwaimg_close">
+    
+            </button>
+          </div>
+          <a id="fuwaimg_next"></a>
+          <a id="fuwaimg_prev"></a>
+        </div>
+        <span id="fuwaimg_loading">Loading...</span>
+        <div id="fuwaimg_loadbar"></div>
+      </div>
+      <main>
+        <div class="container">
+          <div class="row" align="center">
+        
+
+        <p class="img"><img src="icon.jpg" alt="咲来の絵"></p>
+              <p>主にデフォルメイラストを描いています</p>
+              <ul id="menu">
+         <li><a href="https://www.youtube.com/channel/UCFlDWjeoUsZT-UXeDH2hsFg" class="youtube" target="_blank"><span class="material-symbols-outlined">youtube_activity</span> Youtube</a></li>
+         <li><a href="https://twitter.com/so_ra0105" class="twitter" target="_blank"><span class="material-symbols-outlined">close</span> Twitter</a></li>
+         <li><a href="https://skeb.jp/@so_ra0105" class="skeb" target="_blank"><span class="material-symbols-outlined">palette</span> skeb</a></li>
+         <!--<li><a href="https://iroma0ytb.booth.pm/" class="booth" target="_blank"><span class="material-symbols-outlined">shopping_cart</span> BOOTH</a></li>-->
+                    </ul>
+                    
+                    
+
+            <section id="sec1"> 
+              <!-- １カラム始まり -->
+              <div class="box03">
+                <p class="img">
+                  <img src="mail.png">
+                </p>
+                <p>お仕事等ご依頼はTwitterのDMにお願いいたします。</p>
+                <p>基本料金は500円となりますが、複雑な背景や小物の追加は別料金が発生する場合があります。</p>
+                <p>※料金は先払いになります、お支払方法は現状PayPayのみです。</p>
+                <p class="memo">ご依頼いただける際は使用用途、依頼内容を明記いただけますと検討の際助かります。</p>
+                <p>詳細はDMにてご説明します、質問等ありましたら気軽にDMしてください。</p>
+                </div>
+            </section>
+             <!-- １カラム終わり -->
+        
+        
+            <footer>
+              <section>
+                <a href="https://do.gt-gt.org/" target="blank">template by do.</a>
+              </section>
+            </footer>
+        
+          </div>
+        </div>
+    </main>
+    <footer class="footer">
+      <div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
