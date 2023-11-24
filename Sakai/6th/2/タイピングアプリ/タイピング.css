@@ -1,0 +1,11 @@
+.game-area {
+  font-size: 40px;
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  padding: 10px;
+  text-align: center;
+  height: 50vh;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+}

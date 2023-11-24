@@ -1,0 +1,18 @@
+.container {
+  position: relative;
+  width: 900px;
+  height: 300px;
+  background: #e91717;
+}
+
+.background-blue {
+  position: absolute;
+  top: 0;
+  bottom: 100;
+  width: 100px;
+  background: #af0d0d;
+}
+
+.contents {
+  position: relative;
+}

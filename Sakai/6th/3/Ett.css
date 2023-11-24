@@ -1,0 +1,46 @@
+body {
+  background-color: skyblue;
+}
+.face {
+  font-size: 280%;
+  color: darkblue;
+  transform: rotateX(60deg);
+  text-align:center;
+}
+.options{
+  display: flex;
+  justify-content: center;
+}
+.clicker{
+  background-color: white;
+}
+#clickButton{
+  font-size: 1000%;
+  width:5em;
+  height:2em;
+  text-align:center;
+  background: linear-gradient(to right,#e60000,#f39800,#fff100,#009944,#0068b7,#1d2088,#920783);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-color: white;
+}
+#ready_img{
+  text-align:center;
+}
+.max{
+  font-size: 150%;
+}
+input.max{
+  width: 120px;
+  text-align:center;
+}
+#checkButton{
+  font-size: 120%;
+  width:10em;
+  height:2em;
+  text-align:center;
+}
+#time{
+  text-align:center;
+  font-size: 200%;
+}
