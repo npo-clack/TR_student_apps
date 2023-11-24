@@ -1,0 +1,25 @@
+.td-button {
+  position: relative;
+  background-color: #8cf3aede; 
+  color: rgb(251, 253, 249);
+  padding: 15px 32px; 
+  text-align: center;
+  text-decoration: none; 
+  display: inline-block;
+  font-size: 16px; 
+  font-family: Arial, sans-serif;
+  margin: 4px 2px;
+  cursor: pointer;
+  border: none; 
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px rgba(25, 236, 134, 0.3); 
+  transition: transform 0.1s ease-in-out; }
+
+
+  .td-button:active {
+    transform: translateY(2px);}
+    body {
+      margin: 0;
+      width: 100vw;
+      height: 100vh;
+    background-image:url("https://sozai-good.com/download?id=4774&type=1&subnumber=0&extention=jpg");}
