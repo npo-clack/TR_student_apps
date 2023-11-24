@@ -1,0 +1,582 @@
+header{
+  background-color: beige;
+  background-size: 100px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
+}
+
+#icon{
+  position: relative;
+  left: 5%;
+}
+
+#home{
+  background-color: rgb(0, 0, 0, 0);
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-size: 15px;
+  width: 100px;
+}
+
+#concept{
+  background-color: rgb(0, 0, 0, 0);
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-size: 15px;
+  width: 100px;
+
+}
+
+#charge{
+  background-color: rgb(0, 0, 0, 0);
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-size: 15px;
+  width: 100px;
+
+}
+
+#flow{
+  background-color: rgb(0, 0, 0, 0);
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-size: 15px;
+  width: 100px;
+
+}
+
+#lecturers{
+  background-color: rgb(0, 0, 0, 0);
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-size: 15px;
+  width: 100px;
+
+}
+
+#feature{
+  background-color: rgb(0, 0, 0, 0);
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-size: 15px;
+  width: 100px;
+
+}
+
+#access{
+  background-color: rgb(0, 0, 0, 0);
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-size: 15px;
+  width: 100px;
+
+}
+
+#blog{
+  background-color: rgb(0, 0, 0, 0);
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-size: 15px;
+  width: 100px;
+
+}
+
+section0{
+  position: relative;
+  left: 45px;
+  top: -20px
+}
+
+@import "https://use.fontawesome.com/releases/v5.13.0/css/all.css";
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+html {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+.btn,
+a.btn,
+button.btn {
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 1.5;
+  position: relative;
+  display: inline-block;
+  padding: 1rem 4rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  color: #212529;
+  border-radius: 0.5rem;
+}
+
+a.btn-c {
+  font-size: 1.8rem;
+
+  position: relative;
+
+  padding: 2rem 4rem 2rem 2rem;
+
+  -webkit-transition: all 0.3s;
+
+  transition: all 0.3s;
+
+  color: #fff;
+  border-radius: 100vh;
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(#de5d32),
+    to(#78bdc4)
+  );
+  background-image: -webkit-linear-gradient(left, #de5d32 0%, #78bdc4 100%);
+  background-image: linear-gradient(to right, #de5d32 0%, #78bdc4 100%);
+  -webkit-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+}
+
+a.btn-c:before {
+  font-family: "Font Awesome 5 Free";
+  font-size: 1.6rem;
+  line-height: 1;
+
+  position: absolute;
+  top: calc(50% - 0.8rem);
+  right: 1rem;
+
+  margin: 0;
+  padding: 0;
+
+  content: "\f30b";
+}
+
+a.btn-c:hover {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+
+  color: #fff;
+}
+
+a{
+  font-size: 246px;
+}
+
+footer{
+  background-color: beige;
+  background-size: 100px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
+  position: relative;
+  top: 350px;
+}
+
+.section1{
+  height: 500px;
+}
+
+.youtube{
+  position: relative;
+  top: 60px;
+  left: 25%;
+}
+
+.concept{
+  height: 50vh;
+  background-size: 150%;
+}
+
+ba{
+  font-size: xx-large;
+  position: relative;
+  left: 44%;
+  top: 20px;
+}
+
+bb{
+  font-size: large;
+  position: relative;
+  left: 38%;
+  top: 20px;
+}
+
+bc{
+  font-size: large;
+  position: relative;
+  top: 60px;
+  left: 24%;
+}
+
+bd{
+  font-size: large;
+  position: relative;
+  top: 60px;
+  left: 22%;
+}
+
+.konseuto{
+  width: 150px;
+  height: 30px;
+  position: relative;
+  top: 130px;
+  left: -188px;
+  background-color: #78bdc4;
+  border: 2px solid rgba(0, 0, 0, 0);
+  color: #fff;
+  font-size: large;
+}
+
+.smallamounts{
+  position: relative;
+  height: 460px;
+  top: 50px;
+}
+
+.amounts1{
+  width: 350px;
+  position: relative;
+  left: 20px;
+}
+
+.keiri{
+  width: 350px;
+  height: 225px;
+}
+
+.text2{
+  position: relative;
+  left: 40%;
+  top: -10px;
+  font-size: xx-large;
+  width: 200px;
+}
+
+.text2-2{
+  position: relative;
+  top: -30px;
+  left: 15%;
+  font-size: 15px;
+  width: 280px;
+}
+
+.text2-3{
+  width: 340px;
+  position: relative;
+  left: 2%;
+  top: -40px;
+  font-size: 17px;
+}
+
+.amounts2{
+  width: 350px;
+  position: relative;
+  left: 458px;
+  top: -513px;
+}
+
+.huro{
+  position: relative;
+  width: 350px;
+  height: 225px;
+}
+
+.text3{
+  width: 200px;
+  position: relative;
+  left: 38%;
+  top: -10px;
+  font-size: xx-large;
+}
+
+.text3-2{
+  width: 280px;
+  position: relative;
+  top: -30px;
+  left: 15%;
+  font-size: 15px;
+}
+
+.text3-3{
+  width: 340px;
+  position: relative;
+  top: -40px;
+  font-size: 17px;
+}
+.amounts3{
+  width: 350px;
+  position: relative;
+  top: -1027px;
+  left: 880px;
+}
+
+.kousi{
+  position: relative;
+  width: 350px;
+  height: 225px;
+}
+
+.text4{
+  width: 200px;
+  position: relative;
+  left: 32%;
+  top: -10px;
+  font-size: xx-large;
+}
+
+.text4-2{
+  width: 280px;
+  position: relative;
+  left: 12%;
+  top: -30px;
+  font-size: 15px;
+}
+
+.text4-3{
+  width: 340px;
+  position: relative;
+  top: -40px;
+  font-size: 17px;
+}
+
+.burogu{
+  position: relative;
+  top: 70px;
+  height: 250px;
+}
+
+.text5{
+  left: 47%;
+  width: 200px;
+  position: relative;
+  top: 10px;
+  font-size: xx-large;
+}
+
+.text5-2{
+  width: 280px;
+  position: relative;
+  left: 42%;
+  font-size: 15px;
+}
+
+.text5-3{
+  position: relative;
+  font-size: large;
+  left: 14%;
+  top: 10px;
+  width: 1000px;
+}
+
+.text5-4{
+  position: relative;
+  font-size: large;
+  left: 34%;
+  width: 600px;
+}
+
+.burogubutton{
+  width: 150px;
+  height: 30px;
+  position: relative;
+  left: 45%;
+  background-color: #de5d32;
+  color: #fff;
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-size: large;
+}
+
+.akusesu{
+  position: relative;
+  top: 100px;
+  height: 800px;
+}
+
+.text6{
+  font-size: xx-large;
+  width: 600px;
+  position: relative;
+  left: 45%;
+}
+
+.text6-1{
+  width: 280px;
+  position: relative;
+  left: 40%;
+  font-size: 15px;
+}
+
+.text6-2{
+  position: relative;
+  font-size: large;
+  left: 20%;
+  top: 10px;
+  width: 1000px;
+}
+
+.text6-3{
+  position: relative;
+  font-size: large;
+  left: 27%;
+  top: 10px;
+  width: 1000px;
+  width: 700px;
+}
+
+.map{
+  position: relative;
+  top: 50px;
+  left: 2%;
+}
+
+.text6-4{
+  position: relative;
+  left: 700px;
+  top: -420px;
+  font-size: x-large;
+  width: 400px;
+}
+
+.line1{
+  border-top: 3px solid #000;
+  position: relative;
+  left: 700px;
+  top: -440px;
+  width: 555px;
+}
+
+.text6-5{
+  position: relative;
+  left: 700px;
+  top: -390px;
+  font-size: x-large;
+  width: 230px;
+}
+
+.text6-6{
+  position: relative;
+  left: 900px;
+  top: -445px;
+  font-size: large;
+  width: 230px;
+}
+
+.line2{
+  border-top: 3px solid #000;
+  position: relative;
+  left: 700px;
+  top: -460px;
+  width: 555px;
+}
+
+.text6-7{
+  position: relative;
+  left: 700px;
+  top: -380px;
+  font-size: x-large;
+  width: 230px;
+}
+
+.text6-8{
+  position: relative;
+  left: 900px;
+  top: -485px;
+  font-size: large;
+  width: 300px;
+}
+
+.line3{
+  border-top: 3px solid #000;
+  position: relative;
+  left: 700px;
+  top: -500px;
+  width: 555px;
+}
+
+.text6-9{
+  position: relative;
+  left: 700px;
+  top: -440px;
+  font-size: x-large;
+  width: 230px;
+}
+
+.text6-10{
+  position: relative;
+  left: 900px;
+  top: -490px;
+  font-size: large;
+  width: 300px;
+}
+
+.line4{
+  border-top: 3px solid #000;
+  position: relative;
+  left: 700px;
+  top: -500px;
+  width: 555px;
+}
+
+.akusesubutton{
+  width: 400px;
+  height: 30px;
+  position: relative;
+  left: 35%;
+  background-color: #78bdc4;
+  color: #fff;
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-size: large;
+  top: -400px;
+}
+
+.tokutyou{
+  position: relative;
+  top: 200px;
+}
+
+.text7{
+  left: 29%;
+  width: 700px;
+  position: relative;
+  top: 20px;
+  font-size: xx-large;
+}
+
+.text7-1{
+  position: relative;
+  font-size: large;
+  left: 40%;
+  top: 20px;
+  width: 750px;
+}
+
+.text7-2{
+  position: relative;
+  font-size: large;
+  left: 16%;
+  top: 10px;
+  width: 1000px;
+}
+
+.text7-3{
+  position: relative;
+  font-size: large;
+  left: 16%;
+  width: 900px;
+}
+
+.tokutyoubutton{
+  width: 400px;
+  height: 30px;
+  position: relative;
+  left: 35%;
+  background-color: #de5d32;
+  color: #fff;
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-size: large;
+}

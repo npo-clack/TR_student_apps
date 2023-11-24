@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>初めてのゲーム</title>
+  <link rel="stylesheet" href="start-game.css">
+  <link rel="icon"
+    href="file:///C:/Users/User/%E3%82%B2%E3%83%BC%E3%83%A0/background/neon-frame-design_23-2149098711.jpg">
+
+
+</head>
+
+
+
+<body>
+
+  <div id="countdown"></div>
+  <button id="startButton">start</button>
+
+
+  <script>
+    // カウントダウンの初期値を3に設定
+    let count = 3;
+    let countdownInterval;
+
+    // ボタンクリック時の処理
+    document.getElementById('startButton').addEventListener('click', function () {
+      // カウントダウンが既に実行中であれば何もしない
+      if (countdownInterval) return;
+
+      const countdownElement = document.getElementById('countdown');
+
+      // カウントが0になるまで1秒ごとに更新
+      countdownInterval = setInterval(function () {
+        countdownElement.textContent = count;
+        count--;
+
+        // カウントが0になったらカウントダウンを停止
+        if (count < 0) {
+          clearInterval(countdownInterval);
+          countdownElement.textContent = 'ゲームスタート!!';
+          countdownInterval = null; // カウントダウンが終了したらintervalをクリア
+          // 3秒後に画面を遷移
+          setTimeout(function () {
+            window.location.href = 'play-screen.html'; // 遷移先のURLを設定
+          }, 1000); // 3000ミリ秒 = 3秒待機
+        }
+      }, 1000); // 1000ミリ秒 = 1秒ごとに更新
+    });
+  </script>
+
+</body>
+
+
+
+
+</html>

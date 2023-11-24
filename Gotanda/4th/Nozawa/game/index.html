@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <p>半角で入力してください</p>
+  <title>タイピングゲーム</title>
+	<link rel="stylesheet" href="typing-game.css">
+
+</head>
+<body>
+  <h1>タイピングゲーム</h1>
+	<label for="timerSelect">制限時間を選択:</label>
+  <select id="timerSelect">
+    <option value="60">60秒</option>
+    <option value="90">90秒</option>
+    <option value="120">120秒</option>
+    <!-- 追加の制限時間をここに追加 -->
+  </select>
+  <p>経過時間: <span id="elapsedTime">0</span>秒</p>
+  <p>残り時間: <span id="timer">60</span>秒</p>
+  <p>タイプする文章: <span id="quote">Hello, type this sentence!</span></p>
+  <input type="text" id="typedInput">
+	<button id="startButton">ゲームスタート</button>
+	<div id="gameInfo">
+		<!-- ここにゲーム情報が表示されます -->
+	</div>
+	
+  <script src="typing-game.js"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <!-- other meta tags and stylesheets -->
+    <title>[2ch怖いスレ]実際に11人で肝試しに行った結果...</title>
+    <link rel="stylesheet" type="text/css" href="kowai.css">
+
+
+<body>
+
+  <img src="kowaiyatuuuuu.png" width="600px"><br>
+
+  <button onclick="startDisplay()">クリックして開始</button>
+  <audio id="myAudio" src="fuon.mp3"></audio>
+  <div id="text-container"></div>
+
+  <script src="kowai.js"></script>
+
+  <button onclick="scrollToTop()" id="buttonEndBGMStop">おわりとBGM停止</button>
+
+  <audio id="SandstormAudio" src="砂嵐の音.mp3"></audio>
+
+  
+
+  <script>
+    function changeCharset(charset) {
+      document.charset = charset; // Change the character set
+      document.querySelector('meta[charset]').setAttribute('charset', charset); // Change meta element
+    }
+
+    document.getElementById('buttonEndBGMStop').addEventListener('click', function () {
+      // When the button is clicked, change the character set and update the text content
+      changeCharset('Shift_JIS'); // Change to Shift_JIS (you can modify this)
+      document.getElementById('changingText').innerHTML = '新しいテキストコンテンツ。'; // Replace with your new text
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+body {
+  background-color: #04a6eb;
+  color: #fdffff;
+}  
+.highlight {
+  color: green;
+}
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+#typedInput {
+  font-size: 24px;
+  text-align: center;
+  width: 70%;
+  margin-top: 20px;
+}

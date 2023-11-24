@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="picross.css">
+  <title>ピクロスゲーム</title>
+</head>
+<body>
+  <h2>ピクロスゲーム</h2>
+  <p>ヒント : 水タイプのポケモン</p>
+  <table border = "4" cellpadding = "1" cellspacing = "0" width = "400" height = "400">
+  <tr>
+    <td rowspan = "5" colspan = "4"></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td> 
+    <td></td>
+    <td></td>
+    <td>1</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td> 
+  </tr>
+  <tr>
+    <td></td>
+    <td>2</td>
+    <td>2</td>
+    <td></td>
+    <td>1</td>
+    <td>2</td>
+    <td>1</td>
+    <td></td>
+    <td>1</td>
+    <td></td> 
+  </tr>
+    <td></td>
+    <td>1</td>
+    <td>2</td>
+    <td>1</td>
+    <td>2</td>
+    <td>1</td>
+    <td>2</td>
+    <td>1</td>
+    <td>2</td>
+    <td>2</td> 
+  <tr>
+    <td>6</td>
+    <td>1</td>
+    <td>2</td>
+    <td>1</td>
+    <td>3</td>
+    <td>1</td>
+    <td>3</td>
+    <td>1</td>
+    <td>2</td>
+    <td>1</td> 
+  </tr>
+  <tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>8</td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td id = "A" onclick = "colorCell(this)"></td>
+    <td id = "B" onclick = "colorCell(this)"></td>
+    <td id = "C" onclick = "colorCell(this)"></td>
+    <td id = "D" onclick = "colorCell(this)"></td>
+    <td id = "E" onclick = "colorCell(this)"></td>
+    <td id = "F" onclick = "colorCell(this)"></td>
+    <td id = "G" onclick = "colorCell(this)"></td>
+    <td id = "H" onclick = "colorCell(this)"></td>
+  </tr>
+  <tr>
+    <td ></td>
+    <td ></td>
+    <td >3</td>
+    <td >1</td>
+    <td id = "I" onclick = "colorCell(this)"></td>
+    <td id = "J" onclick = "colorCell(this)"></td>
+    <td id = "K" onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td id = "L" onclick = "colorCell(this)"></td>
+  </tr> 
+  <tr>
+    <td ></td>
+    <td ></td>
+    <td ></td>
+    <td >2</td>
+    <td id = "M" onclick = "colorCell(this)"></td>
+    <td id = "N" onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+  </tr>   
+  <tr>
+    <td >1</td>
+    <td >1</td>
+    <td >3</td>
+    <td >1</td>
+    <td id = "O" onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td id = "P" onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td id = "Q" onclick = "colorCell(this)"></td>
+    <td id = "R" onclick = "colorCell(this)"></td>
+    <td id = "S" onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td id = "T" onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+  </tr>  
+  <tr>
+    <td >1</td>
+    <td >1</td>
+    <td >3</td>
+    <td >1</td>
+    <td id = "U" onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td id = "V" onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td id = "W" onclick = "colorCell(this)"></td>
+    <td id = "X" onclick = "colorCell(this)"></td>
+    <td id = "Y" onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td id = "Z" onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+  </tr>  
+  <tr>
+    <td ></td>
+    <td ></td>
+    <td ></td>
+    <td >1</td>
+    <td id = "a" onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+  </tr>  
+  <tr>
+    <td ></td>
+    <td ></td>
+    <td >1</td>
+    <td >1</td>
+    <td id = "b" onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td id = "c" onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+  </tr>  
+  <tr>
+    <td ></td>
+    <td >1</td>
+    <td >1</td>
+    <td >1</td>
+    <td onclick = "colorCell(this)"></td>
+    <td id = "d" onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td id = "e" onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td id = "f" onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+  </tr>  
+  <tr>
+    <td ></td>
+    <td ></td>
+    <td ></td>
+    <td >8</td>
+    <td onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td id = "g" onclick = "colorCell(this)"></td>
+    <td id = "h" onclick = "colorCell(this)"></td>
+    <td id = "i" onclick = "colorCell(this)"></td>
+    <td id = "j" onclick = "colorCell(this)"></td>
+    <td id = "k" onclick = "colorCell(this)"></td>
+    <td id = "l" onclick = "colorCell(this)"></td>
+    <td id = "m" onclick = "colorCell(this)"></td>
+    <td id = "n" onclick = "colorCell(this)"></td>
+  </tr>  
+  <tr>
+    <td >2</td>
+    <td >1</td>
+    <td >1</td>
+    <td >1</td>
+    <td onclick = "colorCell(this)"></td>
+    <td id = "o" onclick = "colorCell(this)"></td>
+    <td id = "p" onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td id = "q" onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td id = "r" onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+    <td id = "s" onclick = "colorCell(this)"></td>
+    <td onclick = "colorCell(this)"></td>
+  </tr>  
+</table>
+<button id = "checkButton" onclick = "checkPlay()">確認ボタン</button>
+ <script src="picross.js"></script>
+</body>
+</html>

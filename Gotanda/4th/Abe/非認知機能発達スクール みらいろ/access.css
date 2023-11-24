@@ -1,0 +1,412 @@
+header {
+  background-color: beige;
+  background-size: 100px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
+}
+
+#icon {
+  position: relative;
+  left: 5%;
+}
+
+#home {
+  background-color: rgb(0, 0, 0, 0);
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-size: 15px;
+  width: 100px;
+}
+
+#concept {
+  background-color: rgb(0, 0, 0, 0);
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-size: 15px;
+  width: 100px;
+
+}
+
+#charge {
+  background-color: rgb(0, 0, 0, 0);
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-size: 15px;
+  width: 100px;
+
+}
+
+#flow {
+  background-color: rgb(0, 0, 0, 0);
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-size: 15px;
+  width: 100px;
+
+}
+
+#lecturers {
+  background-color: rgb(0, 0, 0, 0);
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-size: 15px;
+  width: 100px;
+
+}
+
+#feature {
+  background-color: rgb(0, 0, 0, 0);
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-size: 15px;
+  width: 100px;
+
+}
+
+#access {
+  background-color: rgb(0, 0, 0, 0);
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-size: 15px;
+  width: 100px;
+
+}
+
+#blog {
+  background-color: rgb(0, 0, 0, 0);
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-size: 15px;
+  width: 100px;
+
+}
+
+section0 {
+  position: relative;
+  left: 45px;
+  top: -20px
+}
+
+@import "https://use.fontawesome.com/releases/v5.13.0/css/all.css";
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+html {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+.btn,
+a.btn,
+button.btn {
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 1.5;
+  position: relative;
+  display: inline-block;
+  padding: 1rem 4rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  color: #212529;
+  border-radius: 0.5rem;
+}
+
+a.btn-c {
+  font-size: 1.8rem;
+
+  position: relative;
+
+  padding: 2rem 4rem 2rem 2rem;
+
+  -webkit-transition: all 0.3s;
+
+  transition: all 0.3s;
+
+  color: #fff;
+  border-radius: 100vh;
+  background-image: -webkit-gradient(linear,
+      left top,
+      right top,
+      from(#de5d32),
+      to(#78bdc4));
+  background-image: -webkit-linear-gradient(left, #de5d32 0%, #78bdc4 100%);
+  background-image: linear-gradient(to right, #de5d32 0%, #78bdc4 100%);
+  -webkit-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+}
+
+a.btn-c:before {
+  font-family: "Font Awesome 5 Free";
+  font-size: 1.6rem;
+  line-height: 1;
+
+  position: absolute;
+  top: calc(50% - 0.8rem);
+  right: 1rem;
+
+  margin: 0;
+  padding: 0;
+
+  content: "\f30b";
+}
+
+a.btn-c:hover {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+
+  color: #fff;
+}
+
+a {
+  font-size: 246px;
+}
+
+footer {
+  background-color: beige;
+  background-size: 100px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
+  position: relative;
+  top: 160px;
+}
+
+.text1 {
+  font-size: 35px;
+  position: relative;
+  left: 30%;
+  width: 640px;
+}
+
+.text1-1 {
+  position: relative;
+  left: 48%;
+  width: 200px;
+}
+
+.text1-2 {
+  font-size: medium;
+  position: relative;
+  left: 5%;
+  width: 1150px;
+}
+
+.section2 {
+  background-color: #78bdc4;
+  height: 360px;
+  position: relative;
+  top: 40px;
+}
+
+.text2 {
+  color: #fff;
+  position: relative;
+  left: 12%;
+  top: 60px;
+  font-size: x-large;
+  width: 600px;
+}
+
+.text2-1 {
+  color: #fff;
+  font-size: medium;
+  position: relative;
+  left: 5%;
+  width: 800px;
+  top: 80px;
+}
+
+.juki1 {
+  position: relative;
+  left: 60%;
+  top: -200px;
+}
+
+.section3 {
+  background-color: #de5d32;
+  height: 360px;
+  position: relative;
+  top: 80px;
+}
+
+.juki2 {
+  position: relative;
+  left: 5%;
+  top: 20px;
+}
+
+.text3-1 {
+  color: #fff;
+  position: relative;
+  left: 55%;
+  top: -280px;
+  font-size: x-large;
+  width: 500px;
+}
+
+.text3-2 {
+  color: #fff;
+  font-size: medium;
+  position: relative;
+  left: 47%;
+  width: 660px;
+  top: -250px;
+}
+
+
+.akusesu {
+  position: relative;
+  top: 100px;
+  height: 800px;
+  background-color: #78bdc4;
+}
+
+.text6 {
+  color: #fff;
+  font-size: xx-large;
+  width: 600px;
+  position: relative;
+  left: 45%;
+}
+
+.text6-1 {
+  color: #fff;
+
+  width: 280px;
+  position: relative;
+  left: 40%;
+  font-size: 15px;
+}
+
+.text6-2 {
+  color: #fff;
+
+  position: relative;
+  font-size: large;
+  left: 20%;
+  top: 10px;
+  width: 1000px;
+}
+
+.text6-3 {
+  color: #fff;
+
+  position: relative;
+  font-size: large;
+  left: 27%;
+  top: 10px;
+  width: 1000px;
+  width: 700px;
+}
+
+.map {
+  position: relative;
+  top: 50px;
+  left: 2%;
+}
+
+.text6-4 {
+  color: #fff;
+
+  position: relative;
+  left: 700px;
+  top: -420px;
+  font-size: x-large;
+  width: 400px;
+}
+
+.line1 {
+  border-top: 3px solid #ffffff;
+  position: relative;
+  left: 700px;
+  top: -440px;
+  width: 555px;
+}
+
+.text6-5 {
+  position: relative;
+  color: #fff;
+
+  left: 700px;
+  top: -390px;
+  font-size: x-large;
+  width: 230px;
+}
+
+.text6-6 {
+  position: relative;
+  color: #fff;
+
+  left: 900px;
+  top: -445px;
+  font-size: large;
+  width: 230px;
+}
+
+.line2 {
+  border-top: 3px solid #ffffff;
+  position: relative;
+  left: 700px;
+  top: -460px;
+  width: 555px;
+}
+
+.text6-7 {
+  color: #fff;
+
+  position: relative;
+  left: 700px;
+  top: -380px;
+  font-size: x-large;
+  width: 230px;
+}
+
+.text6-8 {
+  position: relative;
+  color: #fff;
+
+  left: 900px;
+  top: -485px;
+  font-size: large;
+  width: 300px;
+}
+
+.line3 {
+  border-top: 3px solid #ffffff;
+  position: relative;
+  left: 700px;
+  top: -500px;
+  width: 555px;
+}
+
+.text6-9 {
+  color: #fff;
+
+  position: relative;
+  left: 700px;
+  top: -440px;
+  font-size: x-large;
+  width: 230px;
+}
+
+.text6-10 {
+  position: relative;
+  color: #fff;
+
+  left: 900px;
+  top: -490px;
+  font-size: large;
+  width: 300px;
+}
+
+.line4 {
+  border-top: 3px solid #ffffff;
+  position: relative;
+  left: 700px;
+  top: -500px;
+  width: 555px;
+}

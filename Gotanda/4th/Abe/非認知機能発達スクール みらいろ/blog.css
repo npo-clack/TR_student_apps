@@ -1,0 +1,256 @@
+header{
+  background-color: beige;
+  background-size: 100px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
+}
+
+#icon{
+  position: relative;
+  left: 5%;
+}
+
+#home{
+  background-color: rgb(0, 0, 0, 0);
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-size: 15px;
+  width: 100px;
+}
+
+#concept{
+  background-color: rgb(0, 0, 0, 0);
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-size: 15px;
+  width: 100px;
+
+}
+
+#charge{
+  background-color: rgb(0, 0, 0, 0);
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-size: 15px;
+  width: 100px;
+
+}
+
+#flow{
+  background-color: rgb(0, 0, 0, 0);
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-size: 15px;
+  width: 100px;
+
+}
+
+#lecturers{
+  background-color: rgb(0, 0, 0, 0);
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-size: 15px;
+  width: 100px;
+
+}
+
+#feature{
+  background-color: rgb(0, 0, 0, 0);
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-size: 15px;
+  width: 100px;
+
+}
+
+#access{
+  background-color: rgb(0, 0, 0, 0);
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-size: 15px;
+  width: 100px;
+
+}
+
+#blog{
+  background-color: rgb(0, 0, 0, 0);
+  border: 2px solid rgba(0, 0, 0, 0);
+  font-size: 15px;
+  width: 100px;
+
+}
+
+section0{
+  position: relative;
+  left: 45px;
+  top: -20px
+}
+
+@import "https://use.fontawesome.com/releases/v5.13.0/css/all.css";
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+html {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+.btn,
+a.btn,
+button.btn {
+  font-size: 25px;
+  font-weight: 700;
+  line-height: 1.5;
+  position: relative;
+  display: inline-block;
+  padding: 1rem 4rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  color: #212529;
+  border-radius: 0.5rem;
+}
+
+a.btn-c {
+  font-size: 1.8rem;
+
+  position: relative;
+
+  padding: 2rem 4rem 2rem 2rem;
+
+  -webkit-transition: all 0.3s;
+
+  transition: all 0.3s;
+
+  color: #fff;
+  border-radius: 100vh;
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(#de5d32),
+    to(#78bdc4)
+  );
+  background-image: -webkit-linear-gradient(left, #de5d32 0%, #78bdc4 100%);
+  background-image: linear-gradient(to right, #de5d32 0%, #78bdc4 100%);
+  -webkit-box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2);
+}
+
+a.btn-c:before {
+  font-family: "Font Awesome 5 Free";
+  font-size: 1.6rem;
+  line-height: 1;
+
+  position: absolute;
+  top: calc(50% - 0.8rem);
+  right: 1rem;
+
+  margin: 0;
+  padding: 0;
+
+  content: "\f30b";
+}
+
+a.btn-c:hover {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+
+  color: #fff;
+}
+
+a{
+  font-size: 246px;
+}
+
+footer{
+  background-color: beige;
+  background-size: 100px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.7);
+  position: relative;
+  top: 80px;
+}
+
+
+.text1{
+  font-size: 35px;
+  position: relative;
+  left: 24%;
+  width: 640px;
+}
+
+.text1-1{
+  position: relative;
+  left: 47%;
+  width: 200px;
+}
+
+.text1-2{
+  font-size: medium;
+  position: relative;
+  left: 5%;
+  width: 1150px;
+}
+
+.section2{
+  background-color: #de5d32;
+  height: 300px;
+}
+
+.text{
+  position: relative;
+  left: 5%;
+  width: 200px;
+  color: #fff;
+  top: 10px;
+  font-size: xx-large;
+}
+
+.one{
+  background-color: #78bdc4;
+  width: 1205px;
+  position: relative;
+  left: 50px;
+  height: 280px;
+}
+
+.aikon{
+  position: relative;
+  top: 10px;
+  left: 100px;
+}
+
+.text2{
+  color: #fff;
+  font-size: xx-large;
+  position: relative;
+  left: 50%;
+  top: -200px;
+  width: 600px;
+}
+
+.text2-1{
+  color: #fff;
+  font-size: medium;
+  position: relative;
+  left: 50%;
+  top: -200px;
+  width: 500px;
+
+}
+
+.text2-2{
+  color: #fff;
+  font-size: medium;
+  position: relative;
+  left: 50%;
+  top: -200px;
+  width: 500px;
+
+}

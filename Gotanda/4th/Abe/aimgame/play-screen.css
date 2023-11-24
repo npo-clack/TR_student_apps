@@ -1,0 +1,69 @@
+body {
+  background-image: url(file:///C:/Users/User/%E3%82%B2%E3%83%BC%E3%83%A0/background/rm218-bb-05.jpg);
+  background-size: 1280px;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: crosshair;
+  height: 100vh;
+  margin: 0;
+  font-size: 20px;
+  color: yellow;
+}
+
+audio {
+  font-size: 60px;
+  color: yellow;
+  width: 150px;
+  height: 100px;
+  border: 2px solid rgba(0, 0, 0, 0);
+  background: rgba(0, 0, 0, 0);
+  border-radius: 20px;
+  cursor: pointer;
+  position: absolute;
+  top: 52%;
+  left: 46%;
+  cursor: crosshair;
+}
+
+audio1 {
+  display: none;
+}
+
+
+#target {
+  width: 50px;
+  height: 50px;
+  background-color: yellow;
+  position: absolute;
+  cursor: pointer;
+  cursor: crosshair;
+}
+
+button {
+  color: red;
+  background: rgba(0, 0, 0, 0);
+  font-size: 30px;
+  position: absolute; /* スコアを上部に配置 */
+  top: 80%;
+  left: 47%;
+}
+
+ps{
+  top: 20%;
+  position: absolute; /* スコアを上部に配置 */
+  cursor: crosshair;
+}
+
+
+pm{
+  top: 14%;
+  position: absolute; /* スコアを上部に配置 */
+  cursor: crosshair;
+}
+pt{
+  top: 8%;
+  position: absolute; /* スコアを上部に配置 */
+  cursor: crosshair;
+}

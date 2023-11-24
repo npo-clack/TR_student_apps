@@ -1,0 +1,37 @@
+body{
+  background-color : rgb(225, 205, 177);
+  border-color : black;
+  padding-left : 430px;
+  padding-right : 100px;
+  padding-top : 20px;
+}
+table{
+  background-color : rgba(245, 245, 245, 0.831);
+  height : 400px;
+  width : 400px;
+  border-color : black;
+  border-style : solid;
+  border-collapse : collapse;
+  table-layout: fixed;
+  font-size: medium;
+  text-indent: initial;
+  text-align: start;
+  white-space: normal;
+  font-variant: normal;
+  font-style: normal;
+  font-weight :normal;
+}
+td{
+  border : 1px solid;
+  cursor : pointer;
+  text-align: center;
+}
+
+button{
+  margin-left : 300px;
+  margin-top : 20px;
+  font-family: sans-serif;
+  font-size : 15px;
+  width : 100px;
+  height : 30px;
+}
