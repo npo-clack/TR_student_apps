@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>計測中</title>
+</head>
+<body>
+  <h3>通信制限か計測中です</h3>
+  <script>
+    const start = performance.now();
+    document.write('<img src="Macintosh.jpg" alt="test"></img>')
+    const end = performance.now();
+    const ans = (end - start);
+    if(ans <= 1.000000){
+      console.log(ans);
+      console.log("通常");
+      <a herf="not.html" class="not">通常</a>
+    }else{
+      console.log(ans);
+      console.log("低速");
+      <a herf="yes.html" class="yes">通信制限</a>
+    }
+  </script>
+</body>
+</html>
