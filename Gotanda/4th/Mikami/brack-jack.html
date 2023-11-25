@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="brack-jack.css">
+  <title>ブラックジャック</title>
+</head>
+<body>
+  <div class="container">
+
+
+    <div class="accordion-wrapper">
+      <div class="box1">ルール説明</div>
+      <ul class="box2">
+          <li class="menulist">ルールの数え方は10,11,12,13が全て「10」、Aが「1」または「10」としてカウント</li>
+          <li class="menulist">勝利条件はカードの合計得点が21点により近い役を作った方が勝ちとなる。</li>
+          <li class="menulist">21点を超えた場合のバーストやディーラーよりも点が低いと負けとなる。</li>
+          <li class="menulist">Hitはカードを一枚追加、Standは現在のカードで勝負することを指す</li>
+      </ul>
+    </div>
+
+  <p>Dealer</p>
+  <p id="dealer-result"></p>
+  <div id="dealer" class="stage">
+  <div id="d1" class="card-back"></div>
+  <div id="d2" class="card-front"></div>
+</div>
+
+<p>Player</p>
+<p id="result"></p>
+<div id="player" class="stage">
+  <div id="p1" class="card-front"></div>
+  <div id="p2" class="card-front"></div>
+</div>
+
+<div class="btn">
+  <input type="button" value="Stand" id="stand">
+  <input type="button" value="Hit" id="hit">
+</div>
+
+<button id="reloadButton"> Reload</button>
+
+<script>
+  document.getElementById('reloadButton').addEventListener('click',function() {
+    location.reload(true);
+  });
+</script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="main.js"></script>
+
+</div>
+  <script src="brack-jack.js"></script> 
+</body>
+</html>
+

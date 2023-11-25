@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="jisaku.css">
+  <title>困ってることを一緒に考えるよ</title>
+</head>
+
+<body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+
+  <div class="choose_box">
+
+    <div id="q_01" class="fit">
+      <p>質問1<br>あなたは普段この４つの中でどれをを考える傾向がありますか？
+      </p>
+      <div class="imgs">
+        <img src="https://1.bp.blogspot.com/-iiKCULadWX0/VcMlVBhAtJI/AAAAAAAAwZ8/lt_AaxzVyFI/s800/fukidashi8_woman.png"
+          alt="" srcset="">
+      </div>
+      <ul class="flexbox fw">
+        <li class="even"><a class="btn" href="#q_02">普段こんなデザインだったらもっといいのにとか改善案がよく思いつく</a></li>
+        <li class="odd"><a class="btn" href="#q_03">人にいいお店や素敵な物があったら人に伝えたくなる</a></li>
+        <li class="odd"><a class="btn" href="#q_04">思い返してあの人今困ってないかなって思うことがある</a></li>
+        <li class="odd"><a class="btn" href="#q_05">コツコツとなにか積み上げたり作ったりすることが好き</a></li>
+
+      </ul>
+    </div>
+    <!-- 最初の選択肢 -->
+    <div id="q_02" style="display: none;">
+      <p>質問2ぶっちゃけるとどっち？</p>
+      <ul class="flexbox fw">
+        <li class="even"><a class="btn" href="#q_06">人の役に立つ事に幸せを感じる</a></li>
+        <li class="odd"><a class="btn" href="#q_07">役に立ちたいとかはない自分が幸せならそれでいい</a></li>
+
+      </ul>
+    </div>
+
+    <!-- 次の選択肢 -->
+    <div id="q_04" style="display: none;">
+      <p>質問2どっちの気持ちが人と関わてて大事にしてますか</p>
+      <ul class="flexbox fw">
+        <li class="even"><a class="btn" href="#q_09">誰かの支えになりたい</a></li>
+        <li class="odd"><a class="btn" href="#q_03">その人のことを気遣いたい</a></li>
+      </ul>
+    </div>
+    <!-- 次の選択肢 -->
+    <div id="q_05" style="display: none;">
+      <p>質問2進める上でどちらを大事にしていますか、またはしたいですか？</p>
+      <ul class="flexbox fw">
+        <li class="even"><a class="btn" href="#q_06">自分ですることを決めて黙々とやっていきたい</a></li>
+        <li class="odd"><a class="btn" href="#q_07">ひたすら目の前のやることを進めるのが好き</a></li>
+      </ul>
+    </div>
+    <!-- 次の選択肢 -->
+    <div id="q_06" style="display: none;">
+      <p>あなたにおすすめなのは…</p>
+      <h4>『クリエイティブタイプ』です！！</h4>
+      <h1>クリエイティブな仕事とは</h1>
+      <h2>
+        クリエイティブな仕事は、あるアイデアから新しいものを作り出すおしごとだよ。絵を描いたり、物をデザインしたり、楽しいアートや音楽を作ったりするのもクリエイティブな仕事だよ。自分のアイデアを出せる力を発揮して、新しいものを生み出すおしごとなんだ。
+      </h2>
+      <a href="https://tenshoku.mynavi.jp/knowhow/caripedia/140/">クリエイティブな仕事一覧</a>
+      <span><a class="btn" href="#q_01">もどる</a></span>
+    </div>
+    <!-- 選択肢の答え① -->
+    <div id="q_07" style="display: none;">
+      <p>あなたにおすすめなのは…</p>
+      <h4>『淡々と物事を進められる事務職タイプ』です！！</h4>
+      <h1>事務職とは</h1>
+      <h2>
+        事務職は、オフィスで色んななおしごとをする人たちのことで特に書類を整理したり、電話やメールで連絡をとったり、大切な情報を管理したり記録するおしごとがあるよ。机での仕事が中心で、みんなのお手伝いをする大切なおしごとだよ。
+      </h2>
+      <a href="https://www.hatarako.net/contents/shokushu/ippanjimu/">事務職一覧</a>
+      <span><a class="btn" href="#q_01">もどる</a></span>
+    </div>
+    <!-- 選択肢の答え② -->
+  </div>
+  <div id="q_03" style="display: none;">
+    <p>あなたにおすすめなのは…</p>
+    <h4>『誰かと関わること話すことが好きな営業や店員さんタイプ』</h4>
+    <h1>営業や店員さん（サービス業）とは</h1>
+    <h2>
+      サービス業は、人々に色んなサポートをしたり、楽しみを提供するおしごとのジャンルをいうよ。例えば、レストランでおいしい食事を提供するお店や、遊園地で楽しいアトラクションを提供するお店もサービス業の一部だよ。サービス業では自分がしたことに喜んでくれることが好きな人はとってもおすすめだよ!
+    </h2>
+    <a
+      href="https://www.manpowergroup.jp/staff/column/career/service-category.html#:~:text=%E3%81%AB%E3%81%97%E3%81%A6%E3%81%8F%E3%81%A0%E3%81%95%E3%81%84%E3%80%82-,%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E6%A5%AD%E3%81%A8%E3%81%AF,%E3%81%AA%E3%82%89%E3%81%AA%E3%81%84%E3%81%A8%E3%81%84%E3%81%86%E7%89%B9%E5%BE%B4%E3%81%8C%E3%81%82%E3%82%8A%E3%81%BE%E3%81%99%E3%80%82">サービス業一覧</a>
+    <span><a class="btn" href="#q_01">もどる</a></span>
+  </div>
+  <div id="q_09" style="display: none;">
+    <p>あなたにおすすめなのは…</p>
+    <h4>『誰かを支えたい福祉タイプ』</h4>
+
+    <h1>福祉って何んだろう？</h1>
+    <h2>
+      福祉とは、人々が幸せで健やかに暮らすために支え、手助けすることです。お年寄りや病気の人、困っている子供や大人を助けたり、みんなが安心して生活できるようにするおしごとです。みんなで協力して、誰もが笑顔で暮らせるようにすることが福祉だよ!
+    </h2>
+    <a href="https://shingakunet.com/journal/career/20220530000007/">福祉お仕事一覧</a>
+    <span><a class="btn" href="#q_01">もどる</a></span>
+  </div>
+  <script src="jisaku.js"></script>
+</body>

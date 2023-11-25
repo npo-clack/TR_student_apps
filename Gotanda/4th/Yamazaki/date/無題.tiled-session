@@ -1,0 +1,89 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "grass.tmx",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
+        "C:/Users/User/Downloads/test/test/data/village.tmx": {
+            "scale": 1.13109375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 480.066307501036,
+                "y": 320.48625500759766
+            }
+        },
+        "C:/Users/User/Downloads/test/test/data/village.tsx": {
+            "scaleInDock": 1
+        },
+        "[Base]BaseChip_pipo.tsx": {
+            "scaleInDock": 1
+        },
+        "grass.tmx": {
+            "scale": 1.13109375,
+            "selectedLayer": -1,
+            "viewCenter": {
+                "x": 479.182207487222,
+                "y": 320.48625500759766
+            }
+        },
+        "grass.tmx#[A]Grass3_pipo": {
+            "scaleInDock": 1
+        },
+        "grass.tmx#[A]Grass4_pipo": {
+            "scaleInDock": 1
+        },
+        "map.tmx": {
+            "scale": 1.13109375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 476.5299074457797,
+                "y": 258.5992540406133
+            }
+        },
+        "map.tmx#[A]Grass4_pipo": {
+            "scaleInDock": 1
+        },
+        "map.tmx#[Base]BaseChip_pipo": {
+            "scaleInDock": 1
+        },
+        "未整理チップ1.tsx": {
+            "scaleInDock": 1
+        },
+        "無題.tmx": {
+            "scale": 1.13109375,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 480.066307501036,
+                "y": 320.48625500759766
+            }
+        },
+        "無題.tmx#[A]Grass4_pipo": {
+            "scaleInDock": 1
+        }
+    },
+    "last.exportedFilePath": "C:/Users/User/workspace/test/test/date",
+    "last.externalTilesetPath": "C:/Users/User/workspace/test/test/date",
+    "last.imagePath": "C:/Users/User/workspace/test/test/date",
+    "map.lastUsedExportFilter": "JavaScript マップファイル (*.js)",
+    "map.lastUsedFormat": "tmx",
+    "map.layerDataFormat": null,
+    "openFiles": [
+        "map.tmx",
+        "grass.tmx"
+    ],
+    "project": "無題.tiled-project",
+    "recentFiles": [
+        "map.tmx",
+        "grass.tmx",
+        "無題.tmx",
+        "C:/Users/User/Downloads/test/test/data/village.tmx"
+    ],
+    "tileset.embedInMap": true,
+    "tileset.lastUsedFilter": "Tiled タイルセットファイル (*.tsx *.xml)"
+}
