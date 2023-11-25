@@ -1,0 +1,33 @@
+body {
+  background-color: #f8fff9;
+  color: #397142;
+}
+
+h1 {
+  text-align: center; /* テキストを中央に寄せる */
+}
+
+h2 {
+  text-align: center; /* テキストを中央に寄せる */
+}
+
+.img-box  {
+  text-align: center;
+}
+
+.size_test {
+  font-size: 30px;    /* 文字サイズ指定 */
+}
+
+.size_test {
+  font-family: 'Zen Maru Gothic', serif;
+  } 
+
+.explain {
+  font-family: 'Zen Maru Gothic', serif;
+  }
+
+  .top{
+    display: flex;
+    justify-content: center;
+  }

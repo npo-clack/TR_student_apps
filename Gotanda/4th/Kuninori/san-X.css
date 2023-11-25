@@ -1,0 +1,72 @@
+body {
+  background-color: #f8fff9;
+  color: #AACD06;
+ /* background-image: url(); */
+}
+
+.column {
+  flex: 1;
+  padding: 20px;
+  text-align: center;
+  width: 250px;
+  height: 175px;
+  transition-duration: 0.5s;
+}
+
+.column img {
+  width: 100%;
+  height: auto;
+}
+
+.column:hover {
+  transform: scale(1.2, 1.2);
+  cursor: pointer;
+}
+
+.nav_menu_ul {
+  font-family: 'Zen Maru Gothic', serif;
+}
+
+.container {
+  font-family: 'Zen Maru Gothic', serif;
+  font-size: 33px;
+  display: flex;
+}
+
+.img-box {
+  text-align: center;
+}
+
+.insta{
+  width: 300px; /* 例として新しい幅を40pxに設定 */
+  height: auto; /* 高さを自動調整してアスペクト比を保持 */
+  max-width: 100%; /* 幅が親要素を超えないようにする */
+  max-height: 300px; /* 高さも必要に応じて制限 */
+}
+
+.X{
+  width: 300px; /* 例として新しい幅を40pxに設定 */
+  height: auto; /* 高さを自動調整してアスペクト比を保持 */
+  max-width: 100%; /* 幅が親要素を超えないようにする */
+  max-height: 300px; /* 高さも必要に応じて制限 */
+}
+
+.youtube{
+  width: 300px; /* 例として新しい幅を40pxに設定 */
+  height: auto; /* 高さを自動調整してアスペクト比を保持 */
+  max-width: 100%; /* 幅が親要素を超えないようにする */
+  max-height: 300px; /* 高さも必要に応じて制限 */
+}
+
+.twenty {
+  width: 300px; /* 例として新しい幅を40pxに設定 */
+  height: auto; /* 高さを自動調整してアスペクト比を保持 */
+  max-width: 100%; /* 幅が親要素を超えないようにする */
+  max-height: 300px; /* 高さも必要に応じて制限 */
+}
+
+.social-icons{
+  width: 100%;
+  display: inline-flex;
+  justify-content: center;
+}
