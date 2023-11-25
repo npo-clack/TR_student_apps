@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="game.css">
+</head>
+<body>
+    <div class="container text-center">
+        
+        <div class="row">
+            <div class="col">
+                特に何の疑問も持たずに鳥居をくぐった。<br>
+                中に人はほとんどおらず、自分以外に一人と授与所にいるバイトの巫女さんだけ。<br>
+                面白いことは何も起こるはずもなく、それっぽいことを願って今日はもう帰ろう。
+            </div>
+            <div class="row">
+                <div class="col">
+                    <img src="gakkou.jpg" alt="学校">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    数日後。退院自体は無事にできたが<br>
+                    アイツはなぜかベットの上で片足を骨折したらしい。アキレス腱を切って入院していたのに<br>
+                    自分の足と喧嘩しているのだろうか？サッカー部なのに？<br>
+                    バスケにでも浮気してたのかもしれないが、今度参拝するときは足と仲良くできるように頼みに行こう。<br>
+                </div>    
+    
+            <div class="col">
+                <div id="game-container">
+        <h3 id="question">エンド１<br>一途であれ</h3>
+        <button onclick="nextQuestion('1')">また見舞いに行こう</button>
+    </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+        <script src="gameend.js"></script>
+
+</body>
+</html>

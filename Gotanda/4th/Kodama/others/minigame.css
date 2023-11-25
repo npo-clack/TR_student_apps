@@ -1,0 +1,12 @@
+iframe{
+  display: block;
+  margin: 10px auto;
+  max-width: 100%;
+  width: 70vw;
+  height: 80vh;
+  border: 4px solid rgb(140, 140, 0);
+}
+
+#iframe-first{
+    margin-top: 50px;
+}

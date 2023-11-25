@@ -1,0 +1,103 @@
+body{
+  background-image:url("https://free-texture.net/wp-content/uploads/Japanese-paper07-768x480.jpg");
+  background-size:100%;
+}
+body {
+  text-align: center; /* ページ全体のテキストを中央に配置 */
+}
+
+h1 {
+  margin: 0 auto; /* 横方向に */
+  width: 50%; /* 必要に応じて幅を調整 */
+}
+
+ul{
+  padding-left:0;
+}
+
+li{
+  list-style:none;
+}
+
+
+/*実線*/
+.box1 {
+  margin:2em 300px;
+  padding:2em;/*内側余白*/
+  border:double 5px #000000;/*線の種類・太さ・色*/
+  height:425px;
+}
+
+
+
+  .container {
+    display: inline-flex;
+  }
+
+
+
+
+
+
+
+/*少しずらしたボックス*/
+.box2{
+  margin: 2em 250px;
+  padding:2em;/*内側の余白*/
+  background: none;/*元のボックス背景色なし*/
+  border:1px solid rgb(0, 0, 0) ;/*線の太さ・種類・色*/
+  position: relative;/*配置（基準）*/
+  }
+  .box2:after{
+  background-color:#e3e3e3;/*ずらしたボックスの背景色*/
+  border:none;
+  content: '';
+  position: absolute;/*配置（ここを動かす）*/
+  top: 7px;/*上から7pxずらす*/
+  left: 7px;/*左から7pxずらす*/
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  }
+  
+
+
+
+
+.box30{
+  margin: 2em 250px;
+padding:2em;/*内側余白*/
+background:linear-gradient(-45deg,transparent 25%,#fafafa 25%,#fafafa 50%,transparent 50%,transparent 75%,#fafafa 75%,#fafafa);
+background-size: 4px 4px;
+border-bottom: 4px double #ddd;
+border-top: 4px double #ddd;
+background-clip: padding-box;
+}
+
+/*方眼紙風*/
+.box29{
+  margin: 2em 250px;
+  padding:2em;/*内側余白*/
+  background-image: linear-gradient(0deg, transparent 19px, #272323 20px),linear-gradient(90deg,  transparent 19px, #393030 20px);
+  background-size: 20px 20px;
+  }
+
+  /*タイトル付き（ラベルボックス）*/
+.box72{
+  margin: 2em 250px; /* ボックスの余白 */
+  background-color:#e3e3e3; /* ボックス背景色 */
+  padding:2em; /* ボックス内側余白 */
+  position:relative; /* 配置(ここを基準に) */
+  border: 2px solid #000000;	/* ボックスの線 (太さ　種類　色)*/
+  }
+  .box72 .box-title {
+  background-color:#fff; /* タイトル背景色 */
+  font-size: 1em;/* タイトル文字の大きさ */
+  font-weight:800;
+  color: #666; /* タイトル文字色 */
+  padding: 0 5px;/*タイトルの余白*/
+  line-height: 1;/*タイトルの行の高さ*/
+  position:absolute;	/* 配置(ここを動かす) */
+  top: -5px; /*上から（-5px）移動*/
+  left: 20px; /*左から(20px)移動*/
+  }
