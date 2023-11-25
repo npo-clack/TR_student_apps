@@ -1,0 +1,157 @@
+body{
+    background: linear-gradient(to right,rgb(255,240,60), rgb(195,60,200));
+    background-size: 100%;
+    font-family: "Times New Roman", "YuMincho", "Hiragino Mincho ProN", "Yu Mincho", "MS PMincho", serif;
+}
+
+.container-fluid{
+    background-color:  rgb(185, 60, 200);
+    position: fixed;
+    top: 0;
+    z-index: 30;
+}
+
+.border{
+    padding:1px 5px;
+    height: 35px;
+    font-size: 20px;
+}
+
+.head{
+    color: rgb(255,255,255);
+    padding: 30px 50px;
+    background-image: url(./931409.jpg);
+    height: 150px;
+    font-size: 70px;
+}
+
+.title{
+    margin: 5px;
+    padding: 0.5em;
+    background: rgba(100, 100, 100, 0.3);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.23);
+}
+.my-h4{
+    margin: 15px;
+        color: #000000;/*文字色*/
+        padding: 0.5em 0;/*上下の余白*/
+        border-top: solid 3px #4e4e4e;/*上線*/
+        border-bottom: solid 3px #4e4e4e;/*下線*/
+}
+
+.ame{
+    font-family: 'Londrina Shadow',cursive,YuGothic,'Yu Gothic',sans-serif !important;
+    color: rgb(255,240,60);
+}
+
+.row{
+    color: rgb(255,240,60);
+}
+
+.dropdown-menu{
+    background-color:rgb(255, 245, 150);
+}
+
+p{
+ margin-left: 20px;
+}
+
+.media{
+    margin: 10px;
+    height: 100px;
+}
+
+.black-line{
+    border-color: #000000 !important;
+}
+
+.ame-info{
+    height: 120px !important;
+}
+
+.black{
+    color: #000000 !important;
+}
+
+u{
+    color: cornflowerblue;
+}
+
+body {
+	/* じわっと画像が表示される */
+ 	animation: fadeIn 3s ease 0s 1 normal;
+    -webkit-animation: fadeIn 3s ease 0s 1 normal;
+}
+ 
+/* じわっと画像が表示される ---------　一度追加していたら不要*/
+@keyframes fadeIn { /*上のbody内で呼び出しているアニメーションと名前をそろえる*/
+    0% {opacity: 0} /* 始め */
+    100% {opacity: 1} /* 終わり */
+}
+ 
+/*古いブラウザ用　---------　一度追加していたら不要*/
+@-webkit-keyframes fadeIn {
+    0% {opacity: 0}
+    100% {opacity: 1}
+}
+
+/*.menu_icon{
+
+}*/
+
+.icon-circle{
+    border: 2px solid black;
+    background-color: aliceblue;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .icon-circle img{
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+  }
+
+.info{
+    border: 2px solid rgb(205,205,205);
+    border-radius: 10px;
+    width: 70%;
+    margin: 20px;
+    background-color: white;
+}
+
+.icon{
+    margin: 5px;
+}
+
+h2{
+    font-size: 30px;
+    text-align: center;
+}
+
+figure{
+    float: left;
+}
+
+hr{
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.mou{
+    z-index: 10;
+}
+
+.right_posi{
+    position: absolute;
+    right: 0px;
+    z-index: -10;
+}
