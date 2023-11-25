@@ -1,0 +1,7 @@
+.image-container {
+  width: 500px; /* 画像の幅 */
+  height: 300px; /* 画像の高さ */
+  background-image: url('path/to/your/image.jpg');
+  background-size: cover; /* 画像を要素に合わせて表示 */
+  background-position: center; /* 画像の位置を中央に */
+}
