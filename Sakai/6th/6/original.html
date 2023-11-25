@@ -4,7 +4,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="original.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <!--カレンダーに必須なコード-->
+  <!-- Flatpickrの日本語化プラグイン -->
+  <script src="https://npmcdn.com/flatpickr/dist/l10n/ja.js"></script>
   <script defer src="original.js"></script>
+  <!-- Flatpickrのスタイルシートとスクリプトを追加 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/flatpickr.min.js"></script>
+  <!-- 日本語ロケールを追加 -->
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.9/dist/l10n/ja.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script> <!--カレンダーに時刻表入れる際のリンク-->
+  <script src="script.js"></script>
+  
+
   <title>予約サイト</title>
 </head>
 <body>
@@ -13,21 +27,34 @@
   </header>
   <main>
     <section id="reservationForm">
-      <h2>予約</h2>
+      <div class="section-title">
+      <label>・予約内容</label>
+      </div>
       <form>
+      <div class="name-inputs">
+        <div class="name-input">
+          <label for="last-name">姓(漢字)</label>
+          <input type="text" id="last-name" name="last-name" required>
+        </div>
+        <div class="name-input">
+          <label for="first-name">名(漢字)</label>
+          <input type="text" id="first-name" name="first-name" required>
+        </div>
+        </div>
+
         <div class="name-inputs">
           <div class="name-input">
-            <label for="last-name">姓:</label>
-            <input type="text" id="last-name" name="last-name" required>
+            <label for="last-name-kana">姓(かな)</label>
+            <input type="text" id="last-name-kana" name="last-name-kana" required>
           </div>
           <div class="name-input">
-            <label for="first-name">名:</label>
-            <input type="text" id="first-name" name="first-name" required>
+            <label for="first-name-kana">名(かな)</label>
+            <input type="text" id="first-name-kana" name="first-name-kana" required>
           </div>
-        </div>
-        
-      <label for="guests">人数</label>
-      <select name="item">
+          </div>
+
+        <label for="guests">人数</label>
+        <select name="item">
         <option value="item1">1人</option>
         <option value="item1">2人</option>
         <option value="item1">3人</option>
@@ -48,20 +75,22 @@
         <option value="item1">18人</option>
         <option value="item1">19人</option>
         <option value="item1">20人</option>
-      　</select>
+        </select>
         <!-- 1人から20人まで選択-->
 
         <label for="date">ご予約日時</label>
-        <input type="datetime-local" id="date" required>
-        <button type="submit">予約する</button>
+        <input type="text" id="dateInput" required readonly>
+        <div id="timeButtons"></div>
+        </div>
+        </div>
+        <div id="timePicker" class="hidden">
+          <!-- 時間選択のボタンが表示される -->
+        </div>
+      
+      <button type="submit">予約する</button>
       </form>
     </section>
-    <section id="reservationList">
-      <h2>予約一覧</h2>
-      <ul id="reservationList"
-      <!--予約一覧表示-->
-    </ul>
-    </section>
+    
   </main>
   <footer>
     <p>&copy; 2023 予約サイト</p>

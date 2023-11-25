@@ -1,37 +1,86 @@
 body {
   font-family: 'Arial', sans-serif;
-  margin-left: 200px; /*左側の余白*/
-  margin-right: 200px; /* 右側の余白*/
+  margin-left: 250px; /*左側の余白*/
+  margin-right: 250px; /* 右側の余白*/
   padding: 0; 
   background-color: #f8f8f8;
 }
 
 header {
   background-color: #333;
-  color: #fff;
+  color: #fff; /*文字の色*/
   text-align: center;
   padding: 1em;
 }
 
 main {
   padding:20px;
-  }
+}
 
-  .name-inputs {
-    display: flex;
-    justify-content: space-between; /* 姓と名を横に配置 */
-  }
-  
-  .name-input {
-    flex: 1; /* 各入力欄が均等に広がるようにする */
-    margin-right: 10px; /* 入力欄の間に10pxの余白を追加 */
-  }
-  
+#timeButtons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
 
-  
-    
+.time-button {
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+
+
+
+.section-title{
+  width: 100%; /*幅100％*/
+  box-sizing: border-box; /* ボックスモデルを変更して、paddingやborderも含めた全体の幅にする */
+  padding: 10px; /* 適切なパディングを追加（必要に応じて調整） */
+  background-color:#333;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  min-height: 15px;
+  margin: 0 auto;
+  padding: 0 0;
+  margin-bottom: 15px;
+} /*予約内容について*/
+
+.section-title label {
+  display: block; /* ブロック要素に変更 */
+  width: 100%; /* 幅を100%に設定 */
+  margin:0;
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+
+.name-inputs {
+  display: flex;
+  justify-content: space-between; /*姓と名が横並び*/
+}
+
+.name-input {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-right: 25px; /* 入力欄の間の余白 */
+}
+
+.name-input label {
+  margin-bottom: 5px; /* 姓と名の下に余白*/
+}
+
+.name-input input {
+  font-size: 17px;
+  width: 70%; /*入力欄の幅*/
+  padding: 10px; /*入力欄の高さ*/
+  margin-top: 5px; /*入力欄の上の空白*/
+  margin-bottom: 15px; /*入力欄の下の空白*/
+} /*姓名の配置など*/
+
 section {
-  margin-bottom: 20px;
+ margin-bottom: 20px;
 }
 
 form {
@@ -44,7 +93,7 @@ label {
 }
 
 input, select, button {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   padding: 10px;
 }
 
@@ -65,6 +114,19 @@ li {
   padding: 10px;
   margin-bottom: 5px;
   background-color: #fff;
+}
+
+/* ご予約日時のスタイル調整 */
+label[for="date"], input#date {
+  margin-bottom: 5px; /*適切なマージンを設定*/
+}
+
+
+/* 予約するボタンのスタイル調整 */
+button[type="submit"] {
+  width: 30%;
+  padding: 10px;
+  margin: 15px auto; /* 上下に15px、左右にはautoを指定して中央に配置 */
 }
 
 
