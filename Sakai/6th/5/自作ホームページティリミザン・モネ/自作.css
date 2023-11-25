@@ -1,0 +1,35 @@
+.parent {
+  display: flex;
+}
+
+.first-child {
+  margin-right: auto;
+}
+
+body{background-size:cover ;}
+
+body{background-repeat:no-repeat ;}
+
+/* スライダーの高さ指定*/
+.swiper-wrapper {
+  height: 50vw;
+}
+/* 矢印の位置調整 */
+.swiper-button-prev {
+  left: 50%;
+  margin: 0;
+  top: 0;
+  transform: translate(-50%, 0px) rotate(90deg);
+}
+.swiper-button-next {
+  bottom: 0;
+  left: 50%;
+  margin: 0;
+  top: auto;
+  transform: translate(-50%, 0px) rotate(90deg);
+}
+/* スライドのサイズ調整 */
+.swiper-slide img {
+  height: auto;
+  width: 100%;
+}
