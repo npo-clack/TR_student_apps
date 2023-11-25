@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ピタゴラスイッチ</title>
+</head>
+<style>
+  body {
+    margin: 0;
+  }
+</style>
+
+<body>
+  <script src="decomp.js"></script>
+  <script src="pathseg.js"></script>
+  <script src="matter.js"></script>
+  <script src="Yes_Main.js"></script>
+  <div style="text-align: center;">
+    <h2>作ってみよう!</h2>
+    <p><a herf="template.html"></a>テンプレはこちらから</p>
+  </div>
+  <script>
+    var widths = window.outerWidth;
+    var hights = window.outerHeight;
+  </script>
+
+  <div>
+    <details>
+      <summary>詳細設定</summary>
+      <details>
+        <summary>□の設定</summary>
+        <input type="range" value="100" min="1" max="1000" id="long">長さ</input>
+        <input type="range" value="10" min="1" max="600" id="haba">幅</input>
+      </details>
+      <details>
+        <summary>エンジン関係</summary>
+        <button id="Do">実行(*´ε`*)ﾁｭｯﾁｭ</button>
+        <details>
+          <summary>重力</summary>
+          <input type="range" value="1" min="0" max="10" id="gravity">重力</input>
+        </details>
+      </details>
+    </details>
+  </div>
+</body>
+
+</html>

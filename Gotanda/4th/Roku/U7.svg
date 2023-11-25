@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- License: OFL. Made by kudakurage: https://github.com/kudakurage/LigatureSymbols -->
+<svg fill="#000000" width="800px" height="800px" viewBox="-7 0 32 32" version="1.1"
+  xmlns="http://www.w3.org/2000/svg">
+  <title>u</title>
+  <path
+    d="M13.906 25.594v-1.469c-1.313 1.25-3.438 2-5.375 2s-3.375-0.75-4.688-2c-1.375-1.344-2.25-3.188-2.25-5.25v-9.719h2.25v9.844c0.063 2.719 1.969 4.906 4.688 4.906 2.75 0 5.281-2.188 5.375-4.906v-9.844h2.25v16.438h-2.25z"></path>
+</svg>
