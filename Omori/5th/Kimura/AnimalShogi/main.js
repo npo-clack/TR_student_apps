@@ -16,6 +16,8 @@ zou.src = "./画像/zou.jpg";
 hiyoko.src = "./画像/hiyoko.jpg";
 ticken.src = "./画像/鶏.png";
 
+
+
 elion.src = "./画像/e lion.jpg";
 ekirin.src = "./画像/e kirin.jpg";
 ezou.src = "./画像/e zou.jpg";
