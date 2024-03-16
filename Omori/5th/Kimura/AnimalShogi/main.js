@@ -10,17 +10,17 @@ mas = [ [-3,-4,-2],
 // Image オブジェクトを生成
 let lion = new Image(), kirin = new Image(), zou = new Image(), hiyoko = new Image(), ticken = new Image();
 let elion = new Image(), ekirin = new Image(), ezou = new Image(), ehiyoko = new Image(), eticken = new Image();
-lion.src = "file:///C:/Users/TR828/Desktop/visual%20studio%20code/%E8%87%AA%E4%BD%9C/No6.%E5%8B%95%E7%89%A9%E5%B0%86%E6%A3%8B%20beta/%E7%94%BB%E5%83%8F/lion.jpg";
-kirin.src = "file:///C:/Users/TR828/Desktop/visual%20studio%20code/%E8%87%AA%E4%BD%9C/No6.%E5%8B%95%E7%89%A9%E5%B0%86%E6%A3%8B%20beta/%E7%94%BB%E5%83%8F/kirin.jpg";
-zou.src = "file:///C:/Users/TR828/Desktop/visual%20studio%20code/%E8%87%AA%E4%BD%9C/No6.%E5%8B%95%E7%89%A9%E5%B0%86%E6%A3%8B%20beta/%E7%94%BB%E5%83%8F/zou.jpg";
-hiyoko.src = "file:///C:/Users/TR828/Desktop/visual%20studio%20code/%E8%87%AA%E4%BD%9C/No6.%E5%8B%95%E7%89%A9%E5%B0%86%E6%A3%8B%20beta/%E7%94%BB%E5%83%8F/hiyoko.jpg";
-ticken.src = "file:///C:/Users/TR828/Desktop/visual%20studio%20code/%E8%87%AA%E4%BD%9C/No6.%E5%8B%95%E7%89%A9%E5%B0%86%E6%A3%8B%20beta/%E7%94%BB%E5%83%8F/%E9%B6%8F.png";
+lion.src = "./画像/lion.jpg";
+kirin.src = "./画像/kirin.jpg";
+zou.src = "./画像/zou.jpg";
+hiyoko.src = "./画像/hiyoko.jpg";
+ticken.src = "./画像/鶏.png";
 
-elion.src = "file:///C:/Users/TR828/Desktop/visual%20studio%20code/%E8%87%AA%E4%BD%9C/No6.%E5%8B%95%E7%89%A9%E5%B0%86%E6%A3%8B%20beta/%E7%94%BB%E5%83%8F/e%20lion.jpg";
-ekirin.src = "file:///C:/Users/TR828/Desktop/visual%20studio%20code/%E8%87%AA%E4%BD%9C/No6.%E5%8B%95%E7%89%A9%E5%B0%86%E6%A3%8B%20beta/%E7%94%BB%E5%83%8F/e%20kirin.jpg";
-ezou.src = "file:///C:/Users/TR828/Desktop/visual%20studio%20code/%E8%87%AA%E4%BD%9C/No6.%E5%8B%95%E7%89%A9%E5%B0%86%E6%A3%8B%20beta/%E7%94%BB%E5%83%8F/e%20zou.jpg";
-ehiyoko.src = "file:///C:/Users/TR828/Desktop/visual%20studio%20code/%E8%87%AA%E4%BD%9C/No6.%E5%8B%95%E7%89%A9%E5%B0%86%E6%A3%8B%20beta/%E7%94%BB%E5%83%8F/e%20hiyoko.jpg";
-eticken.src = "file:///C:/Users/TR828/Desktop/visual%20studio%20code/%E8%87%AA%E4%BD%9C/No6.%E5%8B%95%E7%89%A9%E5%B0%86%E6%A3%8B%20beta/%E7%94%BB%E5%83%8F/e%E9%B6%8F.png";
+elion.src = "./画像/e lion.jpg";
+ekirin.src = "./画像/e kirin.jpg";
+ezou.src = "./画像/e zou.jpg";
+ehiyoko.src = "./画像/e hiyoko.jpg";
+eticken.src = "./画像/e鶏.png";
 //drawImage(image, x, y, width, height)
 lion.onload = function(){
   ctx.drawImage(lion, (x * 200 + 230) / b + (b - 1) * 10, ((y * 200 + 20) / b) + (b - 1) * 5, 180 / b, 180 / b);
