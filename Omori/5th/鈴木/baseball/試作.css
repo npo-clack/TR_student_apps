@@ -1,0 +1,8 @@
+body{
+   background-image: url(IMG_1823.jpg);
+    background-color: rgba(255, 255, 255, 0.459);
+    background-blend-mode: overlay;
+}
+h2{
+    background-color: blueviolet;
+}
