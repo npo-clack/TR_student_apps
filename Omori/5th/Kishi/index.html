@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide Puzzle</title>
+    <link rel="stylesheet" href="pazzle.css">
+    <link rel="stylesheet" href="reset.css">
+    <script src="pazzle.js"></script>
+</head>
+
+<body>
+    <div class="content">
+        <div class="content__head">
+            <h1>スライドパズル</h1>
+        </div>
+
+        <div class="content__main">
+            <div class="content__item">
+                <h2 class="content__description">問題</h2>
+                <div class="content__frame">
+                    <div id="pazzle"></div>
+                </div>
+            </div>
+
+
+            <div class="content__item">
+                <h2 class="content__description">正解</h2>
+                <div class="content__frame">
+                    <div id="seikai"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class='content__footer'>
+            <div id="success" class="message--success"></div>
+            <div>
+                <span>動かした回数:</span>
+                <span id="sumCount">
+                </span>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
