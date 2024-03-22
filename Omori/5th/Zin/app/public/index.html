@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="tableButton.css">
+<title>Color Changing Cells</title>
+<script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
+<script src="tableButton.js"></script>
+</head>
+<body>
+  <div class="flex">
+<table id="redTable" class="reset table"></table>
+    
+<table id="yellowTable" class="yellowTable"></table>
+ </div>  
+ 
+  <div class="kodomo">
+    <h1 id="serverKick">現在接続中の人数: <span id="userCount">0</span>/2</h1>
+    
+  <table id="rival" class="reset rival"></table>
+   </div>
+  <script>
+const socket = io();
+// セルを作成
+socket.on('createTables', () => {
+    const redTable = document.getElementById('redTable');
+    const yellowTable = document.getElementById('yellowTable');
+    const rivalTable = document.getElementById('rival')
+    
+    // 既存のテーブルがあれば削除する
+    redTable.innerHTML = '';
+    yellowTable.innerHTML = '';
+    rivalTable.innerHTML = '';
+
+    const rowCount = 10;
+    const columnCount = 10;
+
+    for (let i = 0; i < rowCount; i++) {
+        const redRow = document.createElement('tr');
+        const yellowRow = document.createElement('tr');
+        const rivalRow = document.createElement('tr');
+
+        for (let j = 0; j < columnCount; j++) {
+            const redCell = document.createElement('td');
+            redCell.className = 'red cell';
+            redCell.onclick = function() { changeColor(this); };
+            redRow.appendChild(redCell);
+
+            const yellowCell = document.createElement('td');
+            yellowCell.className = 'yellow cell';
+            yellowCell.onclick = function() { targetChangeColor(this); };
+            yellowRow.appendChild(yellowCell);
+          
+            const rivalCell = document.createElement('td');
+            rivalCell.className = 'papa';
+            rivalRow.appendChild(rivalCell)
+        }
+        redTable.appendChild(redRow);
+        yellowTable.appendChild(yellowRow);
+        rivalTable.appendChild(rivalRow);
+    }
+});
+
+    
+    //接続中の人数を表示
+ socket.on('userCount', function(count) {
+            document.getElementById('userCount').textContent = count;
+        });
+    
+    //きっく！
+   socket.on('connectionRejected', () => {
+  document.getElementById('serverKick').textContent = '最大接続数を超えたのであなたは接続できませんでした';
+});
+
+
+
+function changeColor(cell) {
+    const currentColor = cell.style.backgroundColor;
+    const newColor = (currentColor === 'red') ? 'skyblue' : 'red';
+    console.log(`Color changed to ${newColor}`);
+    cell.style.backgroundColor = newColor;
+
+    // クリックされたセルの行と列のインデックスを取得する
+    const row = cell.parentNode.rowIndex;
+    const col = cell.cellIndex;
+
+    socket.emit('changeColor', { row, col, newColor }); // 新しい色とセルの位置をサーバーに送信
+}
+
+socket.on('updateColor', function(data) {
+    const row = data.row;
+    const col = data.col;
+    const newColor = data.newColor;
+
+    // セルの位置を使用して該当するセルを取得し、背景色を変更する
+    const cell = document.querySelector(`.rival tr:nth-child(${row + 1}) td:nth-child(${col + 1})`);
+    cell.style.backgroundColor = newColor;
+});
+    
+// ページが読み込まれたときの処理
+window.onload = function() {
+  // サーバーにページが読み込まれたことを通知
+  fetch('/reload', { method: 'POST' });
+}
+
+// サーバーからの更新通知を受信したときの処理
+socket.on('pageReloaded', () => {
+  // 何かしらの処理
+  const cells = document.querySelectorAll('.reset td');
+  cells.forEach(cell => {
+    cell.style.backgroundColor = 'skyBlue';
+  });
+  const yellowCells = document.querySelectorAll('.yellowTable td');
+  yellowCells.forEach(cell => {
+    cell.style.backgroundColor = 'lightGray';
+  });
+  // 新しい要素を作成
+  const reset = document.createElement('h2');
+  reset.innerText = '相手がページを更新したため、ボタンをリセットしました';
+  
+  // ドキュメントに新しい要素を追加
+  document.body.appendChild(reset);
+  
+  // 5秒後に要素を削除
+  setTimeout(() => {
+    reset.remove();
+  }, 5000);
+ });
+  </script>
+</body>
+</html>
