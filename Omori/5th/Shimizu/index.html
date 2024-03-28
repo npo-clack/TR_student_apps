@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>音感トレーニングゲーム</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <div id="contents">
+    <div id="main">
+      <div id="game">
+        <div id="gameContainer">
+          <!--title-->
+          <div id="titleMenu" class="display">
+            <h1 id="header" class="header">音感トレーニング</h1>
+            <button id="start-button" class="startButton" onclick="location.href='gamePlay.html'">スタート</button>
+            <p id="Button">
+              <button id="how-to" class="Button">遊び方</button>
+              <button id="option-button" class="Button">設定</button>
+            </p>
+            <h3 id="cantUse" class="text"></h3>
+          </div>
+          <!--HowTo-->
+          <div id="howTo" class="display">
+            <div id="howToHeader" class="header">遊び方</div>
+            <div class="exit">
+              <button id="exitButton" class="exitButton">×</button>
+            </div>
+            <div id="howToInner" class="Inner"></div>
+          </div>
+          <!--option-->
+          <div id="option" class="display">
+            <div id="optionHeader" class="header">設定</div>
+            <div class="exit">
+              <button id="exitButton" class="exitButton">×</button>
+            </div>
+            <div id="optionInner" class="Inner">音量 / 100%</div>
+            <div class="soundVol">
+              <input type="range" id="soundVol">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="index.js"></script>
+</body>
+</html>
+
+          <!--<button id="pf-pitch-button" class="pfPitchButton">絶対音感</button>
+          <button id="rt-pitch-button" class="rtPitchButton">相対音感</button>-->

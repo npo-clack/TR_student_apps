@@ -1,0 +1,194 @@
+/*全体*/
+body
+{
+  background-color: rgb(33, 33, 33);
+  background-image: url(img/BackGroundImg.png);
+  background-size: auto;
+}
+
+.header
+{
+  color: white;
+  font-size: 70px;
+}
+
+.text
+{
+  position: relative;
+  top: 40px;
+  color: white;
+  font-size: 30px;
+}
+
+#game
+{
+  max-width: 1015px;
+  margin: 0px auto;
+	padding: 6px;
+  background-color: rgb(69, 71, 73);
+}
+
+#gameContainer
+{
+  text-align: center;
+  margin: 0px auto;
+	padding: 6px;
+  max-width: 1000px;
+	width: 100% auto;
+  height: 650px;
+  border: solid 2px rgb(255, 255, 255);
+}
+
+.display
+{
+  display: none;
+}
+
+/*------ index.html ------*/
+.startButton
+{
+  position: relative;
+  top: 50px;
+  padding: 5px 80px;
+  font-size: 40px;
+  background-color: white;
+}
+
+.Button
+{
+  padding: 5px 50px;
+  font-size: 20px;
+}
+
+#Button
+{
+  position: relative;
+  top: 50px;  
+}
+
+/*------ How-To-Play ------*/
+#howTo
+{
+  text-align: left;
+  display: none;
+}
+
+#howToHeader
+{
+  position: relative;
+  left: 40px;
+  top: 20px;
+}
+
+/*------ option-Menu ------*/
+#option
+{
+  text-align: left;
+  display: none;
+}
+
+#optionHeader
+{
+  position: relative;
+  left: 40px;
+  top: 20px;
+}
+
+.soundVol
+{
+  text-align: center;
+  position: relative;
+  top: 200px;
+}
+#soundVol
+{
+  width: 300px;
+}
+
+.exit
+{
+  text-align: right;
+  position: absolute;
+  right: 5%;
+  top: 7%;
+}
+.Inner
+{
+  text-align: center;
+  color: white;
+  font-size: 20px;
+}
+
+/*------ GamePlay.html ------*/
+#ex
+{
+  margin: 0px auto;
+	padding: 6px;
+	max-width: 1020px;
+  width: 100%;
+	text-align: right;
+}
+
+/*------ selectMenu ------*/
+.selectButton
+{
+  padding: 5px 50px;
+  font-size: 20px;
+  border: solid 2px rgb(0, 0, 0);
+}
+
+/*------ gamePlayMenu ------*/
+.difficulty
+{
+  font-size: 20px;
+  color: white;
+}
+
+.currentQNum
+{
+  font-size: 20px;
+  color: white;
+}
+
+/*.gameButton
+{
+  
+}*/
+
+#finishButton
+{
+  visibility: hidden;
+  position: relative;
+  top : 10px;
+}
+
+.answer
+{
+  background-color: rgb(69, 71, 73);
+  color: white;
+  position: relative;
+  top: -10px;
+  size: 40px;
+  height: 40px;
+  font-size: 30px;
+}
+
+.virtualKeyboard button
+{
+  size: 60px;
+  height: 60px;
+  width: 30px;
+}
+
+.delKey
+{
+  size: 60px;
+  height: 60px;
+}
+
+/*------ resultMenu ------*/
+.result
+{
+  font-size: 20px;
+  color: white;
+}

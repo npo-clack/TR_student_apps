@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>音感トレーニングゲーム - プレイ</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <div id="game">
+    <div id="gameContainer">
+    <!--難易度選択画面-->
+      <div class="display" id="selectMenu">
+        <h1 id="header" class="header">難易度</h1>
+        <button class="selectButton" id="easyButton">Easy</button>
+        <p><button class="selectButton" id="normalButton">Normal</button></p>
+        <p><button class="selectButton" id="hardButton">Hard</button></p>
+        <p><button class="selectButton" id="eternalButton">Eternal</button></p>
+      </div>
+      <!--ゲームプレイ画面-->
+      <div class="display" id="gamePlayMenu">
+        <h1 class="header" id="gameplayHeader"></h1>
+        <div class="difficulty">
+          <h3 class="" id="difficulty">現在の難易度</h3>
+        </div>
+        <h3 class="currentQNum" id="currentQNum"></h3>
+        <div class="ganeButton" id="Buttons">
+          <button class="gameButton" id="rePlay">問題を再生する</button>
+        </div>
+        <div class="" id="">
+          <h3 class="answer" id="answer"></h3>
+        </div>
+        <div class="" id="virtualKeyboards">
+          <div class="virtualKeyboard" id="whiteKeyboard"></div>
+          <div class="delKey" id="delKey"></div>
+        </div>
+        <div class="ganeButton" id="Buttons">
+          <button class="gameButton" id="nextQuestion">回答する</button>
+          <br><button class="gameButton" id="finishButton">中断する</button>
+        </div>
+      </div>
+      <!--リザルト画面-->
+      <div class="display" id="resultMenu">
+        <h1 class="header" id="header">Result</h1>
+        <div class="result" id="result"></div>
+        <!--<button class="" id="oneMore">もう一回遊ぶ</button>-->
+        <button class="" id="otherDifficulty">別の難易度を選ぶ</button>
+      </div>
+      <!-- -->
+    </div>
+  </div>
+  <div id="ex">
+    <button id="backTitle" onclick="location.href='index.html'">トップへ戻る</button>
+  </div>
+  <script src="gamePlay.js"></script>
+</body>
+</html>
