@@ -1,0 +1,13 @@
+body{
+    background-image: url(IMG_2674.jpg);
+    background-attachment:fixed;
+    background-color: rgb(213, 212, 212);
+    background-size: contain;
+    background-blend-mode:overlay ;   
+}
+h2{
+    background-color: blueviolet;
+}
+
+
+
