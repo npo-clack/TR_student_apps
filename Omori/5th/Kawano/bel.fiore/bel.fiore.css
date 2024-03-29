@@ -1,0 +1,921 @@
+@charset "utf-8";
+
+
+/*========= レイアウトのためのCSS ===============*/
+
+#wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align:center;
+  color: #fff;
+}
+
+.wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+/*SVGのサイズ*/
+svg{
+  max-width:800px;/*SVGタグの横幅*/
+  width:100%;/* レスポンシブ対応にするため100%を指定*/
+  height:auto;
+}
+
+/*========= レイアウトのためのCSS ===============*/
+
+body{
+	background:#f6f6f6;
+}
+
+.wrapper{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	
+}
+
+/*SVGのサイズ*/
+svg{
+	max-width:800px;/*SVGタグの横幅*/
+	width:100%;/* レスポンシブ対応にするため100%を指定*/
+	height:auto;
+}
+
+
+/*========= 手書き風にするためのCSS ===============*/
+
+/* マスクをするパスの設定*/
+#mask .st0{
+    fill:none;
+    stroke:#FFFFFF;
+    stroke-width:90;/*線の太さを指定する*/
+    stroke-linecap:round;
+    stroke-linejoin:round;
+    stroke-miterlimit:10;
+    stroke-dasharray: 1500; /* 線の間隔を指定する */
+    stroke-dashoffset:1500; /* 線の位置を指定する */
+}
+
+/*========= particle js を描画するエリア設定 ===============*/
+
+html,body{
+  height: 100%;/*高さを100%にして描画エリアをとる*/
+}
+
+#particles-js{ 
+  position:fixed;/* 描画固定 */
+  z-index:-1;/*描画を一番下に*/
+  width: 100%;
+  height: 100%;
+  background-color:#020E34;/*背景色*/
+}
+
+#wrapper{
+  position: relative;/*描画を#particles-jsよりも上にするためposition:relative;を指定*/
+  z-index: 1;/*z-indexの数字を大きくすることで描画を#particles-jsよりも上に*/
+  width:100%;
+  height: 100%;
+}
+
+body{
+  background:#333;
+}
+p{
+  text-align: center;
+  margin: 0;
+  font-size:1.5rem;
+  color: #fff;
+}
+
+/*========= 光りながら出現させるためのCSS ===============*/
+
+.glowAnime span{opacity: 0;}
+
+/*アニメーションで透過を0から1に変化させtext-shadowをつける*/
+.glowAnime.glow span{ animation:glow_anime_on 1s ease-out forwards; }
+
+@keyframes glow_anime_on{
+  0% { opacity:0; text-shadow: 0 0 0 #fff,0 0 0 #fff;}
+  50% { opacity:1;text-shadow: 0 0 10px #fff,0 0 15px #fff; }
+  100% { opacity:1; text-shadow: 0 0 0 #fff,0 0 0 #fff;}
+}
+
+/*========= レイアウトのためのCSS ===============*/
+body{
+	background:#333;
+}
+p{
+	text-align: center;
+	margin: 20px 0;
+	font-size: 2rem;
+	color: #fff;
+}
+
+
+/*========= 光りながら出現させるためのCSS ===============*/
+
+.glowAnime span{opacity: 0;}
+
+/*アニメーションで透過を0から1に変化させtext-shadowをつける*/
+.glowAnime.glow span{ animation:glow_anime_on 1s ease-out forwards; }
+
+@keyframes glow_anime_on{
+	0% { opacity:0; text-shadow: 0 0 0 #fff,0 0 0 #fff;}
+	50% { opacity:1;text-shadow: 0 0 10px #fff,0 0 15px #fff; }
+	100% { opacity:1; text-shadow: 0 0 0 #fff,0 0 0 #fff;}
+}
+
+
+/*==================================================
+ふわっ
+===================================*/
+
+/* その場で */
+.fadeIn{
+  animation-name:fadeInAnime;
+  animation-duration:1s;
+  animation-fill-mode:forwards;
+  opacity:0;
+  }
+
+  @keyframes fadeInAnime{
+    from {
+      opacity: 0;
+    }
+  
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* 下から */
+
+.fadeUp{
+  animation-name:fadeUpAnime;
+  animation-duration:0.5s;
+  animation-fill-mode:forwards;
+  opacity:0;
+  }
+  
+  @keyframes fadeUpAnime{
+    from {
+      opacity: 0;
+    transform: translateY(100px);
+    }
+  
+    to {
+      opacity: 1;
+    transform: translateY(0);
+    }
+  }
+  
+  /* 上から */
+  
+  .fadeDown{
+  animation-name:fadeDownAnime;
+  animation-duration:0.5s;
+  animation-fill-mode:forwards;
+  opacity:0;
+  }
+  
+  @keyframes fadeDownAnime{
+    from {
+      opacity: 0;
+    transform: translateY(-100px);
+    }
+  
+    to {
+      opacity: 1;
+    transform: translateY(0);
+    }
+  }
+  
+  /* 左から */
+  
+  .fadeLeft{
+  animation-name:fadeLeftAnime;
+  animation-duration:0.5s;
+  animation-fill-mode:forwards;
+  opacity:0;
+  }
+  
+  @keyframes fadeLeftAnime{
+    from {
+      opacity: 0;
+    transform: translateX(-100px);
+    }
+  
+    to {
+      opacity: 1;
+    transform: translateX(0);
+    }
+  }
+  
+  /* 右から */
+  
+  .fadeRight{
+  animation-name:fadeRightAnime;
+  animation-duration:0.5s;
+  animation-fill-mode:forwards;
+  opacity:0;
+  }
+  
+  @keyframes fadeRightAnime{
+    from {
+      opacity: 0;
+    transform: translateX(100px);
+    }
+  
+    to {
+      opacity: 1;
+    transform: translateX(0);
+    }
+  }
+  
+  /*========= レイアウトのためのCSS ===============*/
+  
+  
+  
+  p{
+    margin: 0 auto;
+  }
+  
+  .flex{
+    display:flex;
+    flex-wrap: wrap;
+  }
+  
+  .box{
+    width: 220px;
+    padding: 20px;
+    margin:0 20px 20px 20px;
+    background: #666;
+    color: #fff;
+  }
+  
+  /*========= レイアウトのためのCSS ===============*/
+
+h1{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  color:#fff;
+  text-shadow: 0 0 15px #666;
+  text-align: center;
+}
+
+/*==================================================
+　5-2-4 MENUがCLOSEに
+===================================*/
+
+/* ハンバーガーメニューのスタイル */
+.openbtn4 {
+  position: fixed; /* 固定配置 */
+  bottom: 510px; /*下からの距離 */
+  left: 20px; /* 左端からの距離 */
+  transform: tranlatex(-50%); /*中央の配置 */
+  z-index:9999; /* ほかの要素よりも前面に表示 */
+}
+
+/*ボタン外側※レイアウトによってpositionや形状は適宜変更してください*/
+.openbtn4{
+  position: fixed;/*ボタン内側の基点となるためrelativeを指定*/
+  background:#584f53;
+  cursor: pointer;
+    width: 50px;
+    height:50px;
+  border-radius: 5px;
+}
+
+/*ボタン内側*/
+.openbtn4 span{
+    display: inline-block;
+    transition: all .4s;/*アニメーションの設定*/
+    position: absolute;
+    left: 14px;
+    height: 2px;
+    border-radius: 5px;
+  background: #2e2a2a;
+    width: 45%;
+  }
+
+
+.openbtn4 span:nth-of-type(1) {
+  top:13px; 
+}
+
+.openbtn4 span:nth-of-type(2) {
+  top:19px;
+}
+
+.openbtn4 span:nth-of-type(3) {
+  top:25px;
+}
+
+.openbtn4 span:nth-of-type(3)::after {
+  content:"Menu";/*3つ目の要素のafterにMenu表示を指定*/
+  position: absolute;
+  top:5px;
+  left:-2px;
+  color: #fff;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+}
+
+/*activeクラスが付与されると線が回転して×になり、Menu⇒Closeに変更*/
+
+.openbtn4.active span:nth-of-type(1) {
+    top: 14px;
+    left: 18px;
+    transform: translateY(6px) rotate(-45deg);
+    width: 30%;
+}
+
+.openbtn4.active span:nth-of-type(2) {
+  opacity: 0;
+}
+
+.openbtn4.active span:nth-of-type(3){
+    top: 26px;
+    left: 18px;
+    transform: translateY(-6px) rotate(45deg);
+    width: 30%;
+}
+
+.openbtn4.active span:nth-of-type(3)::after {
+  content:"Close";/*3つ目の要素のafterにClose表示を指定*/
+    transform: translateY(0) rotate(-45deg);
+  top:5px;
+  left:4px;
+}
+/*========= レイアウトのためのCSS ===============*/
+
+body{
+  background:#100e0e;
+}
+
+
+a{
+  color: #333;
+  text-decoration: none;
+}
+
+.lead{
+  margin:20px 0 0 0;
+}
+
+.btn-block{
+  width:200px;  
+  padding: 30px;
+}
+
+/*==================================================
+　5-2-4 MENUがCLOSEに
+===================================*/
+
+/*ボタン外側※レイアウトによってpositionや形状は適宜変更してください*/
+.openbtn{
+	position: relative;/*ボタン内側の基点となるためrelativeを指定*/
+	background:#D54884;
+	cursor: pointer;
+    width: 50px;
+    height:50px;
+	border-radius: 5px;
+}
+
+/*ボタン内側*/
+.openbtn span{
+    display: inline-block;
+    transition: all .4s;/*アニメーションの設定*/
+    position: absolute;
+    left: 14px;
+    height: 2px;
+    border-radius: 5px;
+	background: #fff;
+  	width: 45%;
+  }
+
+
+.openbtn span:nth-of-type(1) {
+	top:13px;	
+}
+
+.openbtn span:nth-of-type(2) {
+	top:19px;
+}
+
+.openbtn span:nth-of-type(3) {
+	top:25px;
+}
+
+.openbtn span:nth-of-type(3)::after {
+	content:"Menu";/*3つ目の要素のafterにMenu表示を指定*/
+	position: absolute;
+	top:5px;
+	left:-2px;
+	color: #fff;
+	font-size: 0.6rem;
+	text-transform: uppercase;
+}
+
+/*activeクラスが付与されると線が回転して×になり、Menu⇒Closeに変更*/
+
+.openbtn.active span:nth-of-type(1) {
+    top: 14px;
+    left: 18px;
+    transform: translateY(6px) rotate(-45deg);
+    width: 30%;
+}
+
+.openbtn.active span:nth-of-type(2) {
+	opacity: 0;
+}
+
+.openbtn.active span:nth-of-type(3){
+    top: 26px;
+    left: 18px;
+    transform: translateY(-6px) rotate(45deg);
+    width: 30%;
+}
+
+.openbtn.active span:nth-of-type(3)::after {
+	content:"Close";/*3つ目の要素のafterにClose表示を指定*/
+    transform: translateY(0) rotate(-45deg);
+	top:5px;
+	left:4px;
+}
+
+/*========= レイアウトのためのCSS ===============*/
+
+
+a{
+	color: #333;
+	text-decoration: none;
+}
+
+.lead{
+	margin:20px 0 0 0;
+}
+
+
+/*==================================================
+ふわっ
+===================================*/
+
+/* その場で */
+.fadeIn{
+animation-name:fadeInAnime;
+animation-duration:1s;
+animation-fill-mode:forwards;
+opacity:0;
+}
+
+@keyframes fadeInAnime{
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* 下から */
+
+.fadeUp{
+animation-name:fadeUpAnime;
+animation-duration:0.5s;
+animation-fill-mode:forwards;
+opacity:0;
+}
+
+@keyframes fadeUpAnime{
+  from {
+    opacity: 0;
+	transform: translateY(100px);
+  }
+
+  to {
+    opacity: 1;
+	transform: translateY(0);
+  }
+}
+
+/* 上から */
+
+.fadeDown{
+animation-name:fadeDownAnime;
+animation-duration:0.5s;
+animation-fill-mode:forwards;
+opacity:0;
+}
+
+@keyframes fadeDownAnime{
+  from {
+    opacity: 0;
+	transform: translateY(-100px);
+  }
+
+  to {
+    opacity: 1;
+	transform: translateY(0);
+  }
+}
+
+/* 左から */
+
+.fadeLeft{
+animation-name:fadeLeftAnime;
+animation-duration:0.5s;
+animation-fill-mode:forwards;
+opacity:0;
+}
+
+@keyframes fadeLeftAnime{
+  from {
+    opacity: 0;
+	transform: translateX(-100px);
+  }
+
+  to {
+    opacity: 1;
+	transform: translateX(0);
+  }
+}
+
+/* 右から */
+
+.fadeRight{
+animation-name:fadeRightAnime;
+animation-duration:0.5s;
+animation-fill-mode:forwards;
+opacity:0;
+}
+
+@keyframes fadeRightAnime{
+  from {
+    opacity: 0;
+	transform: translateX(100px);
+  }
+
+  to {
+    opacity: 1;
+	transform: translateX(0);
+  }
+}
+
+/*========= レイアウトのためのCSS ===============*/
+
+
+
+p{
+	padding:120px 0;
+}
+
+.flex{
+	display:flex;
+	flex-wrap: wrap;
+}
+
+.box{
+	width: 220px;
+	padding: 20px;
+	margin:0 20px 20px 20px;
+	background: #666;
+	color: #fff;
+}
+
+/*==================================================
+　5-2-4 MENUがCLOSEに
+===================================*/
+
+/*ボタン外側※レイアウトによってpositionや形状は適宜変更してください*/
+.openbtn4{
+  background:#332b2e;
+  cursor: pointer;
+    width: 50px;
+    height:50px;
+  border-radius: 5px;
+}
+
+/*ボタン内側*/
+.openbtn4 span{
+    display: inline-block;
+    transition: all .4s;/*アニメーションの設定*/
+    position: absolute;
+    left: 14px;
+    height: 2px;
+    border-radius: 5px;
+  background: #fff;
+    width: 45%;
+  }
+
+
+.openbtn4 span:nth-of-type(1) {
+  top:13px; 
+}
+
+.openbtn4 span:nth-of-type(2) {
+  top:19px;
+}
+
+.openbtn4 span:nth-of-type(3) {
+  top:25px;
+}
+
+.openbtn4 span:nth-of-type(3)::after {
+  content:"Menu";/*3つ目の要素のafterにMenu表示を指定*/
+  position: absolute;
+  top:5px;
+  left:-2px;
+  color: #fff;
+  font-size: 0.6rem;
+  text-transform: uppercase;
+}
+
+/*activeクラスが付与されると線が回転して×になり、Menu⇒Closeに変更*/
+
+.openbtn4.active span:nth-of-type(1) {
+    top: 14px;
+    left: 18px;
+    transform: translateY(6px) rotate(-45deg);
+    width: 30%;
+}
+
+.openbtn4.active span:nth-of-type(2) {
+  opacity: 0;
+}
+
+.openbtn4.active span:nth-of-type(3){
+    top: 26px;
+    left: 18px;
+    transform: translateY(-6px) rotate(45deg);
+    width: 30%;
+}
+
+.openbtn4.active span:nth-of-type(3)::after {
+  content:"Close";/*3つ目の要素のafterにClose表示を指定*/
+    transform: translateY(0) rotate(-45deg);
+  top:5px;
+  left:4px;
+}
+/*========= レイアウトのためのCSS ===============*/
+
+body{
+  background:#f3f3f3;
+}
+
+
+a{
+  color: #333;
+  text-decoration: none;
+}
+
+.lead{
+  margin:20px 0 0 0;
+}
+
+.btn-block{
+  width:200px;  
+  padding: 30px;
+}
+
+/*========= ナビゲーションのためのCSS ===============*/
+
+/*アクティブクラスがついたら位置を0に*/
+#g-nav.panelactive{
+  left: 0;
+}
+
+
+/*ナビゲーションの縦スクロール*/
+#g-nav.panelactive #g-nav-list{
+  /*ナビの数が増えた場合縦スクロール*/
+  position: fixed;
+  z-index: 999; 
+  width:100%;
+  height: 100vh;/*表示する高さ*/
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/*ナビゲーション*/
+#g-nav ul {
+  /*ナビゲーション天地中央揃え*/
+  position: absolute;
+  z-index: 999;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+
+/*リストのレイアウト設定*/
+
+#g-nav li{
+list-style: none;
+  text-align: center; 
+}
+
+#g-nav li a{
+color: #333;
+text-decoration: none;
+padding:10px;
+display: block;
+text-transform: uppercase;
+letter-spacing: 0.1em;
+font-weight: bold;
+}
+
+#g-nav {
+  display: none;
+}
+
+/*========= ボタンのためのCSS ===============*/
+.openbtn4{
+position:fixed;
+  z-index: 9999;/*ボタンを最前面に*/
+top:10px;
+left:1200px;
+cursor: pointer;
+  width: 50px;
+  height:50px;
+}
+
+/*×に変化*/  
+.openbtn4 span{
+  display: inline-block;
+  transition: all .4s;
+  position: absolute;
+  left: 14px;
+  height: 3px;
+  border-radius: 2px;
+background-color: #666;
+  width: 45%;
+}
+
+.openbtn4 span:nth-of-type(1) {
+top:15px; 
+}
+
+.openbtn4 span:nth-of-type(2) {
+top:23px;
+}
+
+.openbtn4 span:nth-of-type(3) {
+top:31px;
+}
+
+.openbtn4.active span:nth-of-type(1) {
+  top: 18px;
+  left: 18px;
+  transform: translateY(6px) rotate(-45deg);
+  width: 30%;
+}
+
+.openbtn4.active span:nth-of-type(2) {
+opacity: 0;
+}
+
+.openbtn4.active span:nth-of-type(3){
+  top: 30px;
+  left: 18px;
+  transform: translateY(-6px) rotate(45deg);
+  width: 30%;
+}
+
+
+
+/*========= レイアウトのためのCSS ===============*/
+
+h1{
+font-size:1.2rem;
+}
+
+h2{
+font-size:1.2rem;
+text-align: center;
+margin: 0 0 30px 0;
+}
+
+small{
+color:#fff;
+display: block;
+text-align: center;
+}
+
+#header{
+width:100%;
+background:#333;
+color:#fff;
+text-align: center;
+padding: 20px;
+}
+
+section{
+padding:100px 30px;
+}
+
+section:nth-child(2n){
+background:#f3f3f3; 
+}
+
+#footer{
+background:#333;
+padding:20px;
+}
+
+.global-nav {
+  position: fixed;
+  width: 100vw;
+}
+
+.global-nav ul {
+  list-style-type: none; /* リストのスタイルをなしに設定 */
+  margin: 0;
+  padding: 0;
+}
+
+.global-nav ul li {
+  display: inline-block; /* リストアイテムを横並びに配置 */
+}
+
+.global-nav ul li a {
+  color: #fff; /* ナビゲーションリンクのテキスト色 */
+  text-decoration: none; /* リンクの下線を削除 */
+  padding: 10px 20px; /* リンクのパディング */
+  display: block; /* リンクをブロック要素に変換 */
+}
+
+.global-nav ul li a:hover {
+  background-color: hsl(240, 2%, 11%); /* ナビゲーションリンクのホバー時の背景色 */
+}
+
+/*==================================================
+ニュースティッカーのためのcss
+===================================*/
+/*ニュース1行の周りの余白*/
+.slider a{
+  display: block;
+  background:#fff;
+  padding:20px;
+}
+
+/*日付*/
+.slider span {
+  display:inline-block;
+  font-size:0.8rem;
+  margin-right:10px;
+  color:#777;
+}
+
+/*768px以下の見た目　※1行のままにしたい場合は不要*/
+@media screen and (max-width:768px) {
+  .slider {
+      padding:20px;
+      background:#fff;
+  }
+
+  .slider li {
+      border-bottom:1px dashed #ccc;
+  }
+
+  .slider li:last-child {
+      border-bottom:none;
+  }
+  .slider span {
+      display:block;
+  padding-bottom:10px;
+  }
+}
+
+/*========= レイアウトのためのCSS ===============*/
+
+body {
+  background:#ddd;
+}
+
+li {
+  list-style-type:none;
+}
+
+.wrapper {
+  width:90%;
+  margin:0 auto;
+}
+
+h1 {
+  text-align:center;
+  padding:20px;
+font-size: 1.2rem;
+}
+
+a {
+  color:#333;
+  text-decoration:none;
+}
+
