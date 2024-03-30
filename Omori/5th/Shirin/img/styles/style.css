@@ -1,0 +1,26 @@
+/* ヘッダー */
+.p-header {
+    height: 50px;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+    position: relative;
+    z-index: 1;
+}
+
+/* 全体に適応させるcss */
+body {
+    background-color: rgb(3, 3, 3);
+}
+.website-body{
+    width: 80%;
+    height: 100%;
+    background-color: black;
+    margin: 0 auto;
+}
+a {
+    color: aliceblue;
+
+}
