@@ -1,0 +1,41 @@
+/* styles.css */
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* 絶対配置の基準 */
+}
+
+#startScreen {
+  position: absolute; /* 絶対配置 */
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10; /* 上に表示 */
+}
+
+#startImage {
+  transform: scale(3); /* 画像を三倍に拡大 */
+}
+
+#gameContent {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute; /* 絶対配置 */
+  z-index: 5; /* 下に表示 */
+}
+
+#gameCanvas {
+  width: 800px;  /* キャンバスの幅を指定 */
+  height: 600px; /* キャンバスの高さを指定 */
+}

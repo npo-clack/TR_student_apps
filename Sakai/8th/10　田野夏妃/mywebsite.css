@@ -1,0 +1,428 @@
+@charset "utf-8";
+
+/*========= ローディング画面のためのCSS ===============*/
+#splash {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #fcfdbd;
+  z-index: 9999999;
+  text-align:center;
+  color:#a4d8ed;
+}
+
+#splash-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(100, 100);
+}
+
+
+/*========= 画面遷移のためのCSS ===============*/
+
+body{
+    background:#f9f992;/*遷移アニメーションと同じ色を指定*/
+}
+
+body.appear{
+    background:#f3fa9a;/*画面を開いた後の背景色を指定*/
+}
+
+/*画面遷移アニメーション*/
+.splashbg1,
+.splashbg2{
+    display: none;
+}
+
+/*bodyにappearクラスがついたら出現*/
+body.appear .splashbg1,
+body.appear .splashbg2{
+  display:block;
+}
+
+/*右に消えるエリア*/
+body.appear .splashbg1{
+  animation-name:PageAnime;
+  animation-duration:1.2s;
+  animation-timing-function:ease-in-out;
+  animation-fill-mode:forwards;
+    content: "";
+    position:fixed;
+  z-index: 999;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+  left:50%;
+    transform: scaleX(1);
+    background-color: #f4ffbd;/*伸びる背景色の設定*/
+}
+
+@keyframes PageAnime{
+  0% {
+    transform-origin:left;
+    transform:scaleX(1);
+  }
+  50% {
+    transform-origin:right;
+  }
+  100% {
+    transform-origin:right;
+    transform:scaleX(0);
+  }
+}
+
+/*左に消えるエリア*/
+body.appear .splashbg2{
+  animation-name:PageAnime2;
+  animation-duration:1.2s;
+  animation-timing-function:ease-in-out;
+  animation-fill-mode:forwards;
+    content: "";
+    position:fixed;
+  z-index: 999;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+  right:50%;
+    transform: scaleX(1);
+    background-color: #e6eeaa;/*伸びる背景色の設定*/
+}
+
+@keyframes PageAnime2{
+  0% {
+    transform-origin:right;
+    transform:scaleX(1);
+  }
+
+  50% {
+    transform-origin:left;
+  }
+  100% {
+    transform-origin:left;
+    transform:scaleX(0);
+  }
+}
+
+/*画面遷移の後現れるコンテンツ設定*/
+#container{
+  opacity: 0;/*はじめは透過0に*/
+}
+
+/*bodyにappearクラスがついたら出現*/
+body.appear #container{
+  animation-name:PageAnimeAppear;
+  animation-duration:1s;
+  animation-delay:0.2s;
+  animation-fill-mode:forwards;
+  opacity: 0;
+}
+
+@keyframes PageAnimeAppear{
+  0% {
+  opacity: 0;
+  }
+  100% {
+  opacity: 1;
+}
+}
+
+/*========= レイアウトのためのCSS ===============*/
+
+h1{
+  font-size:1.2rem;
+}
+
+h2{
+  font-size:1.2rem;
+  text-align: center;
+  margin: 0 0 30px 0;
+}
+
+p{
+  margin-top:20px;  
+}
+
+small{
+  color:#fff;
+  display: block;
+  text-align: center;
+}
+
+#header{
+  background:#c0c9f9;
+  color:#f1f1f1;
+  text-align: center;
+  padding: 20px;
+}
+
+section{
+  padding:300px 30px;
+}
+.section-image {
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+  text-align: center;
+}
+
+.section-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.section-image figcaption {
+  margin-top: 10px;
+  font-style: italic;
+  color: #666;
+}
+
+#footer{
+  background:#333;
+  padding:20px;
+}
+@ "utf-8";
+
+/*==================================================
+スライダーのためのcss
+===================================*/
+.slider {/*横幅94%で左右に余白を持たせて中央寄せ*/
+    width:94%;
+    margin:0 auto;
+}
+
+.slider img {
+    width:60vw;/*スライダー内の画像を60vwにしてレスポンシブ化*/
+    height:auto;
+}
+
+.slider .slick-slide {
+  transform: scale(0.8);/*左右の画像のサイズを80%に*/
+  transition: all .5s;/*拡大や透過のアニメーションを0.5秒で行う*/
+  opacity: 0.5;/*透過50%*/
+}
+
+.slider .slick-slide.slick-center{
+  transform: scale(1);/*中央の画像のサイズだけ等倍に*/
+  opacity: 1
+
+/*矢印の設定*/
+
+
+/*戻る、次へ矢印の位置*/
+.slick-prev, 
+.slick-next {
+    position: absolute;/*絶対配置にする*/
+    top: 42%;
+    cursor: pointer;/*マウスカーソルを指マークに*/
+    outline: none;/*クリックをしたら出てくる枠線を消す*/
+    border-top: 2px solid #666;/*矢印の色*/
+    border-right: 2px solid #666;/*矢印の色*/
+    height: 15px;
+    width: 15px;
+}
+
+.slick-prev {/*戻る矢印の位置と形状*/
+    left: -1.5%;
+    transform: rotate(-135deg);
+}
+
+.slick-next {/*次へ矢印の位置と形状*/
+    right: -1.5%;
+    transform: rotate(45deg);
+}
+
+/*ドットナビゲーションの設定*/
+
+.slick-dots {
+    text-align:center;
+  margin:20px 0 0 0;
+}
+
+.slick-dots li {
+    display:inline-block;
+  margin:0 5px;
+}
+
+.slick-dots button {
+    color: transparent;
+    outline: none;
+    width:8px;/*ドットボタンのサイズ*/
+    height:8px;/*ドットボタンのサイズ*/
+    display:block;
+    border-radius:50%;
+    background:#f8ef94;/*ドットボタンの色*/
+}
+
+.slick-dots .slick-active button{
+    background:#fdfcfc;/*ドットボタンの現在地表示の色*/
+}
+
+/*========= レイアウトのためのCSS ===============*/
+
+body{
+  background:#eee;
+}
+
+h2,p {
+    text-align:center;
+    padding:20px;
+}
+
+ul{
+  margin:0;
+  padding: 0;
+  list-style: none;
+}
+
+a{
+  color: #333;
+}
+
+a:hover,
+a:active{
+  text-decoration: none;
+}
+@charset "utf-8";
+
+/*=========グラフ表示のためのCSS ===============*/
+
+.chart-area{/*円グラフがスマホでつぶれないようにする*/
+  position: relative;
+  width:100%;
+  height:50vh;
+}
+
+
+/*========= レイアウトのためのCSS ===============*/
+
+
+body{
+  background:#ECF2FC;
+}
+
+h1{
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 2rem;
+  margin:30px 0;
+}
+
+.lead{
+  padding: 20px;
+  text-align: center;
+}
+
+.box{
+  max-width:600px;
+  width:100%;
+  margin:100px auto 330px auto;
+  padding: 20px;
+  background:#fff;
+  text-align: center;
+}
+@charset "utf-8";
+
+/*==================================================
+スライダーのためのcss
+===================================*/
+.slider {/*横幅94%で左右に余白を持たせて中央寄せ*/
+    width:94%;
+    margin:0 auto;
+}
+
+.slider img {
+    width:60vw;/*スライダー内の画像を60vwにしてレスポンシブ化*/
+    height:auto;
+}
+
+.slider .slick-slide {
+  transform: scale(0.8);/*左右の画像のサイズを80%に*/
+  transition: all .5s;/*拡大や透過のアニメーションを0.5秒で行う*/
+  opacity: 0.5;/*透過50%*/
+}
+
+.slider .slick-slide.slick-center{
+  transform: scale(1);/*中央の画像のサイズだけ等倍に*/
+  opacity: 1;/*透過なし*/
+}
+
+
+/*矢印の設定*/
+
+/*戻る、次へ矢印の位置*/
+.slick-prev, 
+.slick-next {
+    position: absolute;/*絶対配置にする*/
+    top: 42%;
+    cursor: pointer;/*マウスカーソルを指マークに*/
+    outline: none;/*クリックをしたら出てくる枠線を消す*/
+    border-top: 2px solid #666;/*矢印の色*/
+    border-right: 2px solid #666;/*矢印の色*/
+    height: 15px;
+    width: 15px;
+}
+
+.slick-prev {/*戻る矢印の位置と形状*/
+    left: -1.5%;
+    transform: rotate(-135deg);
+}
+
+.slick-next {/*次へ矢印の位置と形状*/
+    right: -1.5%;
+    transform: rotate(45deg);
+}
+
+/*ドットナビゲーションの設定*/
+
+.slick-dots {
+    text-align:center;
+  margin:20px 0 0 0;
+}
+
+.slick-dots li {
+    display:inline-block;
+  margin:0 5px;
+}
+
+.slick-dots button {
+    color: transparent;
+    outline: none;
+    width:8px;/*ドットボタンのサイズ*/
+    height:8px;/*ドットボタンのサイズ*/
+    display:block;
+    border-radius:50%;
+    background:#ccc;/*ドットボタンの色*/
+}
+
+.slick-dots .slick-active button{
+    background:#333;/*ドットボタンの現在地表示の色*/
+}
+
+
+/*========= レイアウトのためのCSS ===============*/
+
+body{
+  background:#eee;
+}
+
+h2,p {
+    text-align:center;
+    padding:20px;
+}
+
+ul{
+  margin:0;
+  padding: 0;
+  list-style: none;
+}
+
+a{
+  color: #333;
+}
+
+a:hover,
+a:active{
+  text-decoration: none;
+}

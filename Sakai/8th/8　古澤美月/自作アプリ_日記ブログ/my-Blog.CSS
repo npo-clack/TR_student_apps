@@ -1,0 +1,126 @@
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  font-size: 2em; /* 基本のフォントサイズを2倍に設定 */
+}
+
+header {
+  background-color: #333;
+  color: white;
+  padding: 1rem 0;
+  text-align: center;
+}
+
+header nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+header nav ul li {
+  display: inline;
+  margin: 0 15px;
+}
+
+header nav ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+main {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 0 20px;
+}
+
+.articles {
+  width: 70%;
+}
+
+.articles article {
+  background: white;
+  margin-bottom: 20px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.articles article h2 {
+  margin: 0 0 10px;
+}
+
+.articles article p {
+  margin: 0 0 10px;
+}
+
+.articles article img {
+  width: 100%;
+  height: auto;
+  margin: 10px 0;
+}
+
+.articles article a {
+  display: block;
+  text-align: right;
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+aside {
+  width: 25%;
+}
+.profile, .ranking, .archive {
+  margin-bottom: 20px;
+}
+
+aside section {
+  background:
+}
+
+ul{
+  padding-left:0;
+}
+
+li{
+  list-style:none;
+}
+
+/* メディアクエリでスタイルを調整 */
+@media (min-width: 1200px) {
+  body {
+    font-size: 18px;
+  }
+
+  .articles article img {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 1199px) {
+  body {
+    font-size: 16px;
+  }
+
+  .articles article img {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  body {
+    font-size: 14px;
+  }
+
+  main {
+    flex-direction: column;
+  }
+
+  .articles, aside {
+    width: 100%;
+  }
+}

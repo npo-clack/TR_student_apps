@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>document</title>
+  <link rel="stylesheet" href="game.css">
+</head>
+<body>
+  <!-- スタート画面 -->
+  <div id="startScreen">
+    <img id="startImage" src="スタート画面.png" alt="Start Screen">
+</div>
+
+<!-- ゲームコンテンツ（非表示にする） -->
+<div id="gameContent" style="display: none;">
+    <!-- ゲームのキャンバスやその他のコンテンツ -->
+    <canvas id="gameCanvas" width="768" height="672"></canvas>
+</div>
+
+  <!-- BGM -->
+  <audio id="bgm" src="地上 BGM.mp3" loop></audio>
+
+  <canvas id="canvas"></canvas>
+  <script src="game.js"></script>
+</body>
+</html>
