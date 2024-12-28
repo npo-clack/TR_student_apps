@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safari Alarm with Sound</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="icon-192x192.png" sizes="192x192">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            background-color: #f5ecf4;
+        }
+        .container {
+            padding: 20px;
+            margin-top: 50px;
+        }
+        input[type="time"] {
+            padding: 10px;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            background-color: #de82a7;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #d04f97;
+        }
+    </style>
+</head>
+<body>
+   
+    <div class="container">
+        <h1>Alarm to welcome the morning as comfortable as passible</h1>
+        <p>Select a time and click "Set Alarm".</p>
+        <input type="time" id="alarmTime">
+        <button onclick="setAlarm()">Set Alarm</button>
+        <p id="status"></p>
+    </div>
+    <div class="real">
+     <p id="realtime"></p>
+    </div>
+    <script src="script.js"></script>
+    <div class="items" id="items">
+        <li><img src="images/PDECODK01010.gif"></li>
+        <marquee>The clock is ticking</marquee>
+    </div>
+</body>
+</html>
+    

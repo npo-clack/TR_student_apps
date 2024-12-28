@@ -1,0 +1,103 @@
+body{
+    font-family:"Avenir Next";
+    margin: 0px;
+    background-color: #E0EDEB;
+    }
+
+.header{   
+ background-color: #E0EDEB;
+ height: 100px;
+}
+.header-logo{
+    color:#625858 ;
+    font-size: 100px;
+    /* float: left; */
+    padding: 0px 40px;
+}
+
+.main{
+background-color: #E0EDEB;
+/* height: 500px; */
+}
+
+.w-60.py-100.copy-container{
+  padding-top: 20px;
+  padding-bottom: 0px;
+  color: #625858;
+}
+.w-60.py-100.copy-container h1{
+    margin-left: 20px;
+}
+.w-40.py-100.copy-container{
+    padding-top: 20px;
+   padding-bottom:70px;
+   color: #625858;
+}
+
+.copy-container h1{
+    padding: 0px 50px 20px 50px; 
+    margin: 0px;
+    font-size: 38px;
+}
+.copy-container h2{
+    padding: 0px;
+    font-size: 38px;
+    margin: 0px;
+    
+}
+.copy-container h2{
+    padding: 10px 20px 10px 30px;
+    font-size: 38px;
+    margin: 0px;  
+}
+.copy-container h3{
+    padding: 10px 20px 10px 30px;
+    font-size: 38px;
+    margin: 0px;
+}
+.copy-container h4{
+    padding: 10px 20px 10px 30px;
+    font-size: 38px;
+    margin: 0px;
+}
+.copy-container h5{
+    padding: 30px 20px 10px 30px;
+    font-size: 27px;
+    margin: 0px;
+}
+.copy-container h6{
+    padding: 10px 20px 10px 0px;
+    font-size:27px;
+    margin: 0px;
+    /* float: right; */
+}
+.copy-container h6 p{
+    font-size:27px;
+    margin-top: 50px;
+}
+
+.flex{
+    display: flex;
+}
+
+.w-40{
+    width: 40%;
+}
+.w-60{
+    width: 60%;
+}
+.py-100{
+    padding-top:100px ;
+    padding-bottom: 100px;
+}
+
+.footer{
+background-color:#2f5167;
+height: 200px;
+}
+.footer-logo{
+    color:#ffffff ;
+    font-size: 30px;
+    float: right;
+    padding: 50px 50px 20px 20px;
+}

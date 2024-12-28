@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Let's raise stuffed animals!</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Kiwi+Maru&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f8ff;
+    }
+    .game-container {
+      text-align: center;
+      max-width: 90%;
+    }
+    #logo img {
+      max-width: 70%;
+      height: auto;
+    }
+    #character-selection {
+      display: flex;
+      justify-content: space-around;
+      margin: 20px 0;
+    }
+    .character {
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .character img {
+      max-width: 100px;
+      height: auto;
+      border: 2px solid transparent;
+      border-radius: 10px;
+    }
+    .character.selected img {
+      border-color: #e1fdff;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      background-color: #42a5f5;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #1e88e5;
+    }
+  </style>
+  <script>
+    let selectedCharacter = '';
+    function selectCharacter(character) {
+      selectedCharacter = character;
+      document.querySelectorAll('.character').forEach(el => el.classList.remove('selected'));
+      document.getElementById(character).classList.add('selected');
+    }
+    function startGame() {
+      if (selectedCharacter) {
+        localStorage.setItem('selectedCharacter', selectedCharacter);
+        window.location.href = 'index2.html';
+      } else {
+        alert('キャラクターを選択してください！');
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="game-container">
+    <div id="logo">
+      <img src="images/ロゴ.png" alt="ゲームロゴ">
+    </div>
+    <div id="character-selection">
+      <div class="character" id="うさぎ" onclick="selectCharacter('うさぎ')">
+        <img src="images/うさぎ.jpeg" alt="うさぎ">
+      </div>
+      <div class="character" id="くま" onclick="selectCharacter('くま')">
+        <img src="images/くま.jpeg" alt="くま">
+      </div>
+      <div class="character" id="ねこ" onclick="selectCharacter('ねこ')">
+        <img src="images/ねこ.jpeg" alt="ねこ">
+      </div>
+    </div>
+    <button onclick="startGame()">スタート</button>
+  </div>
+</body>
+</html>

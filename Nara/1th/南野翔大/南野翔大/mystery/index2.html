@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="">
+    
+    <title>ナゾ解きゲーム~解決~</title>
+</head>
+
+
+<body>
+
+    <button onclick="plusA()" class="plus-a">+</button>
+
+    <button class="text-button" onclick="Texts()" id="textButton" style="display: none;">&#x1F4DC;物語　</button>
+    <button class="check-button" onclick="check()" id="checkButton" style="display: none;">&#x1F50D;解説　</button>
+    <button class="top" onclick="Top()">&#x1F446;トップ</button>
+    <button class="bottom" onclick="Bottom()">&#x1F447;ボトム</button>
+
+
+    <button class="map-next" onclick="mapNext()" id="mapNextButton" style="display: none;">&#x1F9ED;マップ</button>
+    <div class="image-container" id="imageContainerNext" style="display: none;">
+        <button class="map-close" onclick="mapCloseNext()" id="mapCloseNext">閉じる</button>   
+        <img src="ナゾ解きゲーム画像2.png"> 
+    </div>
+
+    <button class="hint-next" onclick="hintNext()" id="hintNextButton"  style="display: none;">&#x1F4A1;ヒント</button>
+    <div class="hint-container" id="hintContainerNext" style="display: none;">
+        <button class="hint-close" onclick="hintCloseNext()" id="hintCloseNext">閉じる</button>
+        <div class="hintbody" id="hintBodyNext">
+            <ul>
+                <li>1.選択問題に答えるときは、物語の書かれた四角内にあるボタンを押してください。</li>
+                <li>2.間違った選択をするとトップページに戻ります。</li>
+                <li>3.「&#x1F9ED;マップ」を押すと事件現場付近のマップが表示できます。</li>
+                <li>4.「&#x1F4DD;メモ」を押すとメモをとることができます。再読み込みをしない限り保存されます。</li>
+                <li>5.新たに知ったことはメモをしておいてください。特に時間関係が重要です。</li>
+                <li>6.物語の初めに書かれた[]内の名前の人物が物語の視点の人物です。</li>
+                <li>7.最後に犯人を推理します。「犯人を決める」ボタンを押して推理してください。</li>
+                <li>8.(解決後)「&#x1F4DC;物語」を押すとすべての物語の文章を確認できます。</li>
+                <li>9.(解決後)「&#x1F50D;解説」を押すと最終的な答えを知ることができます。</li>
+                <li>10.マップのイラストは正しいとは限りません。</li>
+                <li>11.「&#x1F52E;おみくじを引く」で心を落ち着けよう。</li>
+            </ul>
+        </div>
+    </div>
+
+
+    <header>
+        <div class="header">
+            <a href="index.html" class="header-title" target="_blank">ナゾ解きゲーム</a>
+            </div>
+    </header>
+
+
+    <div class="result">
+    <div class="move">お疲れさまでした。無事ナゾを解くことができました!</div><br> 
+    おみくじで遊んだり、ミステリー小説・ホラー小説を紹介している
+    サイトを見たりすることができます!<br>
+    「&#x1F447;ボトム」を押して
+    おみくじで遊ぶ&サイトを見てみて下さい。<br><br>
+    また、物語の文章と解説を確認できます。<div class="radius">+</div>を押してください。<br>
+    </div>
+
+    <div class="back">  
+
+        <div class="text" id="textBody" style="display: none;">
+
+                    <details><summary>物語2</summary>
+                    <p  class="text-list">
+                    1章<br><br>
+                    ある山の森の中に井戸がありました。<br>
+                    井戸の横には一つの死体がありました。<br>
+                    死因は背後からの撲殺だと確認されました。<br>
+                    犯行現場は死体発見現場です。<br>
+                    井戸に使われていた石が凶器だと判明したからです。<br>
+                    その森の近くに旅館がありました。<br>
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語3(問題)</summary>
+                    <p class="text-list">
+                    死体が発見されたのはどこですか。<br>
+                    A:森の中　　　B:旅館の中<br>
+                    答:A
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語4</summary>
+                    <p class="text-list">
+                    死体を発見したのはその旅館の管理人Xでした。<br>
+                    森の中の井戸はその旅館のもので、管理人Xはその確認をしに来たところでした。<br>
+                    管理人Xが死体を発見したのは12月2日の12:00です。<br>
+                    旅館からその井戸までは往復で30分かかってしまいます。<br>
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語5(問題)</summary>
+                    <p class="text-list">
+                    死体を発見したのは誰ですか。<br>
+                    A:山に来たハイカー　　　B:旅館の管理人<br>
+                    答:B<br>
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語6</summary>
+                    <p class="text-list">
+                    今はその旅館は廃業していて、管理人Xが管理しているのみです。<br>
+                    旅館がたてられた理由はその山はブナの紅葉がきれいだからです。<br>
+                    観光客のためにその旅館は建てられました。<br>
+                    山の麓から閉業した旅館までは道がつながっています。<br>
+                    徒歩で麓から旅館まで1時間30分かかります。<br>
+                    徒歩で登って1時間の地点で道が二手にわかれます。<br>
+                    二手に分かれた道は旅館で再び一つに合わさります。
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語7</summary>
+                    <p class="text-list">
+                    管理人Xが発見した死体の死亡推定時刻は11月30日の14:45~15:15です。<br>
+                    11月30分の15:00頃、旅館には大学生が数名いました。<br>
+                    大学生が集まっていた理由はその廃業した旅館で肝試しをするためです。<br>
+                    大学生は全員で4人でした。<br>
+                    4人だったため、肝試しの途中で誰かがいなくなったことはあり得ません。
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語8(問題)</summary>
+                    <p class="text-list">
+                    麓から旅館への道はいつ二つに分かれますか。<br>
+                    A:徒歩で1時間地点　　　B:徒歩で30分地点<br>
+                    答:A
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語9(問題)</summary>
+                    <p class="text-list">
+                    大学生たちが旅館にいたのはなぜですか。<br>
+                    A:肝試しをしていた　　　B:紅葉を見に来た<br>
+                    答:A
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語10</summary>
+                    <p class="text-list">
+                    2章<br><br>
+                    大学生4人は、<br>
+                    ・大学生A<br>
+                    ・大学生B<br>
+                    ・大学生C<br>
+                    ・大学生Dです。<br>
+                    森の中で発見された死体は大学生Aのアルバイト先の大学生Pでした。
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語11(問題)</summary>
+                    <p class="text-list">
+                    つまり、犯人はどういうことですか。<br>
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語12</summary>
+                    <p class="text-list">
+                    大学生Pはキノコ採りが趣味でした。<br>
+                    キノコ採りをし始めてまだ1カ月しかたっていないので知識はあまりありません。<br>
+                    11月のキノコにはヒラタケがあります。
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語13(問題)</summary>
+                    <p class="text-list">
+                    大学生Pの趣味は何ですか。<br>
+                    A:ヒラタケ採り　　　B:キノコ採り<br>
+                    答:B<br>
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語14</summary>
+                    <p class="text-list">
+                    [大学生A]<br>
+                    アルバイトは弁当屋の調理器具を洗うというものです。<br>
+                    手がずっと濡れているから手がよく荒れてしまいます。<br>
+                    洗い終わったらすぐに手を拭いたほうがいいと弁当屋の先輩にアドバイスしてもらいました。<br>
+                    だから、青色のハンカチで手を拭きます。<br>
+                    青色のハンカチは大切な人に名前を刺繍してもらったとても大切なものです。
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語15(問題)</summary>
+                    <p class="text-list">
+                    大学生Pのハンカチは何色ですか。<br>
+                    A:わかりません　　　B:青色<br>
+                    答:A
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語16</summary>
+                    <p class="text-list">
+                    大学生4人は地元で話題の廃旅館へ肝試しへ行くことになりました。<br>
+                    しかし、大学生Cは旅館への途中に道に迷いました。<br>
+                    大学生Cが道に迷ったのは旅館に向かって山を登り始めた1時間後です。<br>
+                    登り始めた時間は全員が確認しています。<br>
+                    登り始めた時間は13:30だと全員が確認しました。
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語17</summary>
+                    <p class="text-list">
+                    15:00頃ちょうど旅館でほかの3人と合流することができました。<br>
+                    大学生C以外の3人は一緒に旅館に向かいました。<br>
+                    山の麓から旅館までは歩いて1時間30分で行くことができます。<br>
+                    ちょうど1時間30分で着けたことが時計で確認できています。<br>
+                    全員車は運転できません。
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語18(問題)</summary>
+                    <p class="text-list">
+                    大学生4人は何時に山を登り始めたと思っていますか。<br>
+                    A:13:00　　　B:13:30<br>
+                    答:B<br>
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語19(問題)</summary>
+                    <p class="text-list">
+                    車を運転できるのは誰ですか。<br>
+                    A:全員できる　　　B:全員できない<br>
+                    答:B<br>
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語20</summary>
+                    <p class="text-list">
+                    [大学生D]<br>
+                    旅館に入った後、電話がかかってきたと言って旅館の外にでました。<br>
+                    電話は自分のの母からで、晩御飯についてでした。<br>
+                    電話の着信時刻は15:05から15分間です。<br>
+                    自分の母は電話が長いんです。<br>
+                    旅館から死体発見現場までは往復30分かかるから、犯行は不可能です。
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語21</summary>
+                    <p class="text-list">
+                    [大学生B]<br>
+                    肝試しに行くことになって緊張感を高めるためにスマホは全員家に置いていくことにしました。<br>
+                    だから、大学生Dが電話がかかってきたから外へ出ると言われたときはびっくりしました。<br>
+                    スマホは持っていないはずだったからです。<br>
+                    でも山の中だったから圏外のはずです。<br>
+                    時間は大学生Aの腕時計を見て確認できました。<br>
+                    腕時計を持ってきていたのは大学生Aだけです。<br>
+                    おばあちゃんにもらった時計だそうです。
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語22(問題)</summary>
+                    <p class="text-list">
+                    古い腕時計なら時間が狂うこともありますよね。<br>
+                    A:あります　　　B:ありません<br>
+                    答:A<br>
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語23</summary>
+                    <p class="text-list">
+                    [大学生D]<br>
+                    道に迷うのが怖かったからスマホはこっそり持っていきました。<br>
+                    旅館に着いて肝試しを始めたけれど怖かったから電話がかかってきたことにして外にでました。<br>
+                    大学生Aが驚いた顔をしていて、スマホを置いていく約束をしたことを思い出しました。
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語24</summary>
+                    <p class="text-list">
+                    3章<br><br>
+                    2019年11月の新聞記事<br>
+                    今月20日午後8時ごろ、N県志村市の国道○号線で歩道に乗用車が突っ込む事故があった。<br>
+                    そのとき歩道には同市中学2年生のCさん(14)と70代の女性が歩いており、女性は車に撥ねられて死亡した。中学生にけがはなかった。<br>
+                    県警はこの時乗用車を運転していた職業不詳の男(41)を過失運転致死の疑いで現行犯逮捕した。
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語25(問題)</summary>
+                    <p class="text-list">
+                    疲れたので休憩問題<br>
+                    国道の標識の形はどちらですか。<br>
+                    A:○　　　B:▽<br>
+                    答:B<br>
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語26</summary>
+                    <p class="text-list">
+                    2019年度6月の志村中学校の2年生の修学旅行は近畿方面になりました。<br>
+                    2日目に京都府へ行きます。<br>
+                    その時に立ち寄るお土産屋では青色のハンカチが有名です。<br>
+                    修学旅行に来た生徒の多くはそこで青色のハンカチを買っていきます。
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語27(問題)</summary>
+                    <p class="text-list">
+                    志村中学校は何県にありますか。<br>
+                    A:N県　　　B:X県<br>
+                    答:A<br>
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語28</summary>
+                    <p class="text-list">
+                    [ある弁当屋の防犯カメラ]2024年11月21日<br>
+                    大学生A「ハンカチがない」<br>
+                    一緒に探す大学生P。
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語29</summary>
+                    <p class="text-list">
+                    大学生Aがハンカチをなくした2日後。<br>
+                    大学生Aと大学生Pのアルバイト先の弁当屋では調理器具を手洗いでしています。<br>
+                    洗うためにスポンジが必要です。<br>
+                    先週、その弁当屋では大学生Pが新しいスポンジを用意しました。<br>
+                    よくある青のスポンジです。<br>
+                    大学生Pは店内清掃をアルバイトでしています。<br>
+                    店内をきれいにするためにスポンジも新しくしました。
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語30(問題)</summary>
+                    <p class="text-list">
+                    大学生Pが変えたスポンジは何色ですか。<br>
+                    A:青色　　　B:わかりません<br>
+                    答:A<br>
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語31</summary>
+                    <p class="text-list">
+                    [大学生C]<br>
+                    今月の24日だったと思います。<br>
+                    大学生Aが「大学生Pが青色のハンカチを使っている」と言ってきました。<br>
+                    大事なハンカチだから、「許せない、殺してもよい」とも言ってきました。<br>
+                    祖母に名前を刺繍してもらったそうです。<br>
+                    大学生Aの祖母は車に撥ねられて亡くなりました。<br>
+                    大学生Aにとって青色のハンカチは祖母の形見なのです。
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語32</summary>
+                    <p class="text-list">
+                    2020年4月の新聞記事<br>
+                    昨年11月にN県志村市の国道○号線で歩道に乗用車が突っ込む事故があった。<br>
+                    そのとき歩道には中学生と70代の女性が歩いていたのだが、女性が中学生を助けて犠牲となった。N県は亡くなった女性に感謝状を授与した。<br>
+                    助けてもらった中学生は、「一生をかけてこの恩を返したい」と語った。
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語33(問題)</summary>
+                    <p class="text-list">
+                    2020年4月の新聞記事は何年何月の新聞のことを言っていますか。<br>
+                    A:2019年6月　　　B:2019年11月<br>
+                    答:B<br>
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語34</summary>
+                    <p class="text-list">
+                    [大学生　]<br>
+                    「一生をかけてこの恩を返したい」と語った。<br>
+                    大学生Aは大学生Pの殺害を頼みました。<br>
+                    断ることができませんでした。<br>
+                    どうしたらいいだろう?
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語35(問題)</summary>
+                    <p class="text-list">車に撥ねられた女性と助けられた中学生は家族ですか。<br>
+                    A:家族ではない...　　　B:祖母、孫の関係<br>
+                    答:A<br>
+                    </p>
+                    </details><br>
+
+                    <details><summary>物語36(問題)</summary>
+                    <p class="text-list">
+                    物語はこれで終わりです。推理して犯人を突き止めてください。
+                    </p>
+                    </details><br>
+
+        </div>
+
+        <div class="check" id="checkBody" style="display: none;">
+            腕時計の時間を変えることができるのは腕時計をつけている本人だけです。<br>
+            つまり、大学生Aは腕時計の時間を変えることができました。<br>
+            事件に関係のない大学生B、大学生Dは旅館に向かい始めた時間を13:30と思っていますが、<br>
+            本当は大学生Aが時間を30分早めていたので、本当に向かい始めた時間は13:00でした。<br>
+            しかし、一人では犯行は不可能です。<br>
+            そこで大学生Aは自分の祖母が昔、大学生Cを助けたことを利用して共犯にしました。<br>
+            中学生だった大学生Cと、大学生Aの祖母が偶然同じ時間に同じ場所を通りました。<br>
+            そして事故が起こりました。<br>
+            大学生Aの祖母は咄嗟に中学生だった大学生Cを突き飛ばしました。<br>
+            共犯者を作れば、大学生Aがアリバイを作ることもできます。<br>
+            また、大学生Pと関係のない大学生Cは疑われにくいですよね。
+            ブナの近くにヒラタケが生えるので、大学生Cはそれを使いました。<br>
+            ヒラタケが多く生えている森を知っていると言って大学生Cは大学生Pを呼びよせました。<br>
+            大学生Cと大学生Pが集合したのは地元で話題の廃旅館の前でした。11月30日の14:30、2人は合流しました。<br>
+            大学生Pが遅れてこないように30分早い時間を大学生Cは伝えていました。<br>
+            大学生Pは14:00に旅館に着きました。大学生Pは先に着いていました。<br>
+            大学生Cは大学生Pを連れて、ちょうど30分で廃旅館から犯行現場の井戸へ行き、殺人をして、戻ってきました。<br>
+            大学生Dが外に出ると言ったとき、大学生Aが驚いた顔をしていたのは、<br>
+            大学生Aが犯行がばれるのではないかと思ったからです。<br>
+            ちなみに2019年事故を起こした男は、今は管理人をやっています。
+
+        </div>
+        
+    </div>      
+
+    <div class="linkbox">
+    [引用]<br>
+            <a href="https://www.google.com/search?q=%E3%81%A4%E3%81%BE%E3%82%8A%E7%8A%AF%E4%BA%BA%E3%81%AF%E3%81%A9%E3%81%86%E3%81%84%E3%81%86%E3%81%93%E3%81%A8%E3%81%A7%E3%81%99%E3%81%8B+%E6%B0%B4%E3%83%80%E3%82%A6&sca_esv=1e524b6a6f16a247&udm=2&biw=1517&bih=703&sxsrf=ADLYWILHQ2Yw8-PMejiIRG1ko7A6Hb7Y9Q%3A1734828770349&ei=4mJnZ7v_FJHi2roP5sXZgQg&oq=&gs_lp=EgNpbWciACoCCAQyBxAjGCcY6gIyBxAjGCcY6gIyBxAjGCcY6gIyBxAjGCcY6gIyBxAjGCcY6gIyBxAjGCcY6gIyBxAjGCcY6gIyBxAjGCcY6gIyBxAjGCcY6gIyBxAjGCcY6gJIiS1QrhdYrhdwAngAkAEAmAEAoAEAqgEAuAEByAEA-AEBmAIBoAIJqAIKmAMJiAYBkgcBMaAHAA&sclient=img#vhid=vHhsMUsH-itgZM&vssid=mosaic" class="link" target="_blank">犯人はどういうことですか</a>
+            </div>
+
+
+    <script src="script.js"></script>
+
+
+    <footer id="footer">
+        <div class="footer" id="footer">
+    
+            <div class="footer-list">
+                おみくじを引いて心を落ち着けよう<br>
+                    <button onclick="Omikuji();" class="omikujibutton">&#x1F52E;おみくじを引く</button>
+                あなたの運勢は<span id="omikujiResult">...</span>です!
+                <br><br>
+                このゲームをプレイしてもっと本が読みたくなった人向け
+                <br><a href="file:///C:/Users/TR1086/OneDrive/%E3%83%87%E3%82%B9%E3%82%AF%E3%83%88%E3%83%83%E3%83%97/%E6%96%B0%E3%81%97%E3%81%84%E3%83%95%E3%82%A9%E3%83%AB%E3%83%80%E3%83%BC/profile/index.html"
+                target="_blank">小説紹介サイト</a><br>ミステリー小説、ホラー小説を紹介
+            </div>
+    
+            <div class="footer-name">ナゾ解きゲーム
+                <li>2024.12.22</li>
+            </div>
+        
+        </div>
+    </footer>
+
+</body>
+
+</html>

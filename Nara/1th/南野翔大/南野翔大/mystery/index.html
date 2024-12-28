@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="icon" href="">
+    
+    <title>ナゾ解きゲーム</title>
+</head>
+
+
+<body>
+
+
+    <header id="top">
+        <div class="header">ナゾ解きゲーム</div>
+    </header>
+
+
+    <button onclick="plus()" class="plus">+</button>
+
+    <button class="map" id="map" style="display: none;">&#x1F9ED;マップ</button>
+    <div class="image-container" id="imageContainer" style="display: none;">
+        <button class="map-close" id="mapClose">閉じる</button>   
+        <img src="ナゾ解きゲーム画像2.png"> 
+        <a href="index2.html" class="index2" target="_blank">解決</a> 
+    </div>
+
+    <button class="memo" id="memoButton"  style="display: none;">&#x1F4DD;メモ　</button>
+    <div class="memo-container" id="memoContainer" style="display: none;">
+        <button class="memo-close" id="memoClose">閉じる</button>
+        <div class="memobody" id="memoBody">   
+            <textarea id="memo">
+                判明したことを記しておこう
+            </textarea>
+        </div> 
+    </div>
+
+    <button class="hint" id="hint"  style="display: none;">&#x1F4A1;ヒント</button>
+    <div class="hint-container" id="hintContainer" style="display: none;">
+        <button class="hint-close" id="hintClose">閉じる</button>
+        <div class="hintbody" id="hintBody">
+            <ul>
+                <li>1.選択問題に答えるときは、物語の書かれた四角内にあるボタンを押してください。</li>
+                <li>2.間違った選択をするとトップページに戻ります。</li>
+                <li>3.「&#x1F9ED;マップ」を押すと事件現場付近のマップが表示できます。</li>
+                <li>4.「&#x1F4DD;メモ」を押すとメモをとることができます。再読み込みをしない限り保存されます。</li>
+                <li>5.新たに知ったことはメモをしておいてください。特に時間関係が重要です。</li>
+                <li>6.物語の初めに書かれた[]内の名前の人物が物語の視点の人物です。</li>
+                <li>7.最後に犯人を推理します。「犯人を決める」ボタンを押して推理してください。</li>
+                <li>8.(解決後)「&#x1F4DC;物語」を押すとすべての物語の文章を確認できます。</li>
+                <li>9.(解決後)「&#x1F50D;解説」を押すと最終的な答えを知ることができます。</li>
+                <li>10.マップのイラストは正しいとは限りません。</li>
+                <li>11.「&#x1F52E;おみくじを引く」で心を落ち着けよう。</li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div class="back">
+
+        <div class="problem">
+            <div class="problemtext">
+
+                <div class="problembutton">
+                    <button class="problem-backbutton" id="problemBack" >
+                        &#x1F448;前の文章
+                    </button>
+
+                    <button class="problem-nextbutton" id="problemNext"> 
+                        次の文章&#x1F449;
+                    </button>
+                </div>    
+                
+
+                <div id="problem-title">
+                    物語1
+                </div>
+                    <br>
+                <div id="problem-body">
+                    こんにちは!<br>まずはこのゲームのルールを確認してください。<br>
+                    「<div class="radius">+</div>」を押してください。
+                    「&#x1F4A1;ヒント」を押すことでヒントやルールを見ることができます。
+                    <br>次の物語からゲームが始まります。「次の文章&#x1F449;」を押してください。
+                </div>
+            </div>
+        </div>
+
+        <div class="answerbutton" id="AnswerButton" style="display: none;">
+            <div class="lastbutton">犯人はお前だ‼</div>
+            <button class="lastbuttons" id="answerLeft" onclick="ProblemF()">
+                    A
+            </button>
+
+            <button class="lastbuttons" id="answerLeft2" onclick="ProblemF()">
+                    B
+            </button>
+
+            <button class="lastbuttons" id="answerRight2" onclick="Result()">
+                    C
+            </button>
+
+            <button class="lastbuttons" id="answerRight" onclick="ProblemF()">
+                    D
+            </button>
+        </div>
+
+
+    </div>
+
+
+        <script src="script.js"></script>
+
+
+<footer>
+    <div class="footer" id="footer">
+
+        <div class="footer-list">
+            おみくじを引いて心を落ち着けよう<br>
+                <button onclick="Omikuji();" class="omikujibutton">&#x1F52E;おみくじを引く</button>
+            あなたの運勢は<span id="omikujiResult">...</span>です!
+            <br><br>
+            このゲームをプレイしてもっと本が読みたくなった人向け
+            <br><a href="file:///C:/Users/TR1086/OneDrive/%E3%83%87%E3%82%B9%E3%82%AF%E3%83%88%E3%83%83%E3%83%97/%E6%96%B0%E3%81%97%E3%81%84%E3%83%95%E3%82%A9%E3%83%AB%E3%83%80%E3%83%BC/profile/index.html"
+            target="_blank">小説紹介サイト</a><br>ミステリー小説、ホラー小説を紹介
+        </div>
+
+        <div class="footer-name">ナゾ解きゲーム
+            <li>2024.12.22</li>
+        </div>
+    
+    </div>
+</footer>
+
+
+</body>
+</html>

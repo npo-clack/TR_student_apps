@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>カウントアップ・カウントダウン</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        
+        .display-button {
+            display: flex;
+            /* ボタンを中央揃え */
+            justify-content: center;
+            /* ボタン同士の間隔 */
+            gap: 10px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>カウント: <span id="count">0</span></h1>
+    <div>
+        <button id="increment">カウントアップ</button>
+        <button id="decrement">カウントダウン</button>
+    </div>
+    <div class="display-button">
+        <button id="buttonA">A ボタン</button>
+        <button id="buttonB" onClick="visibleButtonA()">B ボタン</button>
+    </div>
+    <script>
+        let count = 0;
+        let hiddenTargetNumbers = [3, 5, 7];
+        const countDisplay = document.getElementById('count');
+        const buttonA = document.getElementById('buttonA');
+        const buttonB = document.getElementById('buttonB');
+        document.getElementById('increment').addEventListener('click', () => {
+            count++;
+            updateDisplay();
+        });
+        document.getElementById('decrement').addEventListener('click', () => {
+            count--;
+            updateDisplay();
+        });
+        function updateDisplay() {
+            countDisplay.textContent = count;
+            if (hiddenTargetNumbers.indexOf(count) >= 0) {
+                buttonA.classList.add('hidden');
+            }
+        }
+        function visibleButtonA() {
+            buttonA.classList.remove('hidden');
+        }
+        // 初期状態を設定
+        updateDisplay();
+    </script>
+</body>
+</html>

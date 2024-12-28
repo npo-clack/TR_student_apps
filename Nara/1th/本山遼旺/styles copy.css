@@ -1,0 +1,121 @@
+/* Reset styles for consistent behavior */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color:antiquewhite
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #00000062;
+    background-image: url(https://i.pinimg.com/originals/21/7d/a2/217da299cc918fad9b76eb99e4bb75b3.gif);
+    background-attachment: fixed;
+    background-position: center;
+    background-size: 100%;
+  }
+  header{
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 10px;
+    margin-left: 100px;
+    margin-right: 100px;
+    top: 0; 
+    background: #0d0a0f;
+    border: #ddd;
+    border-radius: 2px;
+    border-style: solid;
+    border-width: 2px;
+
+
+  }
+
+
+  .main-content {
+    margin-left: 50px; /* Space for the left sidebar */
+    margin-right: 50px; /* Space for the right sidebar */
+    margin-top:10px;
+    padding: 20px;
+   
+    background-color: #0d0a0f;
+    border-radius: 2px;
+    border: 3px solid;
+    border-color: blueviolet;
+  }
+.slider {
+  display: inline-flex;
+  position: relative;
+  width: 350px;
+  height: auto;
+  overflow: hidden;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.image-container {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: 100%;
+  height: 100%;
+}
+
+.slide {
+  min-width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 1;
+  border-radius: 50%;
+}
+
+.left-arrow {
+  left: 10px;
+}
+
+.right-arrow {
+  right: 10px;
+}
+
+.arrow:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.modal-text{
+  resize: none;
+  display: inline-flex;
+  background-color: black;
+  background-size:auto;
+  font-family: "DotGothic16";
+  font-weight: 400;
+  font-style: normal;
+  }
+  
+
+.image{
+  padding: 20px;
+  bottom: auto;
+  background-color:black;
+  display:inline-block;
+  align-items: flex-end;
+  text-align: center;
+  
+}
+.text1{
+  text-align: center;
+  font-weight: bold;
+}
+
+.container{
+  display: flex;
+}

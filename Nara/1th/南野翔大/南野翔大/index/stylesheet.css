@@ -1,0 +1,172 @@
+body {
+    font-family: "Avenir Next";
+  }
+  
+  li {
+    list-style: none;
+  }
+  
+  .header {
+    background-image:url("book.jpeg") ;
+    color: #fff;
+    height: 150px;
+  }
+  
+  .header-logo {
+    float: left;
+    font-size: 40px;
+    padding: 20px 40px;
+  }
+  
+  .header-list li {
+    float: right;
+    font-size:20px;
+    padding: 33px 20px;
+  }
+  
+  .top {
+    display: inline-block;
+    border:3px double #000000;
+    border-radius: 50%;
+    position:fixed;
+    padding:10px;
+    bottom:10px;
+    right: 10px;
+  }
+
+  .main {
+    padding:30px 100px;
+  }
+  
+  .copy-container {
+    font-size:50px;
+  }
+  
+  .copy-container span {
+    color: #695ff8;
+  }
+  
+  .contentsA {
+    height: 100px;
+    margin-top: 30px;
+  }
+
+  .contentsB {
+    height: 500px;
+    margin-top: 30px;
+  }
+
+  .contentsC{ height: 500px;
+    margin-top: 30px;
+  }
+
+  .bookm-itemA{
+    border-bottom:5px double #000000;
+    float: bottom;
+    margin: 50px;
+  }
+
+  .bookm-itemB{
+    border-bottom:5px double #000000;
+    float: bottom;
+    margin: 50px;
+  }
+
+  .contentsD{ height: 300px;
+    margin-top: 30px;
+  }
+
+  .bookh-itemA{
+    border-bottom:5px double #000000;
+    float: bottom;
+    margin: 50px;
+  }
+
+  .bookh-itemB{
+    border-bottom:5px double #000000;
+    float: bottom;
+    margin: 50px;
+  }
+
+  .contentsE{ height: 300px;
+    margin-top: 30px;
+  }
+
+  .bookt-itemA{
+    border-bottom:5px double #000000;
+    float:bottom;
+    margin:50px;
+  }
+  
+  .section-title{
+    color:#0084ff;
+    border-bottom: 2px solid #dee7ec;
+    font-size: 28px;
+    padding-bottom:5px;
+    margin-top:100px;
+  }
+
+  .contentsF{
+    height: 600px;
+    margin-top: 30px;
+
+  }
+  
+  img{width:100px;}
+
+  .contents-itemA{
+    border:5px ridge #b2f594;
+    float: bottom;
+    margin: 50px;
+  }
+
+  .contents-itemB{
+    border:5px ridge #94c6f5;
+    float: bottom;
+    margin: 50px;
+  }
+
+  .contents-itemC{
+    border:5px ridge #f594a4;
+    float: bottom;
+    margin: 50px;
+  }
+  
+  
+  .contents-itemD {
+    border:5px ridge #f5c894;
+    float:bottom;
+    margin:50px;
+  }
+
+  input,textarea{width:400px;
+    margin-top:10px;
+    margin-bottom:30px;
+    padding:20px;
+    font-size:18px;
+    border:1px solid #dee7ec;
+  }
+  
+  .contact-submit{background-color: #dee7ec;
+    color: #889eab;
+  }
+  
+  .footer {
+    background-color:#26d0c9;
+    color: #000000;
+    height: 100px;
+    padding: 40px;
+  }
+  
+  .footer-logo {
+    float: left;
+    font-size: 30px;
+  }
+  
+  .footer-list {
+    float: right;
+  }
+  
+  .footer-list li {
+    padding: 20px;
+  }

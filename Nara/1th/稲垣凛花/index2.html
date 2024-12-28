@@ -1,0 +1,53 @@
+
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>育成ゲーム</title>
+  <link rel="stylesheet" href="styles2.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Kiwi+Maru&display=swap" rel="stylesheet">
+  <script>
+    window.onload = () => {
+      const character = localStorage.getItem('selectedCharacter');
+      if (character) {
+        document.getElementById('character-image').src = `images/${character}.jpeg`;
+      }
+    };
+  </script>
+</head>
+
+<body>
+  <div class="absolute">
+    <img src="images/背景2.png">
+  </div>
+  
+  <div class="game-container">
+   <!--<h1>育成ゲーム</h1>-->
+    <div id="character">
+      <img src="images/うさぎ.jpeg" alt="キャラクター" id="character-image">
+    </div>
+
+    <div class="stats">
+      <p>満腹度: <span id="hunger">100</span></p>
+      <p>元気度: <span id="energy">100</span></p>
+      <p>幸せ度: <span id="happiness">100</span></p>
+    </div>
+
+    <div class="actions">
+      <button onclick="useItem('food')">餌をあげる</button>
+      <button onclick="useItem('toy')">おもちゃで遊ぶ</button>
+      <button onclick="sleep()">寝かせる</button>
+    </div>
+
+    <div class="inventory">
+      <h2>アイテム</h2>
+      <button onclick="addItem('food')">餌を追加</button>
+      <button onclick="addItem('toy')">おもちゃを追加</button>
+    </div>
+  </div>
+  <script src="script2.js"></script>
+</body>
+</html>

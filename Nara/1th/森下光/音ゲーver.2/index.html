@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Game</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: rgb(135, 220, 251);
+            color: rgb(255, 255, 255);
+            font-family: Arial, sans-serif;
+        }
+
+        canvas {
+            display: block;
+            margin: 0 auto;
+            background: #222;
+        }
+
+        .score {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 24px;
+        }
+
+        .game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 48px;
+            text-align: center;
+        }
+
+        .controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .controls label {
+            margin-bottom: 5px;
+            color: white;
+        }
+
+        .controls input {
+            margin-bottom: 10px;
+        }
+
+        .start-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="score">Score: <span id="score">0</span></div>
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <div class="controls">
+        <label for="speed">Note Speed:</label>
+        <input type="range" id="speed" min="1" max="20" value="5">
+        <button class="start-button" onclick="startGame()">Start Game</button>
+    </div>
+
+    <script>
+        const canvas = document.getElementById("gameCanvas");
+        const ctx = canvas.getContext("2d");
+
+        const keys = {};
+        const notes = [];
+        let score = 0;
+        let songEnded = false;
+        let gameStarted = false;
+        let noteSpeed = 5;
+
+        // Note positions and key mappings
+        const lanes = [200, 300, 400, 500];
+        const laneKeys = {
+            200: 'd', // Lane 1
+            300: 'f', // Lane 2
+            400: 'j', // Lane 3
+            500: 'k'  // Lane 4
+        };
+
+        // 評価エリアの範囲（数値は調整できます）
+        const perfectArea = { top: canvas.height - 55, bottom: canvas.height - 35 };
+        const goodArea = { top: canvas.height - 75, bottom: canvas.height - 55 };
+
+        // 評価メッセージを表示するエリア
+        let message = "";
+
+        // Create a new note with custom timing
+        function createNoteAt(lane, time) {
+            notes.push({ x: lanes[lane], y: -20, width: 50, height: 20, time });
+        }
+
+        // Draw a note
+        function drawNotes() {
+            ctx.fillStyle = "red";
+            notes.forEach(note => {
+                ctx.fillRect(note.x, note.y, note.width, note.height);
+            });
+        }
+
+        // Draw lanes
+        function drawLanes() {
+            ctx.fillStyle = "green";
+            lanes.forEach(lane => {
+                ctx.fillRect(lane, canvas.height - 60, 50, 20);
+            });
+        }
+
+        // 評価メッセージを描画する関数
+        function drawMessage() {
+            if (message) {
+                ctx.fillStyle = "yellow";
+                ctx.font = "30px Arial";
+                ctx.textAlign = "center";
+                ctx.fillText(message, canvas.width / 2, canvas.height / 2);
+                
+                // メッセージ表示後、少し時間が経ったら消す
+                setTimeout(() => {
+                    message = ""; // メッセージをリセット
+                }, 300); // 0.3秒後にメッセージを消す
+            }
+        }
+
+        // Update notes
+        function updateNotes(elapsedTime) {
+            for (let i = notes.length - 1; i >= 0; i--) {
+                const note = notes[i];
+                if (elapsedTime >= note.time) {
+                    note.y += noteSpeed;
+
+                    // ノートが評価エリアを通過した場合
+                    if (note.y > perfectArea.top && note.y < perfectArea.bottom) {
+                        // Perfectエリア
+                        if (keys[laneKeys[note.x]]) {
+                            score += 20; // Perfectの得点を追加
+                            message = "Perfect!";
+                            notes.splice(i, 1); // ノートを削除
+                        }
+                    } else if (note.y > goodArea.top && note.y < goodArea.bottom) {
+                        // Goodエリア
+                        if (keys[laneKeys[note.x]]) {
+                            score += 10; // Goodの得点を追加
+                            message = "Good!";
+                            notes.splice(i, 1); // ノートを削除
+                        }
+                    }
+
+                    // ノートが画面外に出た場合
+                    if (note.y > canvas.height) {
+                        notes.splice(i, 1); // ノートを削除
+                    }
+                }
+            }
+        }
+
+        // Show game over screen
+        function showGameOver() {
+            const gameOverDiv = document.createElement("div");
+            gameOverDiv.className = "game-over";
+            gameOverDiv.innerHTML = `Game Over!<br>Final Score: ${score}`;
+            document.body.appendChild(gameOverDiv);
+        }
+
+        // Main game loop
+        function gameLoop(startTime) {
+            const elapsedTime = (Date.now() - startTime) / 1000; // seconds
+            if (songEnded) return;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawLanes();
+            drawNotes();
+
+            // 評価メッセージを描画
+            drawMessage();
+
+            updateNotes(elapsedTime);
+
+            // Update score
+            document.getElementById("score").textContent = score;
+
+            requestAnimationFrame(() => gameLoop(startTime));
+        }
+
+        // Start game function
+        function startGame() {
+            if (gameStarted) return;
+            gameStarted = true;
+            noteSpeed = parseInt(document.getElementById("speed").value, 10);
+
+            // Define custom notes (lane, time in seconds)
+            createNoteAt(0, 1); // Lane 0 at 1 second
+            createNoteAt(1, 2); // Lane 0 at 2 seconds
+            createNoteAt(2, 3); // Lane 0 at 3 seconds
+            createNoteAt(3, 4); // Lane 1 at 4 seconds
+            createNoteAt(1, 5); // Lane 1 at 5 seconds
+            createNoteAt(3, 6); // Lane 4 at 5 seconds
+            createNoteAt(0, 7); // Lane 3 at 6 seconds
+            createNoteAt(1, 8); // lane 0 at 8 seconds
+            createNoteAt(3, 9); // lane 0 at 9 seconds
+            createNoteAt(2, 10);// lane 0 at 10 seconds
+            createNoteAt(3, 11);// lane 0 at 11 seconds
+            createNoteAt(0, 12);// lane 0 at 12 seconds
+            createNoteAt(2, 13);// lane 0 at 13 seconds
+            createNoteAt(3, 14);// lane 0 at 14 seconds
+            createNoteAt(0, 15);// lane 0 at 15 seconds
+
+
+            // Set song duration to 15 seconds
+            setTimeout(() => {
+                songEnded = true;
+                showGameOver();
+            }, 18000); // 15,000 milliseconds = 15 seconds
+
+            window.addEventListener("keydown", e => keys[e.key] = true);
+            window.addEventListener("keyup", e => keys[e.key] = false);
+
+            gameLoop(Date.now());
+        }
+    </script>
+</body>
+</html>

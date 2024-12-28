@@ -1,0 +1,163 @@
+body{
+    font-family:"Avenir Next";
+    margin: 0px;
+    background-color: #E0EDEB;
+    }
+
+.header{   
+ background-color: #E0EDEB;
+height: 100px;
+}
+.header-logo{
+    color:#625858 ;
+    font-size: 100px;
+    /* float: left; */
+    padding: 0px 40px;
+}
+
+.main{
+background-color: #E0EDEB;
+/* height: 700px; */
+}
+
+.copy-container h1{
+    padding: 20px 50px 0px 50px; 
+    margin: 0px;  
+    font-size: 25px;
+    color:#443c3c ;
+}
+.copy-container h2{
+    padding: 5px 20px 5px 50px;
+    font-size:20px;
+    margin: 0px;
+    color:#443c3c ;
+    
+}
+.copy-container h3{
+    padding: 5px 20px 5px 50px;
+    font-size:20px;
+    margin: 0px;
+    color:#443c3c ;
+}
+.copy-container h3 p{
+    margin-bottom: 0px;
+}
+.copy-container h4{
+    font-size: 25px;
+    margin-left: 50px;
+    margin-top: 110px;
+    margin-bottom: 0px;
+    color:#4d59ff ;
+}
+.copy-container h5{
+    font-size: 23px;
+    margin-left: 50px;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    color: #ff914d;
+}
+.copy-container h6{
+    font-size: 23px;
+    margin-left: 50px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    color: #ff914d;
+}
+
+.flex{
+    display: flex;
+}
+.w-30{
+    width:30%;
+}
+.w-40{
+    width: 40%;
+}
+.w-70{
+    width:70%;
+}
+.w-60{
+        width: 60%;
+}
+
+.w-80{
+    width:80%;
+}
+.py-100{
+    padding-top:0px ;
+    padding-bottom: 10px;
+}
+
+
+
+
+
+.contents h1{
+    padding: 50px 50px 0px 50px; 
+    margin: 0px;  
+    font-size: 23px;
+    color:#2f5167
+}
+.contents h2{
+    padding: 5px 20px 5px 50px;
+    font-size:19px;
+    margin: 0px;
+    color:#2f5167
+}
+.contents h2 p{
+    font-size:19px;
+    margin: 0px;
+    color:#2f5167
+}
+
+
+
+.contents h3{
+    padding: 20px 50px 0px 0px; 
+    margin: 0px;  
+    font-size: 25px;
+    color:#443c3c;
+}
+.contents h4{
+    padding: 5px 20px 5px 0px;
+    font-size:20px;
+    margin: 0px;
+    color:#443c3c ;
+}
+.contents h4 p{
+    font-size:20px;
+    margin: 0px;
+    color:#443c3c ;
+}
+.contents h5{
+    padding: 5px 20px 5px 0px;
+    font-size:20px;
+    margin: 0px;
+    color:#4d59ff ;
+}
+.contents h5 p{
+    padding: 0px;
+    font-size:20px;
+    margin: 0px;
+    color:#4d59ff ;
+}
+.contents h6{
+    padding: 5px 20px 5px 0px;
+    font-size:20px;
+    margin: 0px;
+    color:#443c3c ;
+}
+
+
+
+
+.footer{
+background-color:#2f5167;
+height: 200px;
+}
+.footer-logo{
+    color:#ffffff ;
+    font-size: 30px;
+    float: right;
+    padding: 50px 50px 20px 20px;
+}

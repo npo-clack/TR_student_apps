@@ -1,0 +1,253 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+  
+  header ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    list-style: none;
+  }
+  header ul li {
+    padding: 10px 20px;
+  }
+  
+  div {
+    text-align: center;
+  }
+  
+  .slide-items {
+    margin: auto;
+    
+  }
+  
+  .slide-items img {
+    width: 100%;
+    height: 38vw;
+    object-fit: cover;
+
+    
+    
+  }
+
+  
+  /* Arrows */
+  .slick-prev,
+  .slick-next {
+    font-size: 0;
+    line-height: 0;
+    display: block;
+    border: none;
+    outline: none;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    z-index: 1;
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    background-color: white;
+    border-radius: 50%;
+    background-image: url("./images/mark_left.svg");
+    opacity: 0.75;
+    box-shadow: 2px 0 0px 4px white;
+    cursor: pointer;
+  }
+  .slick-prev:hover,
+  .slick-prev:focus,
+  .slick-next:hover,
+  .slick-next:focus {
+    opacity: 1;
+    outline: none;
+  }
+  .slick-prev.slick-disabled,
+  .slick-next.slick-disabled {
+    opacity: 0.25;
+  }
+  
+  .slick-prev {
+    left: 25px;
+  }
+  
+  [dir="rtl"] .slick-prev {
+    right: 25px;
+    left: auto;
+  }
+  
+  .slick-next {
+    transform: translate(0, -50%) rotate(180deg);
+    right: 25px;
+  }
+  
+  [dir="rtl"] .slick-next {
+    right: auto;
+    left: 25px;
+  }
+  
+  /* Dots */
+  .slick-dotted.slick-slider {
+    margin-bottom: 30px;
+  }
+  
+  .slick-dots {
+    position: absolute;
+    bottom: -25px;
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    text-align: center;
+  }
+  
+  .slick-dots li {
+    position: relative;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin: 0 5px;
+    padding: 0;
+    cursor: pointer;
+  }
+  
+  .slick-dots li button {
+    font-size: 0;
+    line-height: 0;
+    display: block;
+    width: 20px;
+    height: 20px;
+    padding: 5px;
+    cursor: pointer;
+    color: transparent;
+    border: 0;
+    outline: none;
+    background: transparent;
+  }
+  
+  .slick-dots li button:hover,
+  .slick-dots li button:focus {
+    outline: none;
+  }
+  
+  .slick-dots li button:hover:before,
+  .slick-dots li button:focus:before {
+    opacity: 1;
+  }
+  
+  .slick-dots li button:before {
+    font-size: 20px;
+    line-height: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    content: "•";
+    text-align: center;
+    opacity: 0.25;
+    color: black;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  .slick-dots li.slick-active button:before {
+    opacity: 0.75;
+    color: black;
+  }
+  .toc-002 {
+    margin-bottom: 30px;
+    border: 2px solid #2589d0;
+    border-radius: 3px;
+    text-align:left;
+    margin-bottom:20px;
+}
+
+.toc-002 div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 10px 0;
+    background-color: #2589d0;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+.toc-002 ol {
+    list-style-type: disc;
+    margin: 0;
+    overflow: hidden;
+    padding-left:20px;
+}
+
+.toc-002 > ol {
+    padding: 1em 1em 1em 3em;
+}
+
+.toc-002 ol ol {
+    margin-top: 5px;
+    padding-left: 1.1em;
+}
+
+.toc-002 li {
+    padding: 5px 0;
+    font-weight: 600;
+}
+
+.toc-002 ol ol li {
+    font-weight: 500;
+    font-size: .9em;
+}
+
+.toc-002 a {
+    color: #333;
+    text-decoration: none;
+}
+
+.purofile, .resurinngu, .shakaikatudou, .siseiatu, .doweinneiga {
+  text-align: left; 
+  margin: 0; 
+  margin-top:20px;
+}
+
+
+.purofile_about, .resurinngu_about, .shakaikatudou_about, .siseikatu_about, .doweinneiga_about {
+  margin-left: 0; 
+  padding-left: 0; 
+  text-align: left; 
+}
+/* 画像を右に寄せる */
+.right-image {
+  float: right;  /* 画像を右に寄せる */
+  margin-left: -200px;  /* 画像とテキストの間に少し余白を追加 */
+  margin-bottom: 10px;  /* 画像の下に少し余白 */
+  width: 150px;  /* 画像の幅を調整 */
+  height: auto;
+  margin-top:-200px;  /* 高さを自動で調整 */
+}
+
+
+
+.purofile_about p, .resurinngu_about p, .shakaikatudou_about p, .siseikatu_about p, .doweinneiga_about p {
+  margin: 0; 
+  padding: 0; 
+}
+.moana,.REDONE{
+  text-align:left;
+  margin-top:20px;
+}
+.moana_about,.REDONE_about{
+  text-align:left;
+}
+
+footer{
+  height:60px;
+  line-height:60px;
+  font-size:10px;
+  text-align:center;
+
+}
+  

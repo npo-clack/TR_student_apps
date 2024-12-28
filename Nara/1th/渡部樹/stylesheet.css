@@ -1,0 +1,231 @@
+body {
+    /* font-family: "Avenir Next"; */
+    /* font-family:"こまどり mini"; */
+    font-family:sans-serif;
+    background-image:url("images/原神.jpg");
+    background-attachment:fixed;
+  }
+  
+  li {
+    list-style: none;
+  }
+  
+  .header {
+    background-color: #26d0c9;
+    color: #fff;
+    height: 90px;
+  }
+  
+  .header-logo {
+    float: left;
+    font-size: 36px;
+    padding: 20px 40px;
+  }
+  
+  .header-list li {
+    float: left;
+    padding: 33px 20px;
+  }
+  
+  .main {
+    padding: 100px 80px;
+  }
+  
+  .copy-container h1 {
+    font-size: 90px;
+    color:black
+  }
+  
+  .copy-container h2 {
+    font-size: 60px;
+    color: black;
+  }
+  
+  .copy-container span {
+    color:black;
+  }
+
+  .contents {
+    height: 1000px;
+    margin-top: 200px;
+  }
+  .contents2 {
+    height: 100px;
+    margin-top:200px;
+  }
+  .contents3{
+    height:500px;
+    margin:100px;
+    
+  }
+  .contents4{
+    height:500px;
+    margin:100px;
+  }
+  .contents5{
+    height:500px;
+    margin:100px;
+    float:left;
+  }
+  
+  .section-title {
+    border-bottom: 2px solid #dee7ec;
+    font-size: 28px;
+    padding-bottom: 15px;
+    margin-bottom: 50px;
+    color: black;
+    margin: 200px;
+  }
+  .section-title2{
+    border-bottom: 2px solid #dee7ec;
+    font-size: 36px;
+    padding-bottom: 30px;
+    margin-bottom :1000px ;
+    margin-top: 100px;
+    color: black;
+  }
+  .section-title3{
+    border-bottom:2px solid #dee7ec;
+    font-size:36px;
+    padding-bottom: 30px;
+    margin-bottom :75px;
+    margin-top: 300px;
+    color:black;
+  }
+  .section-title4{
+    border-bottom:2px solid #dee7ec;
+    font-size:36px;
+    padding-bottom: 30px;
+    margin-bottom :75px;
+    margin-top: 40px;
+    color:black;
+  }
+  
+  
+  .contents-item {
+    float: left;
+    margin-top:150px;
+    margin-right: 40px;
+    margin-bottom:100px;
+  }
+  .contents-item2 {
+    float: left;
+    margin-right: 40px;
+    margin: bottom 60px;
+    font-size: 20px;
+  }
+  span{
+    color: rgb(255, 30, 0);
+    font-style:inherit;
+    }
+  span2{
+    color: rgb(0, 157, 255);
+  }
+  span3{
+    color: rgb(198, 43, 226);
+  }
+  span4{
+    color:rgba(21, 255, 0, 0.717)
+  }
+  span5{
+    color:#26d0b9;
+  }
+  span6{
+    color: rgba(255, 210, 196, 0.886);
+  }
+  span7{
+    color: rgba(0, 0, 0, 1);
+  }
+  span8{
+    color: rgba(0, 0, 0, 1);
+  }
+  span9{
+    color: rgba(0, 0, 0, 1);
+  }
+  span10{
+    color: rgba(0, 0, 0, 1);
+  }
+  span11{
+    color: rgba(0, 0, 0, 1);
+  }
+  span12{
+    color: rgba(0, 0, 0, 1);
+  }
+  span13{
+    color: rgba(0, 0, 0, 1);
+  }
+  span14{
+    color: rgba(0, 0, 0, 1);
+  }
+  span15{
+    color: rgba(0, 0, 0, 1);
+  }
+  span16{
+    color: rgba(0, 0, 0, 1);
+  }
+  span17{
+    color: rgba(0, 0, 0, 1);
+  }
+  span18{
+    color :rgba(0, 0, 0, 1);
+  }
+  span19{
+    color: rgba(0, 0, 0, 1);
+  }
+  span20{
+    color: rgba(0, 0, 0, 1);
+  }
+  .contents-item p {
+    font-size: 24px;
+    margin-top: 30px;
+    color:black;
+  }
+  .contents-item3{
+    float: left;
+    margin-right: 40px;
+    margin-bottom:100px;
+    margin-right: 800px;
+    font-size: 20px;
+  }
+  
+  .contact-form {
+    padding-top: 100px;
+  }
+  
+  /* inputとtextareaのCSSを指定してください */
+  input, textarea {
+    width: 400px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    padding: 20px;
+    font-size: 18px;
+    border: 1px solid #dee7ec;
+    color:black;
+  }
+  
+  /* contact-submitのCSSを指定してください */
+  .contact-submit {
+    background-color: #dee7ec;
+    color: #889eab;
+  }
+  
+  .footer {
+    background-color: #2f5167;
+    color: #fff;
+    height: 120px;
+    padding: 40px;
+  }
+  
+  .footer-logo {
+    float: left;
+    font-size: 32px;
+  }
+  
+  .footer-list {
+    float: right;
+  }
+  
+  .footer-list li {
+    padding-bottom: 20px;
+  }
+  

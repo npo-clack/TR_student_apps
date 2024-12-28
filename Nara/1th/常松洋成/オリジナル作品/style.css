@@ -1,0 +1,93 @@
+html{
+    background-color: rgb(64, 66, 71);
+    font-family: YuMincho,
+	"Hiragino Mincho ProN",
+    serif;
+    color: aliceblue;
+}
+
+header{
+    font-size: larger;
+    color: aliceblue;
+    text-align: center;
+}
+
+.Eve_introduction p{
+    font-size: 17px;
+    color: aliceblue;
+    text-align: center;
+}
+
+h2{
+    font-size: 45px;
+    text-align: center;
+}
+
+.song_introduction p{
+    text-align: center;
+    font-size: 22px;
+}
+
+.song_ranking p{
+    text-align: center;
+    font-size: 22px;
+}
+
+.atogaki{
+    text-align: center;
+    font-size: 22px;  
+}
+
+footer{
+    height: 100px;
+    background-color: black;
+    text-align: center;
+}
+
+
+
+.hogeclasss a {
+    color:#fff;
+    text-decoration: none;
+    padding-right: 20px;
+}
+.hogeclasss a:hover {
+    text-decoration: underline;
+}
+
+.gideline a {
+    font-size: 20px;
+    color: #fff;
+    text-decoration: none;
+}
+
+.gideline a:hover {
+    text-decoration: underline;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+.pagetop {
+    height: 50px;
+    width: 50px;
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+    background: #fff;
+    border: solid 2px #000;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.pagetop__arrow {
+    height: 10px;
+    width: 10px;
+    border-top: 3px solid #000;
+    border-right: 3px solid #000;
+    transform: translateY(20%) rotate(-45deg);
+}
+

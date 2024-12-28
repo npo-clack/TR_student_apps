@@ -1,0 +1,153 @@
+header {
+ height: 55px;
+ width:100%;
+ background-color:rgba(155, 155, 155, 0.8);
+ position: fixed;
+ top:0px;
+ left:0px;
+ z-index: 10;
+}
+
+.header-logo img {
+    height: 55px;
+}
+
+.yohaku {
+    height:55px;
+}
+
+main {
+    background-color: #4f525f;
+}
+
+.top {
+    width: 100%;
+    height:300px;
+    position: relative;
+}
+
+.top p {
+    width: 100%;
+    margin:0px;
+    position: absolute;
+    font-size: 220px;
+    color: rgba(255, 255, 255, 0.6);
+    top:60%;
+    left: 68%;
+    transform: translate(-50%,-50%);
+}
+
+.top img {
+    width:100%;
+}
+
+.menu_container {
+    margin:0px,20px;
+    width:100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.menu_h2 {
+    line-height: 30px;
+    text-align: center;
+    margin-top:50px;
+    margin-bottom: 0px;
+    color:rgb(255, 255, 255, 0.5);
+}
+
+.menu_container a {
+    display: block;
+    height: 325px;
+    width:250px;
+    margin:10px;
+    text-decoration-line: none;
+}
+
+.menu_container a p {
+    margin:0px;
+    height:30px;
+    line-height: 30px;
+    font-size:22px;
+    width:100%;
+    background-color: rgba(121, 121, 121, 0.8);
+    color:#ffffff;
+    font-family: "Hiragino Sans";
+}
+
+.yohaku2 {
+    height:30px;
+    width:100%;
+    background-color: #4f525f;
+}
+
+body {
+    margin:0px;
+    padding:0px;
+}
+
+.contents_container {
+    background-color: #ffffff3f;
+    margin:30px 30px 0px 30px
+    
+}
+
+.contents_container h2 {
+    margin:0px;
+    color: #ffffff;
+    text-align: center;
+    line-height:60px
+}
+
+.contents {
+    width:100%;
+    gap:10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap:wrap;
+}
+
+.contents a {
+    width:auto;
+    text-decoration-line: none;
+}
+
+.contents p {
+    margin: 0px 0px 10px 0px;
+    padding:0px;
+    width: 100%;
+    background-color: rgb(82, 82, 82);
+}
+
+footer {
+    height:100px;
+    width:100%;
+    color:white;
+    background-color:#404044;
+}
+
+@media screen and (max-width:1000px) {
+ 
+}
+
+@media screen and (max-width:670px) {
+    .contents {
+        flex-wrap: wrap;
+    }
+    .contents a {
+        width:50px
+    }
+    .menu {
+        height:1000px;
+        width:100%;
+    }
+}
+
+.contents p {
+    color: #ffffff;
+}
