@@ -1,0 +1,47 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+    font-family: "メイリオ";
+  }
+  
+  header {
+    background-color: #f0f0f0;
+    
+  }
+  
+  .profile_top {
+    background-color: aquamarine;
+display :flex;
+  }
+.profile_top img {
+  width: 60%;
+}
+  .profile_tophh{
+    background-color: rgb(15, 98, 70);
+
+  }
+    
+  
+  .profile_about {
+    background-color: #ffe53a;
+    text-align: center;
+    padding: auto;
+  }
+  
+  .profile_favorite {
+    background-color: darksalmon;
+    
+  }
+  
+  .profile_place {
+    background-color: #fff9e6;
+    
+  }
+  
+  footer {
+    background: #ececec;
+    text-align: center;
+    color: rgb(24, 27, 27);
+  }

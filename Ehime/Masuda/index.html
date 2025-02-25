@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+    <meta name="viewport" content="width=device-width" >
+		<!-- ここにタイトルを挿入 -->
+    <title>おみくじ</title>
+
+		<!-- CSSを読み込む -->
+    <link rel="stylesheet" href="style.css" >
+  </head>
+  <body>
+		<!-- 1行目 見出し1 を使用して 「おみくじ」 と表示する -->
+    <h1>おみくじ</h1>
+
+		<!-- 2行目 button を使用して 「おみくじを引く」 と表示する onclick属性を記述 -->
+    <button onclick="Omikuji();">おみくじを引く</button>
+
+		<!-- 3行目 p タグ を使用して 「あなたの運勢はです！」 と表示する 「●●●」はspanで囲い、id属性を記述 -->
+    <p>「あなたの運勢は<span id="result"></span>です！」</p>
+    <img src="omikuji.png">
+  </body>
+	<!-- JavaScriptを読み込む -->
+  <script src="script.js"></script>
+
+</html>

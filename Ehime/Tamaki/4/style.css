@@ -1,0 +1,145 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+  }
+  
+  header {
+    color: #ab0404;
+    border: solid 3px #ab0404;
+    padding: 0.5em;
+    border-radius: 0.5em;
+    height: 80px;
+    text-align: center;
+  }
+  
+
+  
+
+  
+  .profile_top {
+    height: 500px;
+    text-align: center;
+    color:#ab4f04 ;
+    border: solid 3px #ab4f04;
+    padding: 0.5em;
+    border-radius: 0.5em;
+  }
+  
+  .profile_top img {
+    width: auto;
+    height: 80%;
+  }
+
+
+  .profile_top h1 {
+    line-height: 500px;
+    color:  #ab4f04;
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 30px;
+  }
+
+.profile_about {
+    color: #aba004;
+    border: solid 3px #aba004;
+    padding: 0.5em;
+    border-radius: 0.5em;
+  text-align: center;
+}
+
+.profile_about h2 {
+  font-size: 36px;
+}
+
+.profile_about_content p {
+  margin-top: 40px;
+  font-size: 16px;
+}
+.profile_favorite {
+  text-align: center;  color: #018501;
+  border: solid 3px #018501;
+  padding: 0.5em;
+  border-radius: 0.5em;
+}
+
+.profile_favorite h2 {
+  font-size: 36px;
+}
+
+.profile_favorite_area {
+  margin-top: 40px;
+  display: inline-block;
+}
+
+.profile_favorite_area img {
+  width: 400px;
+  height: 300px;
+  border-radius: 8px;
+}
+
+.profile_favorite_area p {
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+
+.profile_place {
+  text-align: center;
+  color: #018585;
+  border: solid 3px #018585;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  height: 300px
+}
+
+.profile_place h2 {
+  font-size: 36px;
+  margin-bottom: 40px;
+  color: #018585
+}
+
+.profile_place li {
+  font-size: 16px;
+  margin-top: 20px;
+  text-align: center;
+  list-style:none;
+  color:#FFFFFF
+}
+ 
+.sing {
+  height: 300px;
+  color: #364e96;
+  border: solid 3px #364e96;
+  padding: 0.5em;
+  border-radius: 0.5em;
+  text-align: center;
+}
+.sing h3 {
+  font-size: 30px;
+  color: #364e96;
+}
+.sing p {
+  color: #364e96;
+
+}
+
+
+footer {
+  height: 60px;
+  line-height: 60px;
+  font-size: 10px;
+  text-align: center;
+  color: #5d0281;
+  border: solid 3px #5d0281;
+  padding: 0.5em;
+  border-radius: 0.5em;
+}
+.a{
+  color: #ab0404;
+}
+.q{
+  color: #ab0404;
+}

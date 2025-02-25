@@ -1,0 +1,18 @@
+body {
+    background-color: bisque;
+    font-family: "Noto Serif CJK JP"; font-weight:900;
+    background-image: url(storybadenddd.jpg);
+}
+p {
+    margin-bottom: 10px;
+    line-height: 1.6;
+    text-align: center;
+    font-size: 20px;
+    color: white;
+}
+h1 {
+    font-size: larger;
+    text-align: center;
+    margin-top: 20px;
+    color: white;
+}

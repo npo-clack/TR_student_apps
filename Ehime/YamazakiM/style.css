@@ -1,0 +1,130 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+header {
+  background-color: #f0f0f0;
+
+}
+
+header h2 {
+  margin: 0 30px;
+  line-height: 80px;
+  font-size: 18px;
+}
+
+.profile_top {
+  height: 500px;
+  text-align: center;
+  background-color: #CCFF66;
+}
+
+.profile_top img {
+  width: auto;
+  height: 100%;
+}
+
+.profile_top h1 {
+  line-height: 500px;
+  color: #333333;
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 30px;
+}
+
+.profile_about {
+  background-color: #FFD5EC;
+  padding: 100px 0px;
+  text-align: center;
+}
+
+.profile_about h2 {
+  font-size: 36px;
+}
+
+.profile_about_content p {
+  margin-top: 40px;
+}
+
+.profile_favorite {
+  background-color: #FFFF66;
+  padding: 100px;
+  text-align: center;
+}
+
+.profile_favorite h2 {
+  font-size: 36px;
+}
+
+.profile_favorite_area {
+  margin-top: 40px;
+  width: 400px;
+  display: inline-block;
+}
+
+.profile_favorite_area img {
+  width: 400px;
+  height: 300px;
+  border-radius: 8px;
+}
+
+.profile_favorite_area p {
+  margin-top: 20px;
+  
+  font-weight: 400;
+}
+
+.profile_place {
+  text-align: center;
+  padding: 100px;
+  background-color: #66FFFF;
+}
+
+.profile_place h2 {
+  font-size: 36px;
+  margin-bottom: 40px;
+}
+
+.profile_place p {
+  margin-top: 20px;
+  text-align: center;
+}
+
+footer {
+  height: 60px;
+  background: #333333;
+  font-size: 10px;
+  text-align: center;
+  color: #FFFFFF
+}
+.profile_sentence  {
+  font-size: 33px;
+}
+.btn-box{
+
+  transform: translate(-50%, -50%);
+  margin: 0;
+}
+
+.btn {
+  display: block;
+  width: 200px;
+  height: 78px;
+  line-height: 78px;
+  font-size: 24px;
+  text-decoration: none;
+  background-color: #f15a4a;
+  color: #fff;
+  text-align: center;
+  cursor: pointer;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+}
+
+.btn:hover {
+  -webkit-transform: skewX(-20deg);
+  transform: skewX(-20deg);
+}

@@ -1,0 +1,52 @@
+
+#asia-map {
+    max-width: 100%;
+    height: auto;
+}
+
+#map-container {
+    position: relative;
+}
+
+.country {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 1px solid #000;
+    padding: 5px;
+    cursor: pointer;
+}
+#food-container {
+    margin-top: 20px;
+    text-align: center;
+    width: 50%;
+}
+#food-container img {
+    width: 100%;
+    height: auto;
+    top: 65%;
+    
+}
+#food-image {
+    width: 300px;
+    height: auto;
+    display: none;
+}
+
+.header{
+    background-color: darkorange;
+    height: 0px;
+}
+
+h1 {
+    color: #6594e0;/*文字色*/
+    /*線の種類（点線）2px 線色*/
+    border-bottom: dashed 10px #6594e0;
+    text-align: center;
+  }
+
+#main-container{
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 20px;   
+}
