@@ -1,0 +1,134 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    user-select: none;
+  }
+  
+
+
+.profile_top{
+  height:500px;
+  text-align: center;
+}
+
+.profile_top img{
+  text-align: right;
+  width:500px;
+  height:350px;
+}
+
+.profile_top h1 {
+  line-height: 500px;
+  color: #333333;
+  display: inline-block;
+  vertical-align: top;
+  margin: 0 30px;
+}
+
+.profile_about {
+  background-color: #fffffe;
+  padding: 100px 0px;
+  text-align: center;
+}
+
+.profile_about img{
+  width: 600px;
+  height: 300px;
+  border-radius: 8px;
+}
+
+.profile_about h2 {
+  font-size: 36px;
+}
+
+.profile_about_content p {
+  margin-top: 40px;
+  font-size: 16px;
+}
+
+.profile_favorite{
+  background-color: rgb(176, 177, 202);
+  padding: 100px;
+  text-align: center;
+}
+
+.profile_favorite h2{
+  font-size: 36px;
+}
+
+.profile_favorite_area{
+  margin-top: 40px;
+  width: 400px;
+  display: inline-block;
+}
+
+.profile_favorite_area img{
+  width: 400px;
+  height: 300px;
+  border-radius: 8px;
+}
+
+.profile_favorite_area p{
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.profile_place{
+  text-align: center;
+  padding: 100px;
+  background-color: #fff9e6;
+}
+
+.profile_place h2{
+  font-size: 36px;
+  margin-bottom: 40px;
+}
+
+.profile_place p{
+  font-size: 16px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+footer{
+  height: 60px;
+  line-height: 60px;
+  background: #333333;
+  font-size: 10px;
+  text-align: center;
+  color: #FFFFFF;
+}
+ 
+.border{
+  height: 15px;
+  background-color: black;
+}
+
+.border1{
+  height: 10px;
+  background-color: black;
+}
+
+.好きな選手{
+  font-size: 16px;
+  margin-top: 20px;
+  text-align: center;
+  background-color: rgb(252, 255, 254);
+  height: 600px;
+  line-height: 35px;
+  margin-top: 10px;
+}
+
+.好きな選手 h2{
+  font-size: 36px;
+  margin-bottom: 40px;
+  margin-top: 40px;
+  
+}
+.好きな選手 img{
+  width: 400px;
+  height: 300px;
+  border-radius: 8px;
+}
