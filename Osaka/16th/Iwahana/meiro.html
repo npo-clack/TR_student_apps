@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>迷路ゲーム</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #048080;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    canvas {
+      background-color: black;
+      box-shadow: 0 0 10px #000;
+    }
+  </style>
+</head>
+<body>
+  <h4 style = "color: white;">
+  プレイヤー（青）を動かしてゴール（緑）を目指そう<br>紫はクイズがでるよ<br>
+  赤は道が見えるようになるよ</h4>
+  <canvas id="meiro" width="500" height="500"></canvas>
+  <script src="meiro.js"></script>
+</body>
+</html>

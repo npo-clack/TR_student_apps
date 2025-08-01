@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Gamedev Canvas Workshop - lesson 10: finishing up</title>
+    <style>* { padding: 0; margin: 0; } canvas { background: #eee; display: block; margin: 0 auto; }</style>
+</head>
+<body>
+
+<canvas id="myCanvas" width="480" height="320"></canvas>
+
+<script>
+    var canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+    var ballRadius = 10;
+    var x = canvas.width/2;
+    var y = canvas.height-30;
+    var dx = 2;
+    var dy = -2;
+    var paddleHeight = 10;
+    var paddleWidth = 75;
+    var paddleX = (canvas.width-paddleWidth)/2;
+    var rightPressed = false;
+    var leftPressed = false;
+    var brickRowCount = 5;
+    var brickColumnCount = 3;
+    var brickWidth = 75;
+    var brickHeight = 20;
+    var brickPadding = 10;
+    var brickOffsetTop = 30;
+    var brickOffsetLeft = 30;
+    var score = 0;
+    var lives = 3;
+    var item = null;
+    var itemSize = 15;
+    var itemSpeed = 2;
+    var itemEffectDuration = 5000;
+    var itemActive = false;
+    var item = null;
+    var itemSize = 15;
+    var itemSpeed = 2;
+    var itemEffectDuration = 5000;
+    var itemActive = false;
+    var maxLives = 5;
+
+    var bricks = [];
+    for(var c=0; c<brickColumnCount; c++) {
+        bricks[c] = [];
+        for(var r=0; r<brickRowCount; r++) {
+            const hitPoints = Math.floor(Math.random() * 3) + 1;//1~3回耐久
+            bricks[c][r] = {
+                x: 0,
+                y: 0,
+                status: 1,
+                hitPoints: hitPoints
+            };
+        }
+    }
+
+    document.addEventListener("keydown", keyDownHandler, false);
+    document.addEventListener("keyup", keyUpHandler, false);
+    document.addEventListener("mousemove", mouseMoveHandler, false);
+
+    function keyDownHandler(e) {
+        if(e.code  == "ArrowRight") {
+            rightPressed = true;
+        }
+        else if(e.code == 'ArrowLeft') {
+            leftPressed = true;
+        }
+    }
+    function keyUpHandler(e) {
+        if(e.code == 'ArrowRight') {
+            rightPressed = false;
+        }
+        else if(e.code == 'ArrowLeft') {
+            leftPressed = false;
+        }
+    }
+    function mouseMoveHandler(e) {
+        var relativeX = e.clientX - canvas.offsetLeft;
+        if(relativeX > 0 && relativeX < canvas.width) {
+            paddleX = relativeX - paddleWidth/2;
+        }
+    }
+    function collisionDetection() {
+        for(var c=0; c<brickColumnCount; c++) {
+            for(var r=0; r<brickRowCount; r++) {
+                var b = bricks[c][r];
+                if(b.status> 0) {
+                    if(x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight) {
+                        dy = -dy;
+                        b.hitPoints--;
+                        if (b.hitPoints <= 0) {
+                            b.status = 0;
+                            score++;
+
+                            // 50%の確率でアイテムを生成
+                            if (Math.random() < 0.5 && !item) {
+                                const types = ["paddle", "life"];
+                                const randomType = types[Math.floor(Math.random() * types.length)];
+                                item = {
+                                    x: b.x + brickWidth / 2 - itemSize / 2,
+                                    y: b.y,
+                                    type: randomType,
+                                    active: true
+                                };
+                            }
+                        }
+                    }
+                }
+            }
+       }
+    }
+
+    function checkGameClear() {
+        for (var c = 0; c < brickColumnCount; c++) {
+            for (var r = 0; r < brickRowCount; r++) {
+                if (bricks[c][r].status === 1) {
+                    return false; //まだ残ってる
+                }
+            }
+        }
+        return true; //全部壊れた
+    }
+
+    function drawBall() {
+        ctx.beginPath();
+        ctx.arc(x, y, ballRadius, 0, Math.PI*2);
+        ctx.fillStyle = "#0095DD";
+        ctx.fill();
+        ctx.closePath();
+    }
+    function drawPaddle() {
+        ctx.beginPath();
+        ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight);
+        ctx.fillStyle = "#0095DD";
+        ctx.fill();
+        ctx.closePath();
+    }
+    function drawBricks() {
+        for(var c=0; c<brickColumnCount; c++) {
+            for(var r=0; r<brickRowCount; r++) {
+                if(bricks[c][r].status> 0) {
+                    var brickX = (r*(brickWidth+brickPadding))+brickOffsetLeft;
+                    var brickY = (c*(brickHeight+brickPadding))+brickOffsetTop;
+                    bricks[c][r].x = brickX;
+                    bricks[c][r].y = brickY;
+                    ctx.beginPath();
+                    ctx.rect(brickX, brickY, brickWidth, brickHeight);
+
+                    //耐久値で色を変える
+                    if (bricks[c][r].hitPoints ===3) {
+                        ctx.fillStyle = "red";
+                    } else if (bricks[c][r].hitPoints === 2) {
+                        ctx.fillStyle = "orange";
+                    } else {
+                        ctx.fillStyle = "green";
+                    }
+                
+                    ctx.fill();
+                    ctx.closePath();
+                }
+            }
+        }
+    }
+    function drawScore() {
+        ctx.font = "16px Arial";
+        ctx.fillStyle = "#0095DD";
+        ctx.fillText("Score: "+score, 8, 20);
+    }
+    function drawLives() {
+        ctx.font = "16px Arial";
+        ctx.fillStyle = "#0095DD";
+        ctx.fillText("Lives: "+lives, canvas.width-65, 20);
+    }
+    function drawItem() {
+        if (item && item.active) {
+            ctx.beginPath();
+            //アイテムの種類によって色を変える
+            if (item.type === "paddle") {
+                ctx.fillStyle = "#eddc44"; //パドルアイテムの色
+            } else if (item.type === "life") {
+                ctx.fillStyle = "#38b48b"; //ライフアイテムの色
+            }
+            ctx.fillRect(item.x,item.y, itemSize, itemSize);
+            ctx.closePath();
+
+            item.y += itemSpeed;
+
+            //パドルでキャッチしたかチェック
+            if (
+                item.y + itemSize > canvas.height - paddleHeight &&
+                item.x + itemSize > paddleX &&
+                item.x < paddleX + paddleWidth
+            ) {
+                activateItemEffect(item.type); //効果発動
+                item = null; 
+            }
+            //アイテムが画面外に出たら消去
+            if (item && item.y > canvas.height) {
+                item = null;
+            }
+        }
+    }
+
+    function activateItemEffect(type) {
+        if (type === "paddle" && !itemActive) {
+            itemActive = true;
+            paddleWidth *= 1.5; //パドルを大きくする
+            setTimeont(() => {
+                paddleWidth /= 1.5;
+                itemActive = false;
+            }, itemEffectDuration);
+        } else if (type === "life") {
+            if (lives < maxLives) {
+                lives++;
+            }
+        }
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawBricks();
+        drawBall();
+        drawPaddle();
+        drawScore();
+        drawLives();
+        drawItem();
+        collisionDetection();
+
+        if(x + dx > canvas.width-ballRadius || x + dx < ballRadius) {
+            dx = -dx;
+        }
+        if(y + dy < ballRadius) {
+            dy = -dy;
+        }
+        else if(y + dy > canvas.height-ballRadius) {
+            if(x > paddleX && x < paddleX + paddleWidth) {
+                dy = -dy;
+            }
+            else {
+                lives--;
+                if(!lives) {
+                    alert("GAME OVER");
+                    document.location.reload();
+                    clearInterval(timer); // Stop the game loop
+                }
+                else {
+                    x = canvas.width/2;
+                    y = canvas.height-30;
+                    dx = 2;
+                    dy = -2;
+                    paddleX = (canvas.width-paddleWidth)/2;
+                }
+            }
+        }
+
+        if(rightPressed && paddleX < canvas.width-paddleWidth) {
+            paddleX += 7;
+        }
+        else if(leftPressed && paddleX > 0) {
+            paddleX -= 7;
+        }
+
+        x += dx;
+        y += dy;
+
+        //ブロック全破壊の確認
+        if (checkGameClear()) {
+            clearInterval(timer);
+            alert("GAME CLEAR!!");
+            document.location.reload();
+        }
+    }
+
+    let timer =  setInterval(draw, 10);
+</script>
+
+</body>
+</html>

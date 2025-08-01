@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>初音ミクとチャット</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f0f8ff;
+       background-image: url("ミク背景.jpg");  /* ← 画像ファイル名は自分のに合わせてね */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+      padding: 0;
+    }
+
+  p {
+    font-weight: 800;
+  }
+
+    .top-links {
+      width: 100%;
+      max-width: 500px;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    .section-title {
+      font-weight: bold;
+      margin: 10px 0 4px;
+      font-size: 16px;
+
+      background-color: rgba(255, 255, 255, 0.7); /* ← 半透明白背景 */
+    }
+
+    .section-title.big { /*ミクとお話ししよう*/
+      font-size: 20px;
+    }
+
+    .divider { /*グレーの下線*/
+      border-bottom: 1px solid #888;
+      margin-bottom: 12px;
+    }
+
+    .link-group { /*piaproとミクの有名な歌の間の空白*/
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 20px;
+      background-color: rgba(255, 255, 255, 0.4);
+    }
+
+    .link-group a {
+      color: black;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .link-group a:hover {
+      text-decoration: underline;/*URLの表示される文字の上にカーソルを合わせたら下線が表示される*/
+    }
+
+.chat-container {
+  width: 400px;
+  background-color: rgba(255, 255, 255, 0.65); /*チャット欄の透明度*/
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 200, 255, 0.8); /*チャット欄の周りのぼかし度*/
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+    .chat-box {
+      height: 400px;
+      padding: 10px;
+      overflow-y: auto;
+      border-bottom: 1px solid #ccc;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .message {
+      display: flex;
+      align-items: flex-start;
+      margin: 5px 0;
+      padding: 8px 12px;
+      border-radius: 10px;
+      max-width: 80%;
+    }
+
+    .user {
+      background-color: #d0f0ff;
+      align-self: flex-end;
+      text-align: right;
+    }
+
+    .bot {
+      background-color: #40e0d0;
+      align-self: flex-start;
+    }
+
+    .message img.icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+
+    .input-area {
+      display: flex;
+    }
+
+    input[type="text"] {
+      flex-grow: 1;
+      padding: 10px;
+      border: none;
+      border-top: 1px solid #ccc;
+      font-size: 16px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #39c;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 🔷 見出し -->
+  <div class="top-links">
+
+    <div class="section-title">ミクの公式ホームページ</div>
+    <div class="divider"></div>
+    <div class="link-group">
+      <a href="https://piapro.net/" target="_blank">piapro（ピアプロ公式）</a>
+    </div>
+
+    <div class="section-title">ミクの有名な歌</div>
+    <div class="divider"></div>
+    <div class="link-group">
+      <a href="https://www.nicovideo.jp/watch/sm15630734" target="_blank">千本桜</a>
+      <a href="https://www.nicovideo.jp/watch/sm3504435" target="_blank">ワールドイズマイン</a>
+      <a href="https://www.nicovideo.jp/watch/sm1715919" target="_blank">メルト</a>
+      <a href="https://www.nicovideo.jp/watch/sm2937784" target="_blank">ミクの消失</a>
+      <a href="https://www.nicovideo.jp/watch/sm1097445" target="_blank">みくみくにしてあげる</a>
+      <a href="https://www.nicovideo.jp/watch/sm10759623" target="_blank">ワールズエンド・ダンスホール</a>
+    </div>
+        <div class="section-title big">ミクとお話ししよう！</div>
+  </div>
+
+  <!-- 💬 チャット画面 -->
+  <div class="chat-container">
+    <div id="chat-box" class="chat-box"></div>
+    <div class="input-area">
+      <input type="text" id="user-input" placeholder="ミクに話しかけてみて…" />
+      <button id="send-button">送信</button>
+    </div>
+  </div>
+
+  <!-- 🔧 JavaScript -->
+  <script>
+    const chatBox = document.getElementById("chat-box");
+    const userInput = document.getElementById("user-input");
+    const sendButton = document.getElementById("send-button");
+
+    const mikusData = [
+      { keywords: ["身長", "背", "背丈", "せのたかさ"], response: "ミクの身長は158cmです！" },
+      { keywords: ["体重"], response: "体重は42kgだよ〜。" },
+      { keywords: ["誕生日"], response: "ミクの誕生日は8月31日！" },
+      { keywords: ["発売"], response: "ミクは2007年8月31日に発売されたよ！" },
+      { keywords: ["好き"], response: "ありがとう！ミクは歌うことが大好き！" },
+      { keywords: ["おはよう"], response: "おはよう！今日はどんなこと話すの？" },
+      { keywords: ["何歳", "年齢", "年", "学年"], response: "ミクは16歳。高校二年生だよ！" },
+      { keywords: ["売上", "売り上げ", "売上げ"], response: "ミクのボイスだけでも数百億円以上、二次創作も含めれば1,000億円を超えるとも言われています" },
+      { keywords: ["元気"], response: "ミクは元気だよ！"},
+    ];
+
+    sendButton.addEventListener("click", sendMessage);
+    userInput.addEventListener("keypress", function (e) {
+      if (e.key === "Enter") sendMessage();
+    });
+
+    function sendMessage() {
+      const text = userInput.value.trim();
+      if (text === "") return;
+      addMessage(text, "user");
+      respondToInput(text);
+      userInput.value = "";
+    }
+
+    function addMessage(text, sender) {
+      const message = document.createElement("div");
+      message.className = `message ${sender}`;
+      if (sender === "bot") {
+        const icon = document.createElement("img");
+        icon.src = "miku.png"; // ミクの画像ファイル（同じフォルダに配置）
+        icon.className = "icon";
+        message.appendChild(icon);
+      }
+      const messageText = document.createElement("span");
+      messageText.innerText = sender === "bot" ? "ミク: " + text : text;
+      message.appendChild(messageText);
+      chatBox.appendChild(message);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    }
+
+    function respondToInput(text) {
+      let response = "ごめんね、よくわからなかった…💦";
+      for (let item of mikusData) {
+        for (let keyword of item.keywords) {
+          if (text.includes(keyword)) {
+            response = item.response;
+            break;
+          }
+        }
+        if (response !== "ごめんね、よくわからなかった…💦") break;
+      }
+      setTimeout(() => addMessage(response, "bot"), 600);
+    }
+  </script>
+</body>
+</html>

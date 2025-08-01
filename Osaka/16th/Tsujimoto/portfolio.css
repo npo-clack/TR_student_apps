@@ -1,0 +1,145 @@
+body {
+  margin:0;
+  padding:0;
+  overflow:auto;
+  text-align: center;
+  background-color: white;
+}
+
+main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center;     
+}
+
+img {
+  max-width: 80%;
+  height: auto;
+  display: block;
+}
+
+#tsparticles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  display: none; /* 最初は非表示 */
+}
+
+/* 最初は非表示 */
+#profile.hidden {
+  display: none;
+}
+
+/* 写真（左側） */
+#photo {
+  width: 50%;
+  height: 100%;
+  object-fit: cover;  /* 写真をはみ出さず均等に表示 */
+  border-radius: 0;
+  -webkit-mask-image: linear-gradient(to left, transparent 0%, black 20%);
+  mask-image: linear-gradient(to left, transparent 0%, black 20%);
+  animation: fadeInUp 1.5s ease forwards 0.5s;
+}
+
+rt{
+  color:white;
+  font-size:2rem;
+}
+/* 名前（右側） */
+#name {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size:5rem;
+  color: white;
+  position: relative;
+  margin: 0;
+  /* opacity: 0; */
+  animation: fadeInUp 1.5s ease forwards 0.5s;
+}
+
+
+#profile {
+  width: 100vw;
+  min-height: 100vh;
+  overflow: auto;
+  background-color:black;
+  h2{
+    color:white;
+  }
+}
+
+.profile-container {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('日本風背景画像.png');
+  background-size: cover;
+  background-position: center;
+  -webkit-mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
+  animation: fadeInUp 1.5s ease forwards 0.5s;
+}
+
+#Banner {
+ position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.85);  /* やや濃い背景で読みやすく */
+  color: white;
+  padding: 1rem;
+  font-size: 1.2rem;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+  z-index: 1000;
+}
+
+#Banner.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.profile-content {
+  padding-top: 2rem;
+  width: 100%;
+  text-align: left;
+  padding-left: 2rem;
+  box-sizing: border-box;
+  align-items: flex-start;
+  background: url("日本風背景画像.png") no-repeat center center;
+  background-size: 100% 100%;
+  -webkit-mask-image: linear-gradient(to top, black 80%, transparent 100%);
+  mask-image: linear-gradient(to top, black 80%, transparent 100%);
+}
+  h2{
+    font-family:"Yu Mincho",sans-serif;
+  }
+  h2{
+    font-size: 2rem;
+  }
+
+.profile-content ul {
+  color:white;
+  padding-left: 2rem;
+  list-style-type: disc;
+  font-size: 1rem;
+}
+
+
+.profile-content p {
+  color:white;
+  margin: 1rem 0;
+  font-size: 1rem;
+}

@@ -1,0 +1,33 @@
+body {
+  background-image: url("background.png"); /* ←画像のファイル名に変更 */
+  background-size: cover;     /* 画面いっぱいに広げる */
+  background-position: center;/* 中央に配置 */
+  background-repeat: no-repeat; /* 繰り返さない */
+  height: 100vh;              /* 全画面表示 */
+  margin: 0;
+  /* 使いたい場所で指定できます */
+h1 {
+  font-family: 'Reggae One', cursive;
+}
+
+p {
+  font-family: 'M PLUS Rounded 1c', sans-serif;
+}
+a {
+  color: rgb(255, 255, 255);  /* ←好きな色に変更 */
+}
+text-shadow:
+  0 0 5px #fff,
+  0 0 10px #038dfd,
+  0 0 20px #0381ff
+}
+.big-text {
+  font-size: 2em; /* ここで大きさを調整 */
+  font-weight: bold; /* 太字にしたい場合 */
+  color: #fad5e8; /* 色も変えられる */
+}
+.monomaniac-one-regular {
+  font-family: "Monomaniac One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}

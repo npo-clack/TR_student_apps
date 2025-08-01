@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Tetris</title>
+    <style>
+      body {
+        background: #00507e;
+      }
+      #container {
+        margin: 0 auto;
+        text-align: center;
+      }
+      #cvs {
+        border: 15px solid #91ebff;
+        display: block;
+      }
+    </style>
+  </head>
+    <body onload="init()">
+      <div id="container">
+        <canvas id="cvs"></canvas>
+      </div>
+    <script>
+    //落下サイクル(小さい方が速い)
+    const speed = 400;
+    //ブロック1マスの大きさ
+    const blockSize = 22;
+    //ボードサイズ
+    const boardRow = 20;
+    const boardCol = 10;
+    
+    let timerId = null;
+
+    //キャンバスの取得
+    const cvs = document.getElementById("cvs");
+    //2dコンテキストを取得
+    const ctx=cvs.getContext("2d");
+    //キャンバスサイズ
+    const canvasW = blockSize * boardCol;
+    const canvasH = blockSize * boardRow;
+    cvs.width = canvasW;
+    cvs.height = canvasH;
+    //コンテナの設定
+    const container = document.getElementById("container");
+    container.style.width = canvasW + 'px';
+    
+    //tetの1辺の大きさ
+    const tetSize=4;
+    //テトリミノの種類
+    const tetTypes = [
+        [], //最初の要素を空としておく
+        [
+          [0, 0, 0, 0],
+          [0, 1, 1, 0],
+          [0, 1, 1, 0],
+          [0, 0, 0, 0],
+        ],
+        [
+          [0, 0, 0, 0],
+          [0, 1, 0, 0],
+          [1, 1, 1, 0],
+          [0, 0, 0, 0],
+        ],
+        [
+          [0, 0, 0, 0],
+          [1, 1, 0, 0],
+          [0, 1, 1, 0],
+          [0, 0, 0, 0],
+        ],
+        [
+          [0, 0, 0, 0],
+          [0, 0, 1, 1],
+          [0, 1, 1, 0],
+          [0, 0, 0, 0],
+        ],
+        [
+          [0, 0, 0, 0],
+          [1, 1, 1, 1],
+          [0, 0, 0, 0],
+          [0, 0, 0, 0],
+        ],
+        [
+          [0, 0, 0, 0],
+          [1, 1, 1, 0],
+          [0, 0, 1, 0],
+          [0, 0, 0, 0],
+        ],
+        [
+          [0, 0, 0, 0],
+          [0, 0, 1, 0],
+          [1, 1, 1, 0],
+          [0, 0, 0, 0],
+        ],
+      ];
+
+      //テトリミノの色
+      const tetColors = [
+        '',//これが選択されることはない
+        '#e6e02f',
+        '#ab4cff',
+        '#de253e',
+        '#00d037',
+        '#58cfff',
+        '#2c7dff',
+        '#ff8a1c',
+      ];
+
+      //テトリミノのindex
+      let tet_idx;
+      //選択されたtet
+      let tet;
+
+    //テトリミノのオフセット量(何マス分ずれているか)
+    let offsetX = 0;
+    let offsetY = 0;
+
+    //ボード本体
+    const board = [];
+
+    //ポーズとスタート管理
+    let isPaused = false;
+    let isStarted = false;
+
+    //ゲームオーバーフラグ
+    let isGameOver =false;
+    
+    // ゴーストブロックを描画する関数
+    const drawGhost = () => {
+      if (isGameOver) return;
+
+      let ghostY = offsetY;
+      while (canMove(0, 1, tet, offsetX, ghostY)) {
+        ghostY++;
+      }
+
+      for (let y = 0; y < tetSize; y++) {
+        for (let x = 0; x < tetSize; x++) {
+          if (tet[y][x]) {
+            drawBlock(offsetX + x, ghostY + y, tet_idx, true);
+          }
+        }
+      }
+    };
+    
+    //描画処理
+    const draw=()=>{
+
+    ctx.fillStyle = '#333333'; //背景色
+    //キャンバスを塗りつぶす
+    ctx.fillRect(0, 0, canvasW, canvasH);
+      drawGhost();
+      //ボードに存在しているブロックを塗る
+        for (let y = 0; y < boardRow; y++) {
+          for (let x = 0; x < boardCol; x++) {
+            if (board[y][x]) {
+              drawBlock(x, y,board[y][x]);
+            }
+          }
+        }
+      
+      drawGhost();
+      
+      //テトリミノの描画
+      for (let y = 0; y < tetSize; y++) {
+        for (let x = 0; x < tetSize; x++) {
+          if (tet[y][x]) {
+            drawBlock(offsetX + x, offsetY + y,tet_idx);
+          }
+        }
+      }
+
+      // グリッドを描画
+      ctx.strokeStyle = '#555555';
+      ctx.lineWidth = 0.8;
+
+
+      // 縦線を描く
+      for (let x = 0; x <= boardCol; x++) {
+        ctx.beginPath();
+        ctx.moveTo(x * blockSize, 0);
+        ctx.lineTo(x * blockSize, canvasH);
+        ctx.stroke();
+      }
+
+      // 横線を描く
+      for (let y = 0; y <= boardRow; y++) {
+        ctx.beginPath();
+        ctx.moveTo(0, y * blockSize);
+        ctx.lineTo(canvasW, y * blockSize);
+        ctx.stroke();
+      }
+
+      //ポーズ状態の描画
+if (isPaused) {
+  // 明度を落とすオーバーレイ
+  ctx.fillStyle = "rgba(0, 0, 0, 0.4)";
+  ctx.fillRect(0, 0, canvasW, canvasH);
+
+  // Pause テキスト
+  const pauseText = '-PAUSE-';
+  ctx.font = "40px 'MS ゴシック'";
+  const textWidth = ctx.measureText(pauseText).width;
+  const x = canvasW / 2 - textWidth / 2;
+  const y = canvasH / 2;
+  ctx.fillStyle = 'white';
+  ctx.fillText(pauseText, x, y);
+}
+
+if (isGameOver) {
+  // 明度を落とすオーバーレイ
+  ctx.fillStyle = "rgba(0, 0, 0, 0.4)";
+  ctx.fillRect(0, 0, canvasW, canvasH);
+
+      const s = '-GAME OVER-';
+      ctx.font = "30px 'MS ゴシック'";
+      const w = ctx.measureText(s).width;
+      const x = canvasW / 2 - w / 2;
+       const y = canvasH / 2 - 20;
+      ctx.fillStyle = 'white';
+      ctx.fillText(s, x, y);
+    }
+
+    };
+    //ブロック一つを描画する
+    const drawBlock = (x, y, idx, isGhost = false) => {
+      let px = x * blockSize;
+      let py = y * blockSize;
+      // 例: "#f6fe85" → "rgba(246,254,133,0.3)"
+            const hexToRgba = (hex, alpha) => {
+              const r = parseInt(hex.slice(1, 3), 16);
+              const g = parseInt(hex.slice(3, 5), 16);
+              const b = parseInt(hex.slice(5, 7), 16);
+              return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+            };
+    
+       const blockNames = ["", "O", "T", "S", "Z", "I", "J", "L"];
+  const name = blockNames[idx];
+  if (!isGhost && images[name]) {
+    ctx.drawImage(images[name], px, py, blockSize, blockSize);
+  } else {
+    ctx.fillStyle = isGhost
+      ? hexToRgba(tetColors[idx], 0.2)
+      : tetColors[idx];
+    ctx.fillRect(px, py, blockSize, blockSize);
+  }
+      ctx.strokeStyle = 'black';
+      ctx.strokeRect(px, py, blockSize, blockSize);
+    };
+
+    //指定された方向に移動できるか？(x移動量,y移動量,対象ret)
+    const canMove = (dx, dy, nowTet = tet, ox = offsetX, oy = offsetY) => {
+        for (let y = 0; y < tetSize; y++) {
+          for (let x = 0; x < tetSize; x++) {
+            //その場所にブロックがあれば
+            if (nowTet[y][x]) {
+              //ボード座標に変換（offsetX(-2~8)+x(0~3)+移動量(-1~1)
+              let nx = ox + x + dx;
+              let ny = oy + y + dy;
+              if (
+                //調査する座標がボード外だったらできない
+                ny < 0 ||
+                nx < 0 ||
+                ny >= boardRow ||
+                nx >= boardCol ||
+                //移動したいボード上の場所にすでに存在してたらできない
+                board[ny][nx]
+              ) {
+                //移動できない
+                return false;
+              }
+            }
+          }
+        }
+        //移動できる
+        return true;
+      };
+      //回転
+      const createRotateTet = () => {
+        //新しいtetを作る
+        let newTet = [];
+        for (let y = 0; y < tetSize; y++) {
+          newTet[y] = [];
+          for (let x = 0; x < tetSize; x++) {
+            //時計回りに90度回転させる
+            newTet[y][x] = tet[tetSize - 1 - x][y];
+          }
+        }
+        return newTet;
+      };
+
+      //キー操作対応（スペースでスタート、Pでポーズ）
+document.onkeydown = (e) => {
+  switch (e.keyCode) {
+    case 32: // スペースキー
+      if (!isStarted) {
+        isStarted = true;
+        isPaused = false;
+        timerId = setInterval(dropTet, speed);
+        draw();
+      } else if (!isGameOver && !isPaused) {
+        while (canMove(0, 1)) offsetY++;
+        fixTet();
+        clearLine();
+        tet_idx = randomIdx();
+        tet = tetTypes[tet_idx];
+        initStartPos();
+
+        if (!canMove(0, 0)) {
+          isGameOver = true;
+          clearInterval(timerId);
+        }
+        draw();
+      }
+      break;
+
+    case 80: // 「P」キー
+      if (isStarted && !isGameOver) {
+        isPaused = !isPaused;
+        if (isPaused) {
+          clearInterval(timerId);
+        } else {
+          timerId = setInterval(dropTet, speed);
+        }
+        draw();
+      }
+      break;
+
+    default:
+      if (isPaused || !isStarted || isGameOver) return;
+
+      switch (e.keyCode) {
+        case 37: // 左
+          if (canMove(-1, 0)) offsetX--;
+          break;
+        case 38: // 回転
+          let newTet = createRotateTet();
+          if (canMove(0, 0, newTet)) tet = newTet;
+          break;
+        case 39: // 右
+          if (canMove(1, 0)) offsetX++;
+          break;
+        case 40: // 下
+          if (canMove(0, 1)) offsetY++;
+          break;
+      }
+      draw();
+  }
+};
+      
+      //動きが止まったtetをボード座標に書き写す
+      const fixTet = () => {
+        for (let y = 0; y < tetSize; y++) {
+          for (let x = 0; x < tetSize; x++) {
+            if (tet[y][x]) {
+              const by = offsetX + x;
+              const bx = offsetY + y;
+              //ボードに書き込む
+              board[offsetY + y][offsetX + x] = tet_idx;
+            }
+          }
+        }
+      };
+      
+      const clearLine = () => {
+        //ボードの行を上から調査
+        for (let y = 0; y < boardRow; y++) {
+          //一列揃ってると仮定する(フラグ)
+          let isLineOK = true;
+          //列に0が入っていないか調査
+          for (let x = 0; x < boardCol; x++) {
+            if (board[y][x]===0) {
+              //0が入ってたのでフラグをfalse
+              isLineOK = false;
+              break;
+            }
+          }
+          if (isLineOK) {//ここに来るということはその列が揃っていたことを意味する
+            //その行から上に向かってfor文を動かす
+            for (let ny = y; ny > 0; ny--) {
+              for (let nx = 0; nx < boardCol; nx++) {
+                //一列上の情報をコピーする
+                board[ny][nx] = board[ny - 1][nx];
+              }
+            }
+          }
+        }
+      };
+      //繰り返し行われる落下処理
+      const dropTet = () => {
+        if (isGameOver) return;
+        //下に行けたら
+        if (canMove(0, 1)) {
+          //下に行く
+          offsetY++;
+        } else {
+
+          if (!canMove(0,0)) {
+            isGameOver = true;
+            clearInterval(timerId);
+            draw();
+            return;
+          }
+          
+          //行けなかったら固定する
+          fixTet();
+          //揃ったラインがあったら消す
+          clearLine();
+          //抽選
+          tet_idx = randomIdx();
+          tet = tetTypes[tet_idx];
+          //初期位置に戻す
+          initStartPos();
+          //次のtetを出せなかったらGameOver
+          if (!canMove(0, 0)) {
+            isGameOver = true;
+            clearInterval(timerId);
+          }
+        }
+
+        draw();
+      };
+    const initStartPos = () => {
+      offsetX = boardCol / 2 - tetSize / 2;
+
+      //テトリミノ内の一番上のブロック行を探す
+      let topOffset = 0;
+      for (let y = 0; y < tetSize; y++) {
+        if (tet[y].some(cell => cell !== 0)) {
+          topOffset = y;
+          break;
+        }
+      }
+
+      //offsetY を上の空白分マイナスして補正
+      offsetY = -topOffset;
+  };
+
+    //テトリミノのindexを抽選
+    const randomIdx = () => {
+      return Math.floor(Math.random() * (tetTypes.length - 2)) + 1;
+    };
+
+    //ブロック画像の読み込み（種類別）
+ const images = {
+  "I": new Image(),
+  "O": new Image(),
+  "T": new Image(),
+  "S": new Image(),
+  "Z": new Image(),
+  "J": new Image(),
+  "L": new Image(),
+};
+
+images["I"].src = "block_I.png";
+images["O"].src = "block_O.png";
+images["T"].src = "block_T.png";
+images["S"].src = "block_S.png";
+images["Z"].src = "block_Z.png";
+images["J"].src = "block_J.png";
+images["L"].src = "block_L.png";
+
+    //初期化処理
+    const init=()=>{
+      //ボード(20*10を0埋め)
+        for (let y = 0; y < boardRow; y++) {
+          board[y] = [];
+          for (let x = 0; x < boardCol; x++) {
+            board[y][x] = 0;
+          }
+        }
+
+      //最初のテトリミノを抽選
+      tet_idx = randomIdx();
+      tet = tetTypes[tet_idx];
+
+      initStartPos();
+
+        draw();
+      };
+      
+    </script> 
+  </body>
+</html>
