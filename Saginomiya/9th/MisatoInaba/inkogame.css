@@ -1,0 +1,117 @@
+button {
+  border: none;
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  margin: 20px;
+}
+
+img {
+  width: 100px;
+  height: 150px;
+}
+
+.hidden {
+  display: none;
+}
+
+.cardlist {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.card {
+  position: relative;
+  width: 100px;
+  height: 150px;
+  cursor: pointer;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+body {
+  text-align: center;
+  background-color: #f8f25a;
+  background-image: repeating-linear-gradient(
+  45deg,
+  rgba(255,255,255,0.03),
+  rgba(255,255,255,0.03) 10px,
+  transparent 10px,
+  transparent 20px
+);
+font-family: "Arial", sans-serif;
+}
+
+h1 {
+  color: rgb(0, 102, 255);
+  text-shadow: 2px 2px 5px rgb(221, 255, 248);
+  font-size: 2em;
+  /*フォントを変更*/
+  font-family:"fantasy";
+}
+
+/*スコアボード*/
+#scoreboard {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #ffd2fd;
+  border-top: 4px solid rgb(255, 173, 192);
+  margin-top: 30px;
+  padding: 15px;
+}
+
+.score-box {
+  display: flex;
+  align-items: center;
+  background-color: #ff93c9;
+  border: 2px solid white;
+  padding: 10px 30px;
+  border-radius: 15px;
+  color: white;
+  width: 250px;
+  justify-content: flex-start;
+}
+
+.score-box p {
+  margin: 5px 0;
+}
+
+.score {
+  font-size: 3em;
+  color: rgb(255, 255, 255);
+}
+
+.parrot-icon {
+  width: 80px;
+  height: 80px;
+  margin-right: 20px;
+}
+
+#turnDisplay {
+  color: rgb(53, 114, 188);
+  font-size: 1.3em;
+  margin-top: 15px;
+}
+
+.cardlist > div {
+  display: flex;
+  gap: 10px;
+}
+
+.card .front,
+.card .back {
+  position: absolute;
+  top: 0;
+  left: 0;
+}

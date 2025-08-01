@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>多機能メモ帳</title>
+  <style>
+    body {
+      font-family:"fantasy";
+      background: #c3c3c3;
+      padding: 20px;
+    }
+    input, textarea, button {
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    input[type="text"] {
+      width: 40%;
+      padding: 8px;
+      border-radius: 10px;
+      border-color: #c3c3c3
+     
+    }
+    textarea {
+      width: 98%;
+      height: 250px;
+      padding: 10px;
+      border-color: #c3c3c3;
+      border-radius: 10px;
+    }
+    button {
+      padding: 10px 15px;
+      margin-right: 10px;
+      border-color: #c3c3c3;
+      border-radius: 10px;
+    }
+    #lastSaved {
+      font-size: 14px;
+      color: #cb1c1c;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>多機能メモ帳</h1>
+
+  <input type="text" id="title" placeholder="メモのタイトルを入力">
+  <br>
+
+  <input type="text" id="search" placeholder="メモ内検索ワード" oninput="highlightSearch()">
+  <br>
+
+  <textarea id="memo" placeholder="ここにメモを書いてください..."></textarea>
+  <br>
+
+  <button onclick="saveNote()">保存</button>
+  <button onclick="loadNote()">読み込み</button>
+  <button onclick="deleteNote()">削除</button>
+
+  <div id="lastSaved">🕒 最終保存: なし</div>
+
+  <script>
+    const memoField = document.getElementById('memo');
+    const titleField = document.getElementById('title');
+    const searchInput = document.getElementById('search');
+    const lastSaved = document.getElementById('lastSaved');
+
+    function saveNote() {
+      const title = titleField.value.trim();
+      if (!title) {
+        alert('タイトルを入力してください');
+        return;
+      }
+
+      const content = memoField.value;
+      const now = new Date().toLocaleString('ja-JP');
+
+      localStorage.setItem(`memo_${title}`, content);
+      localStorage.setItem(`memoTime_${title}`, now);
+
+      alert(`"${title}" を保存しました`);
+      lastSaved.textContent = '🕒 最終保存: ' + now;
+    }
+
+    function loadNote() {
+      const title = titleField.value.trim();
+      if (!title) {
+        alert('タイトルを入力してください');
+        return;
+      }
+
+      const content = localStorage.getItem(`memo_${title}`);
+      const time = localStorage.getItem(`memoTime_${title}`);
+
+      if (content === null) {
+        alert(`"${title}" は見つかりません`);
+        return;
+      }
+
+      memoField.value = content;
+      lastSaved.textContent = time ? '🕒 最終保存: ' + time : '🕒 最終保存: 不明';
+      alert(`"${title}" を読み込みました`);
+    }
+
+    function deleteNote() {
+      const title = titleField.value.trim();
+      if (!title) {
+        alert('タイトルを入力してください');
+        return;
+      }
+
+      const confirmDelete = confirm(`"${title}" を削除してもよいですか？`);
+      if (confirmDelete) {
+        localStorage.removeItem(`memo_${title}`);
+        localStorage.removeItem(`memoTime_${title}`);
+        memoField.value = '';
+        lastSaved.textContent = '🕒 最終保存: なし';
+        alert(`"${title}" を削除しました`);
+      }
+    }
+
+    function highlightSearch() {
+      const keyword = searchInput.value;
+      const text = memoField.value;
+
+      const index = text.indexOf(keyword);
+
+      if (keyword === '') {
+        searchInput.style.backgroundColor = '';
+        return;
+      }
+
+      if (index === -1) {
+        searchInput.style.backgroundColor = '#ffd6d6'; // 赤っぽい（見つからない）
+      } else {
+        searchInput.style.backgroundColor = '#d6ffd6'; // 緑っぽい（見つかった）
+
+        // ジャンプして選択
+        memoField.focus();
+        memoField.setSelectionRange(index, index + keyword.length);
+      }
+    }
+  </script>
+</body>
+</html>
+

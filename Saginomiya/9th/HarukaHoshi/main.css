@@ -1,0 +1,67 @@
+body{
+  font-family:  "ヒラギノ角ゴ ProN W3", HiraKakuProN-W3, 游ゴシック, "Yu Gothic", メイリオ, Meiryo, Verdana, Helvetica, Arial, sans-serif;
+  background-color:rgb(213, 238, 238);
+  color:rgb(62, 61, 61);
+}
+
+.card{
+  display:flex;
+  width:280px;
+  height: auto;
+  border-radius:8px;
+  overflow: hidden;
+  background-color:rgb(181, 255, 229);
+  box-shadow:0 4px 15px rgba(118, 118, 118, 0.557);
+  margin: 10px;
+}
+
+.logbody{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  gap: 20px;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 300px;
+    display: block;
+    margin: 0 auto;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+button:active {
+    background-color: #1e7e34;
+    transform: scale(0.98);
+}
+
+input[type="text"]:focus{
+  border-color:#067a1b;
+  box-shadow:0 0 5px #067a1b7a;
+  outline: none;
+}
+
+input[type="radio"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #007BFF;
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+input[type="radio"]:checked {
+    background-color: #007BFF;
+    border-color: #007BFF;
+}

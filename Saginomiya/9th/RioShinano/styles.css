@@ -1,0 +1,125 @@
+/* styles.css: 全体を差し替えてこれをコピー＆ペースト */
+
+/* Base Styles */
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  transition: background-image 0.5s ease-in-out,
+              color 0.3s ease-in-out,
+              font-family 0.3s ease-in-out;
+}
+
+.game-container {
+  width: 80%;
+  max-width: 600px;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.character-profile img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.character-profile img:hover {
+  transform: scale(1.05);
+}
+
+.stats,
+.actions {
+  margin: 20px 0;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.2em;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.result {
+  margin-top: 20px;
+  font-size: 1.5em;
+}
+
+/* Theme: あやの */
+.theme-ayano {
+  background-color: #fff8f0; /* フォールバック */
+  color: #4762fd;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+.theme-ayano .btn {
+  background-color: #4dd6f8;
+  color: #ffffff;
+}
+
+.theme-ayano .btn:hover:not(:disabled) {
+  background-color: #e0476b;
+}
+
+
+/* Theme: T.O.P */
+.theme-top {
+  background-color: #f0f0f0; /* フォールバック */
+  color: hsl(313, 79%, 53%);
+  font-family: 'Times New Roman', serif;
+}
+
+.theme-top .btn {
+  background-color: #444444;
+  color: #ffffff;
+}
+
+.theme-top .btn:hover:not(:disabled) {
+  background-color: #222222;
+}
+
+.ending {
+  text-align: center;
+  padding: 20px;
+}
+
+#endingVideoContainer {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  overflow: hidden;
+  margin-top: 20px;
+}
+
+#endingVideo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+#endingVideoContainer {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 20px;
+}
+
+#proposeBtn {
+  position: relative;
+  z-index: 2;  /* YouTubeより上に */
+}

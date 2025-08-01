@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>推し活RPG</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="theme-ayano">
+
+  <h1>推し活RPG</h1>
+
+  <div>プレイヤーHP: <span id="playerHP">100</span></div>
+
+  <div id="shop">
+  <h2>ショップ</h2>
+  <button id="buyHeal">回復薬（20コイン）</button>
+  <button id="buyDoping">ドーピング薬（50コイン）</button>
+  <p>所持金: <span id="coinDisplay">100</span> コイン</p>
+</div>
+
+<!-- キャラ選択 -->
+<div class="character-select">
+  <button class="btn" onclick="switchCharacter('ayano')">あやのを選ぶ</button>
+  <button class="btn" onclick="switchCharacter('top')">T.O.Pを選ぶ</button>
+  <button class="btn" onclick="switchCharacter('toki')">常田大希を選ぶ</button>
+  <button class="btn" onclick="switchCharacter('boris')">ボリス・ジョンソンを選ぶ</button>
+  <button class="btn" onclick="switchCharacter('meii')">永野芽衣を選ぶ</button>
+  <button class="btn" onclick="switchCharacter('kimu')">木村拓哉を選ぶ</button>
+  <button class="btn" onclick="switchCharacter('suzu')">広瀬すずを選ぶ</button>
+  <button class="btn" onclick="switchCharacter('ryouhei')">鈴木亮平を選ぶ</button>
+  <button class="btn" onclick="switchCharacter('gongyoo')">コン・ユを選ぶ</button>
+  <button class="btn" onclick="switchCharacter('ohinasama')">長浜広奈を選ぶ</button>
+  <button class="btn" onclick="switchCharacter('wonyoung')">ウォニョンを選ぶ</button>
+</div>
+
+
+  <div class="game-container">
+    <!-- キャラクター表示 -->
+    <div class="character-profile">
+      <img id="characterImage" src="ayano_default.jpg" alt="キャラ画像" />
+      <h2 id="characterName">あやの</h2>
+      <p id="characterDescription">元気でかわいくて、アイドル活動が大好きなキャラクター。</p>
+    </div>
+
+    <!-- ステータス -->
+    <div class="stats">
+      <p><span>好感度:</span> <span id="affection">50</span></p>
+      <p><span>アイテム:</span> <span id="items">0</span></p>
+    </div>
+
+<div class="actions">
+  <div class="actions">
+  <button class="btn" id="startMiniGameBtn">ミニゲームを開始</button> <!-- ミニゲームを開始ボタン -->
+  <button class="btn" id="collectBtn" style="display:none;">アイテムを集める</button> <!-- ミニゲームが成功したら表示 -->
+</div>
+
+<div id="gameMessage" class="result"></div> <!-- ゲーム結果メッセージ表示 -->
+
+  <button class="btn" id="giveGiftBtn">アイテムを渡す</button>
+  <!-- プロポーズボタンをゲーム画面内に移動 -->
+  <button id="proposeBtn" class="btn" style="display:none; margin-left: 10px;">🌹 百八本のバラを渡す</button>
+</div>
+
+    <!-- アイテム選択 -->
+    <div id="itemMenu" style="display: none;">
+      <p>渡すアイテムを選んでください:</p>
+      <button class="btn" id="item1"></button>
+      <button class="btn" id="item2"></button>
+      <button class="btn" id="item3"></button>
+    </div>
+
+    <!-- メッセージ表示 -->
+    <div class="result" id="result"></div>
+  </div>
+
+<!-- 特別エンディング画面 -->
+<div id="endingScreen" style="display: none;" class="ending">
+  <h2 id="endingTitle"></h2>
+  <p id="endingMessage"></p>
+  <!-- YouTube動画をここに埋め込む -->
+  <div id="endingVideoContainer">
+    <iframe id="endingVideo" width="560" height="315"
+      src=""
+      frameborder="0"
+      allow="autoplay; encrypted-media"
+      allowfullscreen>
+    </iframe>
+  </div>
+</div>
+
+<!-- 🌹 プロポーズ結果画面 -->
+<div id="proposalResultScreen" style="display: none;" class="ending">
+  <h2 id="proposalResultTitle"></h2>
+  <p id="proposalResultMessage"></p>
+  <img id="proposalResultImage" src="" alt="" style="max-width: 300px; margin-top: 20px;" />
+</div>
+
+<!-- ツイートボタン -->
+<a id="tweetButton" href="#" target="_blank" class="btn" style="margin-top: 20px; display: none;">
+  ✨ 結果をX（旧Twitter）でシェア
+</a>
+<script src="script.js"></script>

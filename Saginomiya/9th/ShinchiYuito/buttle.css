@@ -1,0 +1,24 @@
+* {
+  box-sizing: border-box; /* border基準の調整 */
+  padding: 0; /* 余白のリセット */
+  margin: 0; /* 余白のリセット */
+}
+
+.command {
+  border: 4px solid black; /* 線を追加 */
+  border-radius: 20px; /* 角を丸くする */
+  margin: 20px; /* 余白を設定 */
+  padding: 20px 0; /* 余白を設定 */
+}
+
+.mob {
+  position: relative; /* 位置調整（基準） */
+  /* 中央寄せ */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 600px; /* 高さ調整 */
+}
+.mob div {
+  position: absolute; /* 位置調整（絶対位置） */
+}

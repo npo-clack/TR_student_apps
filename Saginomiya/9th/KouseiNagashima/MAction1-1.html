@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<title>マリオ1-1風ミニゲーム</title>
+<style>
+  body { margin: 0; background: #87CEEB; /* 空色 */}
+  canvas { display: block; margin: 0 auto; background: #5C94FC; } /* 青空背景 */
+</style>
+</head>
+<body>
+<canvas id="game" width="512" height="480"></canvas>
+<script>
+(() => {
+  const canvas = document.getElementById('game');
+  const ctx = canvas.getContext('2d');
+  let gameEnded = false;
+  let animationFrameId;
+  let jumpBuffer = 0;
+  let isDashing = false;
+  let timeLeft = 400; 
+  let timeCounter = 0; 
+  let score = 0;
+  const TILE_SIZE = 32;
+  const GRAVITY = 0.7;
+  const FRICTION = 0.8;
+  const levelData = [
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,3],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,3],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,3],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,3],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,1,0,0,0,0,1,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0,3],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,0,0,0,0,0,0,0,0,1,1,1,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,3],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,1,1,1,0,0,0,0,0,0,1,1,1,1,0,0,1,1,1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,3],
+    [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,2,0,0,1,1,0,2,2,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,2,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,0,2,2,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,1,1,1,1,0,0,0,0,1,1,1,1,1,0,0,1,1,1,1,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,2,2,0,0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+    [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+  ];
+  let cameraX = 0;
+  const goalTiles = new Set();
+  for (let row = 0; row < levelData.length; row++) {
+    for (let col = 0; col < levelData[0].length; col++) {
+      if (levelData[row][col] === 3) {
+        goalTiles.add(`${row},${col}`);
+      }
+    }
+  }
+  const mario = {
+    x: TILE_SIZE * 2,
+    y: TILE_SIZE * 7,
+    w: 28,
+    h: 28,
+    color: 'red',
+    vx: 0,
+    vy: 0,
+    onGround: false,
+  };
+  class Enemy {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+      this.w = 28;
+      this.h = 28;
+      this.vx = -1;
+      this.vy = 0;
+      this.onGround = false;
+      this.color = '#a0522d';
+      this.alive = true;
+    }
+    update() {
+      if (!this.alive) return;
+      const screenX = this.x - cameraX;
+      if (screenX + this.w < 0 || screenX > canvas.width) {
+        return;
+      }
+      this.x += this.vx;
+        if (isSolidAt(this.x + this.vx + this.w, this.y + this.h) || isSolidAt(this.x + this.vx, this.y + this.h)) {
+          this.vx = -this.vx;
+        }
+        this.vy += GRAVITY;
+        const newY = this.y + this.vy;
+        if (!isSolidAt(this.x, newY + this.h) && !isSolidAt(this.x + this.w, newY + this.h)) {
+          this.y = newY;
+          this.onGround = false;
+        } else {
+          while (!isSolidAt(this.x, this.y + Math.sign(this.vy) + this.h) &&
+                 !isSolidAt(this.x + this.w, this.y + Math.sign(this.vy) + this.h)) {
+            this.y += Math.sign(this.vy);
+          }
+          this.vy = 0;
+          this.onGround = true;
+        }
+      }
+  }
+  const enemies = [];
+  for(let row=0; row<levelData.length; row++) {
+    for(let col=0; col<levelData[0].length; col++) {
+      if(levelData[row][col] === 2) {
+        enemies.push(new Enemy(col*TILE_SIZE, row*TILE_SIZE));
+      }
+    }
+  }
+  const keys = {};
+  window.addEventListener('keydown', e => {
+    keys[e.key] = true;
+    if (e.key === 'w') {
+      jumpBuffer = 5;
+    }
+  });
+  window.addEventListener('keyup', e => keys[e.key] = false);
+  function isSolidAt(x, y) {
+    const col = Math.floor(x / TILE_SIZE);
+    const row = Math.floor(y / TILE_SIZE);
+    if(row < 0 || row >= levelData.length || col < 0 || col >= levelData[0].length) return false;
+    return levelData[row][col] === 1;
+  }
+  function checkCollision(m) {
+    const padding = 2;
+    const points = [
+      { x: m.x + padding, y: m.y + padding },
+      { x: m.x + m.w - padding, y: m.y + padding },
+      { x: m.x + padding, y: m.y + m.h - padding },
+      { x: m.x + m.w - padding, y: m.y + m.h - padding },
+    ];
+    return points.some(p => isSolidAt(p.x, p.y));
+  }
+  function updateMario() {
+    if (mario.onGround && (keys['b'] || keys['B'])) {
+    isDashing = true;
+    }
+    if (mario.onGround && !(keys['b'] || keys['B'])) {
+      isDashing = false;
+    }
+    const accel = isDashing ? 0.7 : 0.5;
+    const maxSpeed = isDashing ? 6 : 4;
+    if (keys['a']) {
+      mario.vx = Math.max(mario.vx - accel, -maxSpeed);
+    }
+    if (keys['d']) {
+      mario.vx = Math.min(mario.vx + accel, maxSpeed);
+    }
+    if (!keys['a'] && !keys['d']) {
+      const groundFriction = mario.onGround ? 0.95 : 0.95;
+      mario.vx *= groundFriction;
+      if (Math.abs(mario.vx) < 0.05) mario.vx = 0;
+    }else {
+    const groundFriction = mario.onGround ? 0.95 : 0.95;
+    mario.vx *= groundFriction;
+    if (Math.abs(mario.vx) < 0.05) mario.vx = 0;
+    }
+    if (jumpBuffer > 0 && mario.onGround) {
+      mario.vy = -15;
+      mario.onGround = false;
+      jumpBuffer = 0;
+    }
+    if (jumpBuffer > 0) {
+      jumpBuffer--;
+    }
+    if (!keys['w'] && mario.vy < 0) {
+      mario.vy *= 0.5;
+    }
+    mario.vy += GRAVITY;
+    const maxFallSpeed = 15;
+    if (mario.vy > maxFallSpeed) {
+      mario.vy = maxFallSpeed;
+    }
+    let newX = mario.x + mario.vx;
+    if (!checkCollision({ x: newX, y: mario.y, w: mario.w, h: mario.h })) {
+      mario.x = newX;
+    } else {
+      mario.vx = 0;
+    }
+    const oldY = mario.y;
+    let newY = mario.y + mario.vy;
+    if (!checkCollision({ x: mario.x, y: newY, w: mario.w, h: mario.h })) {
+      mario.y = newY;
+      mario.onGround = false;
+    } else {
+      while (!checkCollision({ x: mario.x, y: mario.y + Math.sign(mario.vy), w: mario.w, h: mario.h })) {
+        mario.y += Math.sign(mario.vy);
+      }
+      if (mario.vy > 0) mario.onGround = true;
+      mario.vy = 0;
+    }
+    let stompedAny = false;
+    for (const e of enemies) {
+      if (!e.alive) continue;
+      if (!rectIntersect(mario, e)) continue;
+      const marioBottom = mario.y + mario.h;
+      const enemyTop = e.y;
+      const overlapY = marioBottom - enemyTop;
+      const isStomp = mario.vy > 0 && overlapY > 0 && overlapY < mario.h;
+      if (isStomp) {
+        e.alive = false;
+        stompedAny = true;
+        score += 100;
+      } else {
+        resetGame("ゲームオーバー");
+        return;
+      }
+    }
+    if (stompedAny) {
+      if (keys['w']) {
+        mario.vy = -15;
+      } else {
+        mario.vy = -10;
+      }
+      mario.onGround = false;
+    }
+    if (mario.y > canvas.height) {
+      resetGame("ゲームオーバー");
+      return;
+    }
+    const topRow = Math.floor(mario.y / TILE_SIZE);
+    const bottomRow = Math.floor((mario.y + mario.h) / TILE_SIZE);
+    const leftCol = Math.floor(mario.x / TILE_SIZE);
+    const rightCol = Math.floor((mario.x + mario.w) / TILE_SIZE);
+    let goalReached = false;
+    let goalRow = -1;
+    for (let row = topRow; row <= bottomRow; row++) {
+      for (let col = leftCol; col <= rightCol; col++) {
+        if (goalTiles.has(`${row},${col}`)) {
+          goalReached = true;
+          goalRow = row;
+          break;
+        }
+      }
+      if (goalReached) break;
+    }
+    if (goalReached) {
+      score += timeLeft * 50;
+      let heightBonus = 0;
+      if (goalRow >= 2 && goalRow <= 13) {
+        heightBonus = (12 - goalRow) * 500;
+      }
+      score += heightBonus;
+      resetGame("クリア！\nスコア: " + score);
+      return;
+    }
+    const cameraThreshold = 6 * TILE_SIZE;
+    if (mario.x > cameraThreshold) {
+      cameraX = mario.x - cameraThreshold;
+    } else {
+      cameraX = 0;
+    }
+    timeCounter++;
+    if (timeCounter >= 60) {
+      timeCounter = 0;
+      if (timeLeft > 0) timeLeft--;
+    }
+    if (timeLeft === 0) {
+      resetGame("時間切れ");
+      return;
+    }
+  }
+  function rectIntersect(a, b) {
+    return !(a.x + a.w < b.x || a.x > b.x + b.w || a.y + a.h < b.y || a.y > b.y + b.h);
+  }
+  function resetGame(message) {
+    if (gameEnded) return;
+    gameEnded = true;
+    cancelAnimationFrame(animationFrameId);
+    setTimeout(() => {
+      alert(message);
+      location.reload();
+    }, 100);
+  }
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for(let row=0; row<levelData.length; row++) {
+      for(let col=0; col<levelData[0].length; col++) {
+        const tile = levelData[row][col];
+        const x = Math.floor(col * TILE_SIZE - cameraX);
+        const y = Math.floor(row * TILE_SIZE);
+        if(x + TILE_SIZE < 0 || x > canvas.width) continue;
+        if(tile === 1) {
+          ctx.fillStyle = '#888';
+          ctx.fillRect(x, y, TILE_SIZE, TILE_SIZE);
+        } else if(tile === 3) {
+          ctx.fillStyle = 'yellow';
+          ctx.fillRect(x, y, TILE_SIZE, TILE_SIZE);
+        }
+      }
+    }
+    enemies.forEach(e => {
+      if (!e.alive) return;
+      const x = Math.floor(e.x - cameraX);
+      const y = Math.floor(e.y + 2);
+      ctx.fillStyle = e.color
+      ctx.fillRect(x, y, e.w, e.h);
+    });
+    const marioX = Math.floor(mario.x - cameraX);
+    const marioY = Math.floor(mario.y);
+    ctx.fillStyle = mario.color;
+    ctx.fillRect(marioX, marioY, mario.w, mario.h);
+    ctx.fillStyle = 'white';
+    ctx.font = '20px sans-serif';
+    ctx.textAlign = 'right';
+    ctx.fillText('TIME', canvas.width - 10, 30);
+    ctx.fillText(timeLeft.toString(), canvas.width - 10, 60);
+    ctx.fillStyle = 'white';
+    ctx.font = '20px sans-serif';
+    ctx.textAlign = 'left';
+    const formattedScore = score.toString().padStart(6, '0');
+    ctx.fillText('SCORE', 10, 30);
+    ctx.fillText(formattedScore, 10, 60);
+  }
+  const cameraMargin = 6 * TILE_SIZE;
+  if (mario.x > cameraMargin) {
+    cameraX = mario.x - cameraMargin;
+  } else {
+    cameraX = 0;
+  }
+  function updateEnemies() {
+    enemies.forEach(e => {
+      e.update();
+    });
+  }
+  function gameLoop() {
+    if (gameEnded) return;
+    updateMario();
+    updateEnemies();
+    draw();
+    animationFrameId = requestAnimationFrame(gameLoop);
+  }
+  const maxCameraX = levelData[0].length * TILE_SIZE - canvas.width;
+  cameraX = Math.min(cameraX, maxCameraX);
+  gameLoop();
+})();
+</script>
+</body>
+</html>

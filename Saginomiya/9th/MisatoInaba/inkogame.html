@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="inkogame.css">
+  <title>インコの鳴き声神経衰弱</title>
+</head>
+<body>
+  <h1>神経衰弱</h1>
+
+  <!--カードリスト-->
+  <div class="cardlist">
+  <div>
+    <button class="card" data-index="0"
+onclick="flipCard(this)">
+      <img class="back" src="hane.PNG" alt="裏面">
+      <img class="front hidden" src="abokado.PNG" alt="表面">
+    </button>
+    <button class="card" data-index="1"
+onclick="flipCard(this)">
+      <img class="back" src="hane.PNG" alt="裏面">
+      <img class="front hidden" src="akubi.PNG" alt="表面">
+    </button>
+    <button class="card" data-index="2"
+onclick="flipCard(this)">
+      <img class="back" src="hane.PNG" alt="裏面">
+      <img class="front hidden" src="gorogoro.PNG" alt="表面">
+    </button>
+    <button class="card" data-index="3"
+onclick="flipCard(this)">
+      <img class="back" src="hane.PNG" alt="裏面">
+      <img class="front hidden" src="hananoiro.PNG" alt="表面">
+    </button>
+  </div>
+  <div> <!--2段目-->
+    <button class="card" data-index="4"
+onclick="flipCard(this)">
+      <img class="back" src="hane.PNG" alt="裏面">
+      <img class="front hidden" src="junnbi.PNG" alt="表面">
+    </button>
+    <button class="card" data-index="5"
+onclick="flipCard(this)">
+      <img class="back" src="hane.PNG" alt="裏面">
+      <img class="front hidden" src="nerujikann.PNG" alt="表面">
+    </button>
+    <button class="card" data-index="6"
+onclick="flipCard(this)">
+      <img class="back" src="hane.PNG" alt="裏面">
+      <img class="front hidden" src="osyaberi.PNG" alt="表面">
+    </button>
+    <button class="card" data-index="7"
+onclick="flipCard(this)">
+      <img class="back" src="hane.PNG" alt="裏面">
+      <img class="front hidden" src="oumu.PNG" alt="表面">
+    </button>
+  </div>
+  <div> <!--3段目-->
+    <button class="card" data-index="8"
+onclick="flipCard(this)">
+      <img class="back" src="hane.PNG" alt="裏面">
+      <img class="front hidden" src="sigaisenn.PNG" alt="表面">
+    </button>
+    <button class="card" data-index="9"
+onclick="flipCard(this)">
+      <img class="back" src="hane.PNG" alt="裏面">
+      <img class="front hidden" src="unnti.PNG" alt="表面">
+    </button>
+    <button class="card" data-index="10"
+onclick="flipCard(this)">
+      <img class="back" src="hane.PNG" alt="裏面">
+      <img class="front hidden" src="yakimoti.PNG" alt="表面">
+    </button>
+    <button class="card" data-index="11"
+onclick="flipCard(this)">
+      <img class="back" src="hane.PNG" alt="裏面">
+      <img class="front hidden" src="yobu.PNG" alt="表面">
+    </button>
+  </div>
+</div>
+
+<!--スコアボード-->
+<div id="scoreboard">
+  <div class="score-box">
+    <img src="sheeta.PNG" alt="プレイヤー" class="parrot-icon">
+  <p>Player</p>
+  <p class="score"><span id="playerScore">0</span></p>
+</div>
+<div class="score-box">
+  <img src="pazu.PNG" alt="COM" class="parrot-icon">
+<p>COM</p>
+<p class="score"><span id="comScore">0</span></p>
+</div>
+</div>
+
+<p id="turnDisplay">現在のターン: <span id="currentTurn">Player</span></p>
+
+<script src="inkogame.js"></script>
+</body>
+</html>

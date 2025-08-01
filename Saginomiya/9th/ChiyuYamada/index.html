@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ちーかまの冷蔵庫</title>
+  <link rel="stylesheet" href="style.css" />
+  <!--ファビコン↓-->
+  <link rel="icon" href="Photo/favicon_四角っぽい丸.png" type="image/png">
+</head>
+<body>
+  <header>
+    <h1>Chi-cama's &nbsp; Fridge</h1>
+    <nav>
+      <ul>
+        <li><a href="#works">works</a></li>
+        <li><a href="#about">about</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section id="works" class="works-section">
+      <h2>works</h2>
+<!--タグ分けボタン-->
+        <div class="filter-buttons">
+        <button class="active" data-filter="all">ALL</button>
+        <button data-filter="O">OC</button>
+        <button data-filter="D">DESIGN</button>
+        <button data-filter="F">FA</button>
+        <button data-filter="R">REQ</button>
+
+
+  </div>
+
+<!-- 作品カード一覧-->
+    <div class="works-grid" id="worksGrid"></div>
+    <script src="works-data.js"></script>
+<script>
+  const grid = document.getElementById("worksGrid");
+
+  worksData.forEach(work => {
+    const card = document.createElement("div");
+    card.className = "work-card";
+    card.setAttribute("data-category", work.category.join(","));
+
+    card.innerHTML = `
+      <a href="work-detail.html?id=${work.id}">
+        <img src="${work.img}" alt="${work.title}">
+      </a>
+      <p>${work.description}</p>
+    `;
+    grid.appendChild(card);
+  });
+
+</script>
+</section>
+
+<!--自己紹介-->
+    <section id="about" class="about-section">
+      <h2>about</h2>
+
+      <div class="profile">
+        <img src="Photo/黄色い生物.png" alt="ちーかまのイメージ画像">
+    <!--SNSリンクアイコン-->
+      <ul class="snsbtniti">
+
+        <li>
+        <a href="https://x.com/chiese_camasio" class="flowbtn my_x1">
+        <i class="fa-brands fa-x-twitter"></i>
+        <div>X(旧Twitter)</div>
+        </a>
+        </li>
+        
+        <li>
+        <a href="https://www.instagram.com/chi.ese._.ca.ma.sio/" class="flowbtn my_instagram1">
+        <i class="fa-brands fa-instagram"></i>
+        <div>Instagram</div>
+        </a>
+        </li>
+
+      </ul>
+        
+        <div>
+         <h3>ちーかま</h3>
+         <p>日本在住のクリエイター。イラスト制作やキャラクターデザインを中心に活動中。マスコットキャラクターのデザインが得意。</p>
+        </div>
+      </div>
+
+    <h3>Skills</h3>
+    <table>
+      <tr>
+        <th>OS</th>
+        <td>【使用OS】Windows / macOS(日常的な操作は可能)</td>
+      </tr>
+      <tr>
+        <th>言語,デザインツール</th>
+        <td>HTML / CSS / JavaScript(簡単なサイトの制作経験あり)<br>
+          Photoshop / Illustrator(勉強中)<br>
+          アイビスペイント(基本操作は問題なく可能)</td>
+      </tr>
+      <tr>
+        <th>資格・免許</th>
+        <td>特になし<!--イラストに関係のある内容--></td>
+      </tr>
+    </table>
+
+    <h3>Works</h3>
+    <p><!--アピールできる活動内容を書く。--></p>
+    <ul>
+      <!--<li><a href="https://github.com/">GitHub</a></li>
+      <li><a href="https://qiita.com/">Qiita</a></li>
+      <li><a href="https://zenn.dev/">Zenn</a></li>-->
+      <li>
+        作った作品<!--ゲーム、サイトなど-->
+        <ul>
+          <li><a href="https://example.com/">作品 1</a></li>
+          <li><a href="https://example.com/">作品 2</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3>Contact</h3>
+    <p><!--連絡先や SNS のアカウント--></p>
+    <ul>
+      <li><a href="mailto:name@example.com">Mail</a></li>
+      <li><a href="https://x.com/chiese_camasio">X</a></li>
+    </ul>
+
+    <h3>History</h3>
+    <p><!--学歴、職歴、アルバイト、インターン経験など--></p>
+    <table>
+      <tr>
+        <th>20XX 年</th>
+        <td>表彰、受賞歴、メディア掲載記事など</td>
+      </tr>
+
+<tr>
+  <th>2025 年現在</th>
+  <td>
+    <a href="https://www.doutor.co.jp/dcs/">ドトールコーヒーショップ</a> 勤務<br>
+    <a href="https://techrunway.jp/tokyo/">プログラミング教室TechRunway</a> 在籍
+  </td>
+</tr>
+
+    </table>
+      <p><!--高等学校卒業--></p>
+    </section>
+
+    <h3>このサイトについて</h3>
+    <p>ダークモードに対応しております。</p>
+
+  </main>
+
+  <footer>
+    <p>&copy; 2025 My Portfolio</p>
+  </footer>
+
+  <script src="script.js"></script>
+  
+</body>
+</html>
+
+
+
+<!--やること
+自己紹介ページの制作
+SNSリンクをアイコン化
+メニューバー
+
+~余裕があれば~
+自己紹介内容ブラッシュアップ
+-->

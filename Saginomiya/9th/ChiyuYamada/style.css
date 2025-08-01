@@ -1,0 +1,223 @@
+body {
+  margin: 0;
+  font-family: "Helvetica Neue", sans-serif;
+  background-color: #fff;
+  color: #333;
+  width: 960px;
+  margin: 0 auto;
+}
+
+header {
+  background-color: #f0f0f0;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  font-size: 1.5rem;
+}
+
+nav ul {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+}
+
+nav a {
+  text-decoration: none;
+  color: #333;
+}
+
+main {
+  padding: 2rem;
+}
+
+.works-section h2,
+.about-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.works-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.work-card {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  transition: transform 0.2s;
+  background-color: #fff;
+  color: #000;
+}
+
+.work-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.work-card:hover {
+  transform: scale(1.02);
+}
+
+.about-section {
+  margin-top: 4rem;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  line-height: 1.7;
+}
+
+.about-section h2,
+.about-section h3 {
+  margin-top: 2rem;
+  color: #333;
+}
+
+.profile {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.profile img {
+  max-width: 180px;
+  height: auto;
+  border-radius: 50px;
+}
+
+.profile div {
+  flex: 1;
+  min-width: 120px;
+}
+
+.about-section ul {
+  padding-left: 1.5rem;
+}
+
+.about-section ul li {
+  margin-bottom: 0.5rem;
+}
+
+footer {
+  text-align: center;
+  padding: 2rem;
+  background-color: #f0f0f0;
+}
+
+/* タグボタン */
+.filter-buttons {
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+.filter-buttons button {
+  margin: 0 0.5em;
+  padding: 0.5em 1em;
+  border: none;
+  background: #eee;
+  cursor: pointer;
+  border-radius: 5px;
+  color: #333;
+}
+
+.filter-buttons button:hover {
+  background-color: #ccc;
+}
+
+.filter-buttons button.active {
+  background-color: #333;
+  color: #fff;
+}
+
+/* レスポンシブ（スマートフォン） */
+@media screen and (max-width: 767px) {
+  body {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+/* ダークモード対応 */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #121212;
+    color: #ffffff;
+  }
+
+  header,
+  footer {
+    background-color: #1e1e1e;
+  }
+
+  nav a {
+    color: #ffffff;
+  }
+
+  .about-section h2,
+  .about-section h3 {
+    color: #ffffff;
+  }
+
+  .filter-buttons button {
+    background-color: #444;
+    color: #ffffff;
+  }
+
+  .filter-buttons button.active {
+    background-color: #ffffff;
+    color: #000000;
+  }
+
+  .work-card {
+    background-color: #2a2a2a;
+    border: 1px solid #444;
+    color: #ffffff;
+  }
+
+  a {
+    color: #90caf9;
+  }
+
+  th,
+  td {
+    border-color: #666;
+    color: #ffffff;
+  }
+
+  .profile div,
+  .about-section ul,
+  .about-section li,
+  p {
+    color: #ffffff;
+  }
+}
+
+
+/*ボタン*/
+.back-button {
+  display: block;
+  width: 250px;
+  margin: 2rem auto;
+  padding: 1rem 2rem;
+  text-align: center;
+  background-color: #f0f0f0;
+  color: #333;
+  text-decoration: none;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  font-weight: bold;
+  font-size: 1.1rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.back-button:hover {
+  background-color: #333;
+  color: #fff;
+}

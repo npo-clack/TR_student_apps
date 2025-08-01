@@ -1,0 +1,21 @@
+body {
+  background-image: url("https://game-materials.com/wp-content/uploads/2025/05/The-citys-main-street3-1024x576.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+button {
+  background-color: brown;
+  color: white;
+  font-size: 24px;
+  display: block;
+  margin: 0 auto;
+}
+
+img {
+  display: block;
+  margin: 0 auto;
+  width: 350px;
+}

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>記憶タイピングゲーム</title>
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <style>
+    body {
+      background-image: url("game2.png");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: top;
+      color: #fff;
+      text-align: center;
+      padding: 50px;
+      font-family: "DotGothic16", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+    }
+    .title {
+      font-family: 'DotGothic16', cursive;
+    }
+    #wordDisplay {
+      font-size: 2em;
+      margin: 30px;
+    }
+    #inputArea {
+      font-size: 1.5em;
+      padding: 10px;
+      width: 300px;
+    }
+    #score {
+      margin-top: 20px;
+    }
+    #timerDisplay {
+      margin-top: 10px;
+      font-size: 1.2em;
+    }
+    button {
+      font-size: 1.5em;
+      padding: 15px 40px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: "DotGothic16", sans-serif;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="title">記憶 × タイピングゲーム</h1>
+  <div id="wordDisplay">Ready?</div>
+  <input type="text" id="inputArea" disabled placeholder="ここに入力">
+  <br><br>
+  <button onclick="startGame()">スタート</button>
+  <div id="score">スコア: 0</div>
+  <div id="timerDisplay">残り時間: -- 秒</div>
+  <p>
+    <button class="start-button" onclick="endgame()">戻る</button>
+  </p>
+  <script>
+     // 表示用（日本語訳付き）と英語のみの配列
+    const wordsWithJapanese = [
+      "apple（りんご）", "banana（バナナ）", "orange（オレンジ）", "grape（ぶどう）", "peach（桃）",
+      "melon（メロン）", "cherry（さくらんぼ）", "lemon（レモン）", "kiwi（キウイ）", "mango（マンゴー）",
+      "memory（記憶）", "keyboard（キーボード）", "screen（画面）", "dragon（ドラゴン）", "wizard（魔法使い）",
+      "future（未来）", "space（宇宙）", "galaxy（銀河）", "school（学校）", "castle（城）",
+      "pencil（鉛筆）", "notebook（ノート）", "coffee（コーヒー）", "cookie（クッキー）", "window（窓）",
+      "jungle（ジャングル）", "animal（動物）", "pirate（海賊）", "island（島）", "rocket（ロケット）",
+      "volcano（火山）", "tiger（虎）", "cloud（雲）", "dream（夢）", "planet（惑星）",
+      "summer（夏）", "winter（冬）", "robot（ロボット）", "monster（怪物）", "ocean（海）",
+      "forest（森）", "desert（砂漠）", "light（光）", "shadow（影）", "hunter（狩人）",
+      "energy（エネルギー）", "motion（動き）", "travel（旅行）", "unicorn（ユニコーン）", "village（村）",
+      "friend（友達）", "battle（戦い）", "button（ボタン）", "flower（花）", "bubble（泡）",
+      "silver（銀）", "golden（金）", "crystal（水晶）", "bridge（橋）", "rainbow（虹）",
+      "sword（剣）", "shield（盾）", "tower（塔）", "portal（入り口）", "legend（伝説）",
+      "castle（城）", "fire（火）", "ice（氷）", "storm（嵐）", "wind（風）",
+      "earth（地球）", "metal（金属）", "laser（レーザー）", "giant（巨人）", "ghost（幽霊）",
+      "zombie（ゾンビ）", "ninja（忍者）", "samurai（侍）", "thunder（雷）", "signal（信号）",
+      "mission（任務）", "enemy（敵）", "danger（危険）", "power（力）", "skill（技術）",
+      "magic（魔法）", "energy（エネルギー）", "pixel（ピクセル）", "glitch（バグ）", "hero（英雄）",
+      "level（レベル）", "stage（ステージ）", "coin（コイン）", "score（スコア）", "bonus（ボーナス）",
+      "lucky（幸運）", "potion（薬）", "quest（冒険）", "map（地図）", "trap（罠）",
+      "beast（野獣）", "armor（鎧）", "staff（杖）", "ring（指輪）", "crown（王冠）",
+      "torch（松明）", "scroll（巻物）", "gem（宝石）", "key（鍵）", "code（コード）",
+      "debug（デバッグ）", "attack（攻撃）", "combo（コンボ）", "dash（ダッシュ）", "jump（ジャンプ）",
+      "climb（登る）", "run（走る）", "move（動く）", "slide（滑る）", "escape（逃げる）",
+      "search（探す）", "hidden（隠れた）", "portal（入り口）", "warp（ワープ）", "spawn（出現）"
+    ];
+
+    // 英語のみの配列（正解判定用）
+    const englishWords = [
+      "apple", "banana", "orange", "grape", "peach",
+      "melon", "cherry", "lemon", "kiwi", "mango",
+      "memory", "keyboard", "screen", "dragon", "wizard",
+      "future", "space", "galaxy", "school", "castle",
+      "pencil", "notebook", "coffee", "cookie", "window",
+      "jungle", "animal", "pirate", "island", "rocket",
+      "volcano", "tiger", "cloud", "dream", "planet",
+      "summer", "winter", "robot", "monster", "ocean",
+      "forest", "desert", "light", "shadow", "hunter",
+      "energy", "motion", "travel", "unicorn", "village",
+      "friend", "battle", "button", "flower", "bubble",
+      "silver", "golden", "crystal", "bridge", "rainbow",
+      "sword", "shield", "tower", "portal", "legend",
+      "castle", "fire", "ice", "storm", "wind",
+      "earth", "metal", "laser", "giant", "ghost",
+      "zombie", "ninja", "samurai", "thunder", "signal",
+      "mission", "enemy", "danger", "power", "skill",
+      "magic", "energy", "pixel", "glitch", "hero",
+      "level", "stage", "coin", "score", "bonus",
+      "lucky", "potion", "quest", "map", "trap",
+      "beast", "armor", "staff", "ring", "crown",
+      "torch", "scroll", "gem", "key", "code",
+      "debug", "attack", "combo", "dash", "jump",
+      "climb", "run", "move", "slide", "escape",
+      "search", "hidden", "portal", "warp", "spawn"
+    ];
+    let currentWordIndex = 0;
+    let currentWord = "";
+    let score = 0;
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const gameTime = parseInt(urlParams.get("time"), 10);
+    let remainingTime = isNaN(gameTime) || gameTime === 0 ? null : gameTime;
+    let timerInterval = null;
+    let timerStarted = false;
+
+    function endgame() {
+      window.location.href = 'timer_start_screen.html';
+    }
+
+    function startGame() {
+      document.getElementById("inputArea").value = "";
+      document.getElementById("inputArea").disabled = true;
+
+      if (!timerStarted && remainingTime !== null) {
+        timerStarted = true;
+        document.getElementById("timerDisplay").textContent = `残り時間: ${remainingTime} 秒`;
+
+        timerInterval = setInterval(() => {
+          remainingTime--;
+          document.getElementById("timerDisplay").textContent = `残り時間: ${remainingTime} 秒`;
+
+          if (remainingTime <= 0) {
+            clearInterval(timerInterval);
+            endGameSummary();
+          }
+        }, 1000);
+      }
+
+      currentWordIndex = Math.floor(Math.random() * wordsWithJapanese.length);
+      document.getElementById("wordDisplay").textContent = wordsWithJapanese[currentWordIndex];
+      currentWord = englishWords[currentWordIndex];
+
+      setTimeout(() => {
+        document.getElementById("wordDisplay").textContent = "覚えて入力！";
+        document.getElementById("inputArea").disabled = false;
+        document.getElementById("inputArea").focus();
+      }, 1500);
+    }
+
+    function endGameSummary() {
+      document.getElementById("wordDisplay").textContent = "時間切れ！";
+      document.getElementById("inputArea").disabled = true;
+      alert("時間切れです！あなたのスコア: " + score);
+    }
+
+    document.getElementById("inputArea").addEventListener("keydown", function(e) {
+      if (e.key === "Enter") {
+        if (this.value.toLowerCase() === currentWord.toLowerCase()) {
+          score++;
+          alert("正解！");
+        } else {
+          alert("不正解！ 正しくは: " + currentWord);
+        }
+        document.getElementById("score").textContent = "スコア: " + score;
+        this.value = "";
+        startGame();
+      }
+    });
+  </script>
+</body>
+</html>

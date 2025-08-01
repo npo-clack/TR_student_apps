@@ -1,0 +1,153 @@
+#members {
+  background-color: #faf6f0; 
+  padding: 20px;
+}
+
+#songs {
+  background-color: #8ce89c; 
+  padding: 20px;
+}
+
+#mv {
+  background-color: #81fffd79; 
+  padding: 20px;
+}
+
+#goods {
+  background-color: #fff9e6; 
+  padding: 20px;
+}
+
+#anime {
+  background-color: #ffe6f0; 
+  padding: 20px;
+}
+
+footer {
+  background-color: #333333; 
+  color: #f0f0f0;           
+  padding: 15px;
+  text-align: center;
+}
+
+/* ヘッダー */
+
+header h1 {
+  font-size: 2.5em;
+  margin: 0;
+  color: #ffffff;
+}
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #1f1f1f;
+  padding: 30px 20px;
+  text-align: center;
+  border-bottom: 1px solid #333;
+}
+
+main {
+  padding-top: 120px;
+}
+
+
+/* ナビゲーション */
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #f0f0f0;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: #ff6f61; /* アクセントカラー */
+}
+
+
+/* セクション */
+section {
+  padding: 60px 20px;
+  max-width: 800px;
+  margin: auto;
+  border-bottom: 1px solid #333;
+  scroll-margin-top: 170px;
+}
+
+section h2 {
+  font-size: 1.8em;
+  margin-bottom: 20px;
+  color: #ff6f61;
+}
+.members{
+  padding: 60px 20px;
+  max-width: 800px;
+  margin-top: 150px;
+  border-bottom: 1px solid #333;
+  scroll-margin-top: 170px;
+}
+.container {
+    background-color: #fff;
+    display: flex;
+    width: 200px;
+    height: 350px;
+}
+
+.slider {
+    display: flex;
+    flex-direction: column-reverse;
+
+    background-color: #efefef;
+    overflow: hidden;
+}
+
+.slider-list {
+    display: flex;
+    flex-direction: column-reverse;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    animation: slideShow 20s infinite linear;
+    list-style: none;
+}
+
+.slider-item {
+    width: 400px;
+    height: 250px;
+}
+
+.slider-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    margin: 0 0.5rem;
+}
+
+.slider:hover .slider-list {
+    animation-play-state: paused;
+}
+
+@keyframes slideShow {
+    0% {
+        transform: translateY(0%);
+    }
+
+    100% {
+        transform: translateY(100%);
+    }
+
+}
+
+
+

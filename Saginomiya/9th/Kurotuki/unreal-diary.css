@@ -1,0 +1,56 @@
+@font-face  {
+  font-family: ゆずの木楷書・ボールペン;
+  src: url('./fonts/ゆずの木楷書・ボールペン.ttf') format('truetype');
+}
+body {
+      font-family: "ゆずの木楷書・ボールペン",sans-serif;
+      background-image: url('./images/wood-texture_00014.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: repeat;
+      padding: 20px;
+      background-color: #94561c;
+      font-size: 25px;
+      h2 {
+        line-height: 0;
+      }
+      p {
+        line-height: 1.0;
+      }
+    }
+    .main-title{
+      font-size: 100px;
+      color: #f0f0f0;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background-image: url('./images/nt10-1.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      padding-left: 55px;
+    }
+    .title-image {
+      display: block;
+      margin: 0 auto -60px auto;
+      max-width: 90px;
+      height: auto;
+    }
+    button {
+      font-family: "ゆずの木楷書・ボールペン";
+      margin-top: 10px;
+      padding: 10px 10px;
+      border: none;
+      background-color: #292e31;
+      color: white;
+      font-size: 25px;
+      cursor: pointer;
+      border-radius: 6px;
+    }
+    button:hover {
+      background-color: #000000;
+    }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="main.css">
+  <title>餌の記録</title>
+</head>
+<body>
+  <h1>餌記録</h1>
+  <div>
+    <h1>新しい記録</h1>
+    <form>
+      <p>YYYY/MM/DD <br>
+        <input type="date" id="day" name="day"></p>
+      <p>00:00 <br>
+        <input type="time" id="time" name="time"></p>
+      <p>あげた人 <br>
+      <input type="text" id="giver" name="giver"></p>
+      <p>トッピング <br>
+      <input type="text" id="topping" name="topping"></p>
+      <p><input type="button" id="button" value="完了"></p>
+    </form>
+  </div>
+  <h2>過去の記録</h2>
+    <div id="petlist" class="logbody"></div>
+  <script src="main.js"></script>
+</body>
+</html>

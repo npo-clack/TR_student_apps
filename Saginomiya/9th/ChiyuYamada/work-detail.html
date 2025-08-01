@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>作品詳細</title>
+  <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="Photo/favicon_四角っぽい丸.png" type="image/png">
+</head>
+<body>
+  <main id="detail"></main>
+ <p><a href="index.html#works" class="back-button"><i class="fa-solid fa-arrow-left"></i> 作品一覧に戻る</a>
+</p>
+
+  <script src="works-data.js"></script>
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+    const work = worksData.find(w => w.id === id);
+    const detailDiv = document.getElementById("detail");
+
+    if (work) {
+      detailDiv.innerHTML = `
+        <h1>${work.title}</h1>
+        <img src="${work.img}" alt="${work.title}" style="max-width: 100%; height: auto;">
+        <p>${work.description}</p>
+        <p>制作日：${work.date}　制作時間：${work.time}</p>
+      `;
+    } else {
+      detailDiv.innerHTML = "<p>作品が見つかりませんでした。</p>";
+    }
+  </script>
+</body>
+</html>

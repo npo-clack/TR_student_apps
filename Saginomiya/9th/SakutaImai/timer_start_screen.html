@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>記憶タイピングゲーム - スタート</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-image: url("game2.png");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: top;
+      color: #fff;
+      text-align: center;
+      padding: 50px;
+      font-family: "DotGothic16", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+      min-height: 100vh;
+    }
+
+    .title {
+      font-family: 'DotGothic16', cursive;
+      font-size: 3em;
+      margin-bottom: 30px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    }
+    .subtitle {
+      font-size: 1.5em;
+      margin-bottom: 30px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    }
+
+    .description {
+      font-size: 1.2em;
+      margin-bottom: 40px;
+      line-height: 1.6;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .timer-selection {
+      margin-bottom: 30px;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .timer-title {
+      font-size: 1.4em;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+      color: #fff;
+    }
+
+    .timer-options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .timer-option {
+      background-color: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 10px;
+      padding: 15px 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: "DotGothic16", sans-serif;
+      font-size: 1.1em;
+      color: #fff;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    }
+
+    .timer-option:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .timer-option.selected {
+      background-color: #4CAF50;
+      border-color: #45a049;
+      box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+    }
+
+    .timer-option .time {
+      font-size: 1.3em;
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    .timer-option .label {
+      font-size: 0.9em;
+      opacity: 0.9;
+    }
+
+    .start-button {
+      font-size: 1.5em;
+      padding: 15px 40px;
+      background: linear-gradient(45deg, #4CAF50, #45a049);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-family: "DotGothic16", sans-serif;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+      margin-bottom: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .start-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s;
+    }
+
+    .start-button:hover::before {
+      left: 100%;
+    }
+
+    .start-button:hover {
+      background: linear-gradient(45deg, #45a049, #3e8e41);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .start-button:active {
+      transform: translateY(-1px);
+    }
+
+    .start-button:disabled {
+      background: #666;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .game-info {
+      margin-top: 40px;
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 25px;
+      border-radius: 15px;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .info-item {
+      margin: 15px 0;
+      font-size: 1.1em;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .controls-info {
+      margin-top: 30px;
+      font-size: 1em;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .selected-time-display {
+      margin-top: 15px;
+      padding: 10px;
+      background-color: rgba(76, 175, 80, 0.2);
+      border-radius: 8px;
+      border: 1px solid rgba(76, 175, 80, 0.5);
+      font-size: 1.1em;
+      color: #fff;
+    }
+
+    /* モバイル対応 */
+    @media (max-width: 768px) {
+      body {
+        padding: 20px;
+      }
+      
+      .title {
+        font-size: 2.2em;
+      }
+      
+      .subtitle {
+        font-size: 1.3em;
+      }
+      
+      .description {
+        font-size: 1.1em;
+      }
+      
+      .start-button {
+        font-size: 1.3em;
+        padding: 12px 30px;
+      }
+
+      .timer-options {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .timer-selection {
+        padding: 20px;
+      }
+    }
+
+    /* アニメーション */
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .start-button:hover {
+      animation: pulse 2s infinite;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="title">記憶 × タイピングゲーム</h1>
+  
+  <p class="subtitle">記憶力とタイピング力を同時に鍛えよう！</p>
+  
+  <p class="description">
+    表示される英単語を覚えて、正確にタイピングしてください。<br>
+    単語は1.5秒間表示された後に消えるので、しっかり覚えてから入力しましょう！
+  </p>
+  
+  <div class="timer-selection">
+    <h3 class="timer-title">⏰ ゲームモードを選択</h3>
+    <div class="timer-options">
+      <div class="timer-option" data-time="30">
+        <span class="time">30秒</span>
+        <span class="label">クイック</span>
+      </div>
+      <div class="timer-option" data-time="60">
+        <span class="time">60秒</span>
+        <span class="label">スタンダード</span>
+      </div>
+      <div class="timer-option" data-time="90">
+        <span class="time">90秒</span>
+        <span class="label">チャレンジ</span>
+      </div>
+      <div class="timer-option" data-time="120">
+        <span class="time">120秒</span>
+        <span class="label">エキスパート</span>
+      </div>
+      <div class="timer-option" data-time="0">
+        <span class="time">∞</span>
+        <span class="label">無制限</span>
+      </div>
+    </div>
+    <div class="selected-time-display" id="selectedTimeDisplay" style="display: none;">
+      選択中: <span id="selectedTimeText"></span>
+    </div>
+  </div>
+  
+  <button class="start-button" onclick="startGame()" id="startButton" disabled>
+    ゲームモードを選択してください
+  </button>
+
+  <div class="game-info">
+    <div class="info-item">🎯 <span>表示される単語を記憶</span></div>
+    <div class="info-item">⌨️ <span>消えたら正確にタイピング</span></div>
+    <div class="info-item">🏆 <span>正解するとスコアアップ</span></div>
+    <div class="info-item">⏱️ <span>制限時間内に高スコアを目指そう</span></div>
+  </div>
+
+  <div class="controls-info">
+    💡 遊び方: 単語が表示される → 覚える → 入力 → Enterキーで確認
+  </div>
+
+  <script>
+    let selectedTime = null;
+
+    // タイマーオプションの選択処理
+    document.querySelectorAll('.timer-option').forEach(option => {
+      option.addEventListener('click', function() {
+        // 全ての選択を解除
+        document.querySelectorAll('.timer-option').forEach(opt => {
+          opt.classList.remove('selected');
+        });
+        
+        // 選択されたオプションをハイライト
+        this.classList.add('selected');
+        
+        // 選択された時間を取得
+        selectedTime = parseInt(this.dataset.time);
+        
+        // 選択表示を更新
+        const display = document.getElementById('selectedTimeDisplay');
+        const text = document.getElementById('selectedTimeText');
+        
+        if (selectedTime === 0) {
+          text.textContent = '無制限モード';
+        } else {
+          text.textContent = `${selectedTime}秒チャレンジ`;
+        }
+        
+        display.style.display = 'block';
+        
+        // スタートボタンを有効化
+        const startButton = document.getElementById('startButton');
+        startButton.disabled = false;
+        startButton.textContent = 'ゲームスタート';
+        startButton.style.animation = 'pulse 2s infinite';
+      });
+    });
+
+    function startGame() {
+      if (selectedTime === null) {
+        alert('ゲームモードを選択してください！');
+        return;
+      }
+      
+      // 選択された時間をURLパラメータとして渡す
+      const gameUrl = `modified_game_html.html?time=${selectedTime}`;
+      window.location.href = gameUrl;
+    }
+
+    // キーボードでの操作
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' && selectedTime !== null) {
+        startGame();
+      }
+      
+      // 数字キーでタイマー選択
+      const keyMap = {
+        '1': 30,
+        '2': 60,
+        '3': 90,
+        '4': 120,
+        '5': 0
+      };
+      
+      if (keyMap[e.key]) {
+        const option = document.querySelector(`[data-time="${keyMap[e.key]}"]`);
+        if (option) {
+          option.click();
+        }
+      }
+    });
+
+    // 初期状態で60秒を選択（デフォルト）
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(() => {
+        const defaultOption = document.querySelector('[data-time="60"]');
+        if (defaultOption) {
+          defaultOption.click();
+        }
+      }, 500);
+    });
+  </script>
+</body>
+</html>

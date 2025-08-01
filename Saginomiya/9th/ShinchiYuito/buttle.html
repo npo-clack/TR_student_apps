@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="buttle.css">
+  <title>RPGゲーム</title>
+</head>
+<body>
+  <div class="command" id="panel_status">
+    <h2>あなた</h2>
+    <p>レベル 1</p>
+    <p>HP  <span id="user_hp">10</span></p>
+    <p>MP  0</p>
+  </div>
+  <div class="command" id="panel_command">
+    <h2>コマンド</h2>
+    <button onclick="handleAttack()">たたかう</button>
+    <button>にげる</button>
+    <button>まほう</button>
+    <button>どうぐ</button>
+  </div>
+  <div class="mob">
+    <div>
+      <img src="https://game-materials.com/wp-content/uploads/2025/06/grassland4-1024x576.jpg" alt="草原">
+    </div>
+    <div id="monster">
+      <img src="character_murabito_young_man_green.svg" alt="村人">
+    </div>
+  </div>
+  <div class="command" id="panel_message">
+    <p>村人が襲い掛かってきた！</p>
+    <p>コマンドは？</p>
+  </div>
+  <script src="buttle.js"></script>
+</body>
+</html>
