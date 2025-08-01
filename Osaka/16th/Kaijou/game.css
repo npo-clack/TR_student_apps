@@ -1,0 +1,28 @@
+app {
+      display: inline-block;
+      outline: none;
+    }
+    .row {
+      display: flex;
+    }
+    .cell {
+      width: 20px;
+      height: 20px;
+      border: 1px solid #555;
+      box-sizing: border-box;
+    }
+    .wall {
+      background: black;
+    }
+    .path {
+      background: white;
+    }
+    .player {
+      background: red;
+    }
+    .goal {
+      background: green;
+    }
+    .dark {
+      background: #000;
+    }
