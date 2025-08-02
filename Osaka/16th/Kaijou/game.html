@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>迷路</title>
+  <link rel="stylesheet" href="game.css">
+</head>
+<body>
+  <div id="app" tabindex="0">
+    <div v-for="(row, y) in maze" class="row">
+      <div 
+        v-for="(cell, x) in row"
+        :key="x"
+        class="cell"
+        :class="getCellClass(x, y)"
+      >
+        {{ getCellText(x, y) }}
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script> 
+  <script src="game.js"></script>
+</body>
+</html>

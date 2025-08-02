@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>迷路脱出ゲーム</title>
+  <style>
+    canvas {
+      border: 1px solid #000;
+      display: block;
+      margin: 20px auto;
+    }
+    #info {
+      text-align: center;
+      font-size: 24px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+  <link rel="stylesheet" href="style.css">
+<body>
+  <div id="info">
+    経過時間: <span id="timer">0</span> 秒
+  </div>
+  <canvas id="mazeCanvas" width="600" height="600"></canvas>
+  <script src="maze.js"></script>
+</body>
+</html>

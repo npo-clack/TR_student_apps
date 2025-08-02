@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>SNS固定アイコン</title>
+  <style>
+    body {
+      height: 2000px; /* スクロールテスト用 */
+      margin: 0;
+    }
+
+    .sns-fixed {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 1000;
+    }
+
+    .sns-fixed a img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      transition: transform 0.2s ease;
+    }
+
+    .sns-fixed a img:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- SNS固定アイコン -->
+  <div class="sns-fixed">
+    <a href="https://twitter.com" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter">
+    </a>
+
+    </a>
+    <a href="https://www.youtube.com" target="_blank">
+      <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" alt="YouTube">
+    </a>
+  </div>
+
+</body>
+</html>

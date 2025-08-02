@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+
+
+  <meta charset="UTF-8">
+  <title>sixfonia</title>
+
+</head>
+<body>
+
+ <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 100px;
+      background-color: #eaeaea;
+    }
+
+    #countdown {
+      font-size: 3em;
+      color: #c1a770;
+      padding: 20px;
+      display: inline-block;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+  </style>
+
+<style>
+    body {
+      height: 2000px; /* スクロールテスト用 */
+      margin: 0;
+    }
+
+    .sns-fixed {
+  position: fixed;
+  top: 50%;                   /* 画面の縦中央 */
+  right: 0;                   /* 画面右端にくっつける */
+  transform: translateY(-90%); /* アイコン自体の高さ分、中央に揃える */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1000;
+  padding: 10px;              /* オプション：背景の余白 */
+  border-radius: 10px 0 0 10px; /* オプション：左側だけ角丸 */
+  box-shadow: 0 0 5px rgba(0,0,0,0.2); /* オプション：影で浮かせる */
+    }
+
+    .sns-fixed a img {
+                /* アイコンの横幅を40pxに固定 */
+  height: 30px;
+      transition: transform 0.2s ease;
+    }
+
+    .sns-fixed a img:hover {
+      transform: scale(1.1);
+    }
+  </style>
+
+  <style>
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .popup-image {
+      max-width: 90%;
+      max-height: 90%;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .overlay.active {
+      display: flex;
+    }
+
+    .thumbnail {
+      width: 200px;
+      cursor: pointer;
+      margin: 10px;
+    }
+  </style>
+  
+  <style>
+    .wrapper {
+      text-align: center;         /* テキストを中央揃え */
+      padding: 20px;              /* 全体に余白（任意） */
+    }
+
+    .responsive-image {
+      display: block;
+      max-width: calc(100% - 40px); /* 横に余白を確保 */
+      height: auto;
+      margin: 0 auto;              /* 画像を中央寄せ */
+    }
+
+    .text {
+      font-size: 1.2rem;
+      margin-top: 20px;
+      color: #333;
+    }
+     /* ← 追加：背景を端から端まで広げるスタイル */
+    .full-width-highlight {
+      background-color:black;     /* 薄い青系 */
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      padding: 20px 0;
+    }
+  </style>
+
+  <link rel="stylesheet" href="sixfonia2.css">
+</head>
+<body>
+
+  <img src="https://pbs.twimg.com/media/GudwSXRaoAMc7rI?format=jpg&name=large" alt="シクフォニのヘッダー" >
+
+   <div id="countdown">カウントダウン中...</div>
+
+  <script>
+    function getNextAnnualDate(month, day) {
+      const now = new Date();
+      let year = now.getFullYear();
+
+      // 月は0始まり（12月 = 11）
+      let target = new Date(year, month - 1, day, 0, 0, 0);
+
+      // 今日を過ぎていたら、翌年にする
+      if (now.getTime() > target.getTime()) {
+        year += 1;
+        target = new Date(year, month - 1, day, 0, 0, 0);
+      }
+
+      return target;
+    }
+
+    function updateCountdown() {
+      const targetDate = getNextAnnualDate(8, 12); // ← 毎年8月12日
+      const now = new Date().getTime();
+      const distance = targetDate.getTime() - now;
+
+      if (distance <= 0) {
+        document.getElementById("countdown").innerHTML = "今日はその日です！";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+
+      document.getElementById("countdown").innerHTML =
+        `周年記念日まで：${days}日 `;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
+  <br>
+  <div class="wrapper">
+  <div class="attention-banner"><h2>ー 最新オリ曲 ー</h2></div><br>
+
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/_5RZYjLSDz8?si=5YJiXCx8IF0TzPJQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe><br><br><br>
+
+<a href="sixfonia2 rekisi.html"><img src="https://pbs.twimg.com/media/GulrD-5XMAA-zeZ?format=jpg&name=large"  class="responsive-image"  alt="リンク画像"></a>
+
+</p>
+<br>
+<h2>ー メンバー紹介 ー</h2><br>
+<img src="https://sixfonia.com/img/top/member_top_decoration.svg"  width="750"></img><br>
+    <!-- サムネイル画像たち -->
+  <img src="https://pbs.twimg.com/media/GUtbdBrbMAAEJXx?format=jpg&name=4096x4096" alt="暇なつ" class="thumbnail" data-full="https://pbs.twimg.com/media/GvaJu7HawAA-2wj?format=jpg&name=large" />
+  <img src="https://pbs.twimg.com/media/GUtUmnZboAAjCG7?format=jpg&name=4096x4096" alt="こさめ" class="thumbnail" data-full="https://pbs.twimg.com/media/GvaLSOkWAAAPSqR?format=jpg&name=medium" />
+  <img src="https://pbs.twimg.com/media/GUte_bsa0AAT7P4.jpg:large" alt="いるま" class="thumbnail" data-full="https://pbs.twimg.com/media/GvaLSkRWwAAqhQ1?format=jpg&name=medium" /><br>
+  <img src="https://pbs.twimg.com/media/GUtd9h9aMAAvQ0D?format=jpg&name=4096x4096" alt="らん" class="thumbnail" data-full="https://pbs.twimg.com/media/GvaLSqXa4AA5K4f?format=jpg&name=medium" />
+  <img src="https://pbs.twimg.com/media/GUteWxqaEAAdncq?format=jpg&name=4096x4096" alt="すち" class="thumbnail" data-full="https://pbs.twimg.com/media/GvaLS7HWsAEyiF_?format=jpg&name=medium" />
+  <img src="https://pbs.twimg.com/media/GUtfBrZbEAAC3Ls.jpg:large" alt="みこと" class="thumbnail" data-full="https://pbs.twimg.com/media/GvaLUG9WMAAaR6u?format=jpg&name=medium" />
+
+    <!-- ポップアップ用のオーバーレイ -->
+  <div class="overlay" id="overlay">
+    <img src="" alt="拡大画像" class="popup-image" id="popupImage" />
+  </div>
+
+  <script>
+    const thumbnails = document.querySelectorAll('.thumbnail');
+    const overlay = document.getElementById('overlay');
+    const popupImage = document.getElementById('popupImage');
+
+    // 各サムネイルにクリックイベントを設定
+    thumbnails.forEach(thumbnail => {
+      thumbnail.addEventListener('click', () => {
+        const fullImagePath = thumbnail.getAttribute('data-full'); // フルサイズ画像のパスを取得
+        popupImage.src = fullImagePath;
+        overlay.classList.add('active');
+      });
+    });
+
+    // 背景クリックでポップアップを閉じる
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) {
+        overlay.classList.remove('active');
+      }
+    });
+  </script>
+  <br>
+  <br>
+<h2>ー おすすめ動画 ー</h2><br>
+
+<ul class="slide-items">
+  <li><iframe width="560" height="315" src="https://www.youtube.com/embed/qBiydM11RkI?si=8Shx6HgXA5XGCBMG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></li>
+  <li><iframe width="560" height="315" src="https://www.youtube.com/embed/nx7dQ-FGzaI?si=okgMvubGKGWk5SLU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></li>
+  <li><iframe width="560" height="315" src="https://www.youtube.com/embed/FE2Sahj-ooc?si=fG_4G9LMHE9_7Myu" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></li>
+  <li><iframe width="560" height="315" src="https://www.youtube.com/embed/GIHSmcqG_Lo?si=0QfIRpwUebKb7ILO" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></li>
+  <li><iframe width="560" height="315" src="https://www.youtube.com/embed/1HIMUSbzfMM?si=2GzayZcYKAuqlyot" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></li>
+  <li><iframe width="560" height="315" src="https://www.youtube.com/embed/MzFK3KZhVOs?si=YSRxOkNvRRIv-nXA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</li>
+</ul>
+<br>
+
+<p>
+  <h4>YouTube</h4><br>
+  <a href="https://www.youtube.com/@sixfonia"><img src="https://yt3.googleusercontent.com/eqHiuXaU8luH4-lzgw7XGZWzYL5EHbuw68hPjth_ONRg0FsaWMHIGcGg3l3jJImsQM_Vrf69=w1707-fcrop64=1,00005a57ffffa5a8-k-c0xffffffff-no-nd-rj" class="responsive-image" alt="リンク画像"></a><br>
+  <h4>公式X(旧Twitter)</h4><br>
+  <a href="https://x.com/sixfonia_info"><img src="https://pbs.twimg.com/media/GugruaRWcAAjiWI?format=jpg&name=large"  class="responsive-image" alt="リンク画像"></a><br>
+<h4>公式HP</h4><br>
+<a href="https://sixfonia.com/"><img src="https://sixfonia.com/img/top/key_visual_pc2000.webp" class="responsive-image" alt="リンク画像"></a><br>
+<h4>公式SHOP</h4><br>
+<a href="https://shop.sixfonia.com/"><img src="https://sixfonia.com/img/top/shop_banner.webp" class="responsive-image" alt="リンク画像"></a><br>
+<h4>公式LINE</h4><br>
+<a href="https://t.co/xkmYmxVMDq"><img src="https://pbs.twimg.com/media/GudwQveaoAEaP84?format=jpg&name=large" class="responsive-image" alt="LINEのQR"></a>
+</a><br>
+</p>
+
+  <div class="full-width-highlight">
+<div class="css-1tsdlth">
+<a href="sixfonia2.html">
+  <img src="https://sixfonia.com/img/common/logo.webp" class="css-1tivvh3">
+</a><br><br>
+<a href="sixfonia2.html"><h3>TOP</h3></a>
+<a href="sixfonia2 rekisi.html"><h3>歴史</h3></a>
+<a href="https://shop.sixfonia.com/"><h3>シクストア</h3></a>
+</div>
+</div>
+
+  <!-- SNS固定アイコン -->
+  <div class="sns-fixed">
+    <a href="https://x.com/sixfonia_info" target="_blank">
+      <img src="https://sixfonia.com/_next/static/media/x_logo.3c7f1f2a.svg" alt="x">
+    </a>
+    </a>
+    <a href="https://www.youtube.com/@sixfonia" target="_blank">
+      <img src="https://sixfonia.com/img/common/youtube.webp" alt="YouTube">
+    </a>
+    </a>
+    <a href="https://www.tiktok.com/@sixfonia_info?is_from_webapp=1&sender_device=pc " target="_blank">
+      <img src="https://www.yuukinakanishi.jp/wp-yuukinakanishi/wp-content/uploads/2020/02/icon-tiktok.png" alt="TikTok">
+    </a>
+  </div>
+
+
+  <!-- SlickのCSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+<link rel="stylesheet" href="otamesi.css"> <!-- 自分のCSS -->
+
+  <!-- jQueryの読み込み -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<!-- Slickの読み込み -->
+<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<!-- 自分が作ったJavaScriptの読み込み -->
+<script src="sixfonia.js"></script>
+
+</body>
+</html>
