@@ -20,13 +20,14 @@ body {
 .image-wrapper::after {
   content: "";
   position: absolute;
-  bottom: 100px;
+  bottom: 10%; /* 100px → 約10% に変換（画像の高さに応じて調整可能） */
   left: 0;
   width: 100%;
-  height: 40%; /* グラデーションの高さ */
-  background: linear-gradient(to top,  lab(3.99% 0.18 -0.48), transparent);
+  height: 40%; /* グラデーションの高さはそのまま%指定 */
+  background: linear-gradient(to top, lab(3.99% 0.18 -0.48), transparent);
   z-index: 1; /* 画像より上、文字より下 */
 }
+
 
 .image-wrapper h1 {
   font-family: 'Syne', sans-serif;
@@ -46,24 +47,22 @@ body {
 .image-wrapper h2 {
   position: absolute;
   font-size: 3.5rem;
-  bottom: 230px;
-  right: 100px;
+  bottom: 25%; /* 230px → % */
+  right: 10%;  /* 100px → % */
   color: red;
   text-align: right;
   font-weight: 900;
-
   z-index: 2;
   animation: fadeInGlow 4s ease-out forwards;
 }
 
 .image-wrapper p {
   position: absolute;
-  bottom: 160px;
-  right: 100px;
+  bottom: 18%; /* 160px → % */
+  right: 10%;  /* 100px → % */
   color: white;
   max-width: 80%;
   text-align: right;
-
   z-index: 2; 
   animation: fadeInGlow 4s ease-out forwards;
 }
@@ -74,6 +73,7 @@ h3 {
   margin-left: 10%;
   font-weight: 400;
 }
+
 
 /* スライド */
 .slide-items {
