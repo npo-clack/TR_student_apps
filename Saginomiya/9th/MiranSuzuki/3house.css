@@ -1,0 +1,282 @@
+body {
+    background-color: lab(3.99% 0.18 -0.48);
+    margin-bottom: 170px; 
+  }
+
+
+/* 最初の画像 */
+.image-wrapper {
+  padding: 50px;          /* 上下左右50pxの余白 */
+  box-sizing: border-box; /* パディング込みでサイズ計算 */
+}
+
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;      /* アスペクト比を保って拡大縮小 */
+  display: block;
+}
+
+.image-wrapper::after {
+  content: "";
+  position: absolute;
+  bottom: 100px;
+  left: 0;
+  width: 100%;
+  height: 40%; /* グラデーションの高さ */
+  background: linear-gradient(to top,  lab(3.99% 0.18 -0.48), transparent);
+  z-index: 1; /* 画像より上、文字より下 */
+}
+
+.image-wrapper h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: 5rem;
+  position: absolute;
+  top: 30px;
+  left: 110px;
+  color: red;
+
+  animation: fadeInGlow 4s ease-out forwards;
+  /* text-shadow: */
+  /* 0 0 10px white,
+  0 0 15px white; */
+    
+}
+
+.image-wrapper h2 {
+  position: absolute;
+  font-size: 3.5rem;
+  bottom: 230px;
+  right: 100px;
+  color: red;
+  text-align: right;
+  font-weight: 900;
+
+  z-index: 2;
+  animation: fadeInGlow 4s ease-out forwards;
+}
+
+.image-wrapper p {
+  position: absolute;
+  bottom: 160px;
+  right: 100px;
+  color: white;
+  max-width: 80%;
+  text-align: right;
+
+  z-index: 2; 
+  animation: fadeInGlow 4s ease-out forwards;
+}
+
+h3 {
+  color: white;
+  font-size: 2rem;
+  margin-left: 10%;
+  font-weight: 400;
+}
+
+/* スライド */
+.slide-items {
+  margin: 0 auto;
+}
+
+.slide-items img {
+  margin: 0 auto;
+  width: 25%;
+  height:25%;
+  display: block;
+  object-fit: cover;
+  justify-content: center;
+}
+
+/* Arrows */
+.slick-prev,
+.slick-next {
+position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;       /* 背景なし */
+  border: none;
+  cursor: pointer;
+  font-size: 2rem;         /* 矢印サイズ */
+  color: white;            /* 矢印色 */
+  z-index: 1;
+}
+
+.slick-prev::before,
+.slick-next::before {
+  content: '▶';       /* 矢印記号 */
+}
+
+/* 左矢印は反転 */
+.slick-prev::before {
+  transform: rotate(180deg);
+  display: inline-block;
+}
+
+.slick-prev:hover,
+.slick-prev:focus,
+.slick-next:hover,
+.slick-next:focus {
+  opacity: 1;
+  outline: none;
+}
+.slick-prev.slick-disabled,
+.slick-next.slick-disabled {
+  opacity: 0.25;
+}
+
+.slick-prev {
+  left: 200px;
+
+}
+
+[dir="rtl"] .slick-prev {
+  right: 20%;
+  left: auto;
+}
+
+.slick-next {
+  transform: translate(0, -50%);
+  right: 200px;
+}
+
+[dir="rtl"] .slick-next {
+  right: auto;
+  left: 20%;
+}
+
+/* Dots */
+.slick-dotted.slick-slider {
+  margin-bottom: 70px;
+}
+
+.slick-dots {
+  position: absolute;
+  bottom: -25px;
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  text-align: center;
+}
+
+.slick-dots li {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin: 0 5px;
+  padding: 0;
+  cursor: pointer;
+}
+
+.slick-dots li button {
+  font-size: 0;
+  line-height: 0;
+  display: block;
+  width: 20px;
+  height: 20px;
+  padding: 5px;
+  cursor: pointer;
+  color: transparent;
+  border: 0;
+  outline: none;
+  background: transparent;
+}
+
+.slick-dots li button:hover,
+.slick-dots li button:focus {
+  outline: none;
+}
+
+.slick-dots li button:hover:before,
+.slick-dots li button:focus:before {
+  opacity: 1;
+}
+
+.slick-dots li button:before {
+  font-size: 20px;
+  line-height: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  content: "•";
+  text-align: center;
+  opacity: 0.25;
+  color: black;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.slick-dots li.slick-active button:before {
+  opacity: 0.75;
+  color: black;
+}
+
+.slide {
+  text-align: center;
+}
+
+.caption {
+  margin-top: 10px; /* 画像と文字の間隔 */
+  color: white;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.5rem;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 5px;
+  
+  opacity: 0; /* 最初は透明 */
+  transform: translateY(10px); /* 下からちょっと動く */
+  transition: all 0.5s ease;
+}
+
+.video-wrapper {
+  display: flex;
+  justify-content: center; /* 横並び中央寄せ */
+  gap: 20px; /* iframe間の余白 */
+}
+
+hr {
+  width: 80%;
+  border: none;          /* 既存の線を消す */
+  border-top: 2px solid white;  /* 上側に白い線を2pxの太さで */
+  margin: 20px 0;        /* 線の上下の余白 */
+  margin: auto;
+}
+
+/* SNSアイコン */
+.icon-links {
+  display: flex;
+  justify-content: center; /* 中央寄せ */
+  gap: 10px; /* アイコン間の隙間 */
+}
+
+.icon-links a img {
+  width: 50px;
+  height: auto;
+  margin-left: 35px;
+}
+
+
+/* スライドがアクティブになったときにアニメーション */
+.slick-active .caption {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+@keyframes fadeInGlow {
+  0% {
+    opacity: 0;
+    text-shadow: none;
+  }
+  100% {
+    opacity: 1;
+    text-shadow: black;
+  }
+}

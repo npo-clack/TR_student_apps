@@ -1,0 +1,61 @@
+/* 動画を背景に固定配置 */
+#bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1; /* 後ろに配置 */
+}
+
+/* 文字などコンテンツは前面に表示 */
+h1 {
+  position: fixed; /* スクロールしても位置が変わらない */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* 中央に調整 */
+
+  font-family: 'Syne', sans-serif;
+  font-size: 5rem;
+  font-weight: 800;
+  color: white;
+  margin: 0;
+
+  animation: fadeInGlow 2s ease-out forwards;
+}
+
+h2 {
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  font-family: 'Quicksand', sans-serif;
+  color: white;
+
+  animation: fadeInGlow 2s ease-out forwards;
+}
+
+h3 {
+    position: fixed;
+  top: 60%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  font-family: 'Quicksand', sans-serif;
+  color: white;
+
+  animation: fadeInGlow 2s ease-out forwards;
+}
+
+@keyframes fadeInGlow {
+  0% {
+    opacity: 0;
+    text-shadow: none;
+  }
+  100% {
+    opacity: 1;
+    text-shadow: black;
+  }
+}
