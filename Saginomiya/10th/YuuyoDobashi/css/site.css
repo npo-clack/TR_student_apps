@@ -1,0 +1,167 @@
+/* 左固定の目次レイアウト */
+:root{ --bg1:#071012; --bg2:#063321; --accent:#00ff88; --text:#e6ffe9 }
+*{box-sizing:border-box}
+html,body{height:100%; margin:0}
+body{ font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans JP", Meiryo, sans-serif; background: linear-gradient(160deg,var(--bg1),var(--bg2)); color:var(--text); }
+.layout{ display:flex; min-height:100vh; height:100vh }
+.sidebar{ width:260px; position:sticky; top:0; align-self:flex-start; padding:24px; background: rgba(0,0,0,0.35);
+	/* 境界線をはっきりさせる */
+	border-right:2px solid rgba(0,255,136,0.12);
+	/* 内側にさりげないグリーンの光を入れる（アクセント） */
+	box-shadow: inset -6px 0 12px rgba(0,255,136,0.02);
+}
+.site-title{ margin:0 0 12px 0; font-size:18px }
+.sidebar nav ul{ list-style:none; padding:0; margin:0 }
+.sidebar nav li{ margin:8px 0 }
+.sidebar a{ color:var(--accent); text-decoration:none; display:block; padding:8px 10px; border-radius:6px }
+.sidebar a.active{ background: rgba(0,255,136,0.08); font-weight:700 }
+h1{ margin-top:0 }
+
+.content{ flex:1; padding:48px; overflow:auto; /* 内部スクロールを許可して長文を下まで表示できるようにする */ padding-left:40px; min-height:0;
+	/* 本文を読みやすく少し大きめに設定 */
+	font-size: 18px;
+	line-height: 1.7;
+}
+/* スライドを縦方向に並べる（JS が各ページの高さを content に合わせます） */
+.slides{ display:flex; flex-direction:column; width:100%; transition: none; will-change: transform; backface-visibility: hidden; -webkit-font-smoothing: antialiased }
+.page{ flex:0 0 auto; padding-right:24px; box-sizing:border-box; overflow:auto; }
+.page h1{ font-size: 28px; }
+.page .editable{ background: rgba(255,255,255,0.02); padding:18px; border-radius:8px; font-size:18px }
+
+/* h1 の配置を全ページで揃える（宇宙の誕生 と同じ左位置にする） */
+.page h1{
+	margin: 0 0 18px 0; /* 上0、下に余白 */
+	padding-left: 0; /* 左余白をリセット */
+	text-indent: 0;
+	transform: translateZ(0); /* サブピクセルレンダリングの差を減らす */
+}
+
+.page .editable{ margin-top: 6px }
+
+/* 画像スペース（各ページで画像を挿入するためのプレースホルダ） */
+.page .image-slot{
+	width:100%;
+	height:440px; /* デフォルトの高さを大きくして全ページで見栄えを統一 */
+	margin-bottom:18px;
+	border-radius:10px;
+	overflow:hidden;
+	display:flex;
+	align-items:center;
+	justify-content:center;
+	background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+	border: 2px dashed rgba(255,255,255,0.10);
+	color: rgba(255,255,255,0.28);
+	font-size:14px;
+	position: relative; /* オーバーレイを配置するため */
+}
+.page .image-slot img{ width:100%; height:100%; object-fit:cover; display:block }
+
+@media(max-width:800px){
+	/* モバイルでは少し小さめにするが、従来より大きめに保つ */
+	.page .image-slot{ height:300px }
+}
+
+/* 個別オーバーライド: 金星 (page3) の画像をより大きく表示する */
+.page .image-slot[data-slot="page3"]{
+	/* スロット枠は全体と同じサイズに戻す（デフォルトと同一） */
+	height:440px;
+}
+.page .image-slot[data-slot="page3"] img,
+.page .image-slot[data-slot="page3"] .image-hint img{
+	width:100%;
+	height:100%;
+	object-fit:cover;
+	display:block;
+	/* 画像自体を拡大（ズーム）して目立たせる - ユーザー要望で更に拡大 */
+	transform: scale(1.60);
+	transform-origin: 50% 50%;
+	will-change: transform;
+}
+
+@media(max-width:800px){
+	.page .image-slot[data-slot="page3"] img,
+	.page .image-slot[data-slot="page3"] .image-hint img{
+		transform: scale(1.35);
+	}
+	/* モバイルではスロット枠をデフォルトのモバイルサイズに合わせる */
+	.page .image-slot[data-slot="page3"]{ height:300px }
+}
+
+/* Helpers to center images instead of filling the slot
+	 Usage:
+	 - To show the image at its natural size (centered), add class="image-slot centered" to the slot.
+		 <div class="image-slot centered" data-slot="page2"><img src="images/page2.jpg" alt="..."></div>
+	 - Or add class="centered" to the img itself to keep slot behavior but center the image inside.
+		 <div class="image-slot" data-slot="page2"><img class="centered" src="images/page2.jpg" alt="..."></div>
+*/
+.page .image-slot.centered{ display:flex; align-items:center; justify-content:center }
+.page .image-slot.centered img{ width:auto; max-width:100%; height:auto; object-fit:contain }
+.page .image-slot img.centered{ width:auto; max-width:100%; height:auto; object-fit:contain; display:block; margin:0 auto }
+
+/* no-gap を付けると image-slot の下の余白をなくす（テキストが画像の直下に来る） */
+.page .image-slot.no-gap{ margin-bottom:0 }
+.page .image-slot.no-gap + .editable{ margin-top:0 }
+
+/* 画像挿入の目印（ユーザー向けガイド） */
+.page .image-slot .image-hint{
+	color: rgba(255,255,255,0.5);
+	font-size:13px;
+	text-align:center;
+	padding:8px 12px;
+}
+.page .image-slot .image-hint code{
+	background: rgba(0,0,0,0.25);
+	padding:2px 6px;
+	border-radius:4px;
+	font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, 'Roboto Mono', 'Noto Sans Mono', monospace;
+	color: var(--text);
+	font-size:12px;
+}
+
+/* 目立つオーバーレイラベルを追加: INSERT IMAGE HERE (pageX) */
+.page .image-slot::before{
+	content: "画像挿入場所 — " attr(data-slot);
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	background: rgba(0,0,0,0.55);
+	color: var(--text);
+	padding: 10px 14px;
+	border-radius: 8px;
+	font-weight: 700;
+	font-size: 15px;
+	text-align: center;
+	box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+	pointer-events: none; /* ヒントはクリック不可 */
+	z-index: 5;
+}
+
+/* 小さいデバイスではラベルをもう少し控えめに */
+@media(max-width:800px){
+	.page .image-slot::before{ font-size:13px; padding:8px 10px }
+}
+
+/* 画像が挿入されているときはオーバーレイラベルを非表示にする
+	 Note: CSS :has() would be ideal but not supported everywhere; we add/remove
+	 .has-img via JS and hide the ::before when present. */
+.page .image-slot.has-img::before{ display:none }
+
+/* 旧来の show クラスは使わず、JS 側で transform を操作します */
+@media(max-width:800px){ 
+	.layout{ flex-direction:column }
+	.sidebar{ position:relative; width:100%; border-right:none; border-bottom:1px solid rgba(0,255,136,0.06) }
+	.content{ padding:20px; font-size:16px }
+	.page .editable{ font-size:16px }
+}
+
+.image-slot img {
+  width: 3000px;   /* 好きな大きさに変更してOK */
+  height: auto;   /* バランスが崩れないように自動調整 */
+}
+
+.image-slot img {
+  width: 500px !important;
+  height: auto !important;
+  display: block;
+}
