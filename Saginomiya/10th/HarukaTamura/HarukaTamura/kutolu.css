@@ -1,0 +1,462 @@
+/* ========================================
+   CSS変数定義
+   ======================================== */
+:root {
+  /* 背景色 */
+  --color-bg-main: #f5f0e8;
+  --color-bg-alt: #ede7dd;
+  
+  /* 装飾色（淡い緑） */
+  --color-deco-light: #d6e8c9;
+  --color-deco-mid: #b7d8a8;
+  --color-deco-medium: #a8d39c;
+  --color-deco-dark: #8fb878;
+  --color-deco-fade: #c5d9bd;
+  
+  /* アクセント色 */
+  --color-accent: #7fb87e;
+  
+  /* テキスト色 */
+  --color-text-dark: #4a4a42;
+  --color-text-light: #6d6d63;
+  
+  /* トップバー */
+  --color-topbar-bg: #faf6f0;
+  --color-topbar-shadow: rgba(0, 0, 0, 0.08);
+  
+  /* 余白・サイズ */
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --spacing-xl: 3rem;
+  
+  /* 角丸 */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  
+  /* フォント */
+  --font-serif-ja: 'Noto Serif JP', 'Shippori Mincho', 'Yu Mincho', serif;
+  --font-serif: Georgia, serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  
+  /* 行間 */
+  --line-height: 1.9;
+  
+  /* トランジション */
+  --transition-fast: 0.3s ease;
+  --transition-normal: 0.5s ease;
+}
+
+/* ========================================
+   ベーススタイル
+   ======================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  background-color: var(--color-bg-main);
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 300 300"><defs><path id="vine" d="M20,50 Q40,20 60,50 T100,50 Q120,30 140,60" stroke="%23d6e8c9" stroke-width="2.5" fill="none" opacity="0.2"/></defs><use href="%23vine" x="0" y="0"/><use href="%23vine" x="150" y="0"/><use href="%23vine" x="0" y="150"/><use href="%23vine" x="150" y="150"/></svg>');
+  background-attachment: fixed;
+  background-size: cover;
+  color: var(--color-text-dark);
+  font-family: var(--font-serif-ja);
+  line-height: var(--line-height);
+  overflow-x: hidden;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif-ja);
+  font-weight: 600;
+  color: var(--color-text-dark);
+  margin-bottom: var(--spacing-md);
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+p {
+  margin-bottom: var(--spacing-md);
+  color: var(--color-text-light);
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-deco-medium);
+}
+
+/* ========================================
+   トップバー（ナビゲーション）
+   ======================================== */
+.saitomappu {
+  background-color: var(--color-topbar-bg);
+  padding: var(--spacing-md) var(--spacing-lg);
+  box-shadow: 0 2px 4px var(--color-topbar-shadow);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-lg);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--spacing-lg);
+  flex-wrap: wrap;
+  list-style: none;
+}
+
+.saitomappu li {
+  margin-left: 0;
+}
+
+.saitomappu a {
+  font-size: 0.95rem;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast);
+  display: inline-block;
+}
+
+.saitomappu a:hover {
+  background-color: rgba(127, 184, 126, 0.1);
+  color: var(--color-accent);
+}
+
+/* ========================================
+   コンテナ・レイアウト
+   ======================================== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-lg);
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1;
+  padding: var(--spacing-lg);
+}
+
+section {
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-lg);
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--color-deco-medium);
+}
+
+/* ========================================
+   リスト
+   ======================================== */
+ul, ol {
+  margin-bottom: var(--spacing-md);
+  padding-left: var(--spacing-lg);
+}
+
+ul li, ol li {
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-text-light);
+}
+
+/* ========================================
+   アニメーション
+   ======================================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn var(--transition-normal) ease forwards;
+}
+
+.fade-in--fast {
+  animation: fadeIn var(--transition-fast) ease forwards;
+}
+
+/* ========================================
+   ボタン・インタラクティブ要素
+   ======================================== */
+button, .btn {
+  background-color: var(--color-accent);
+  color: white;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-serif-ja);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+}
+
+button:hover, .btn:hover {
+  background-color: var(--color-deco-medium);
+}
+
+button:active, .btn:active {
+  transform: scale(0.98);
+}
+
+/* ========================================
+   ユーティリティクラス
+   ======================================== */
+.text-center {
+  text-align: center;
+}
+
+.text-small {
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+}
+
+.text-accent {
+  color: var(--color-accent);
+}
+
+.spacing-top {
+  margin-top: var(--spacing-lg);
+}
+
+.spacing-bottom {
+  margin-bottom: var(--spacing-lg);
+}
+
+.hidden {
+  display: none;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+/* ========================================
+   ゲーム要素用クラス（予約）
+   ======================================== */
+/*.game-character {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1000;
+  transition: none;
+}
+
+.game-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 999;
+}*/
+
+/* ========================================
+   レスポンシブ対応
+   ======================================== */
+@media (max-width: 768px) {
+  :root {
+    font-size: 14px;
+  }
+  
+  .saitomappu {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    align-items: flex-start;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  .container {
+    padding: 0 var(--spacing-md);
+  }
+  
+  .content {
+    padding: var(--spacing-md);
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    font-size: 13px;
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+  }
+  
+  h2 {
+    font-size: 1.25rem;
+  }
+  
+  .saitomappu {
+    gap: var(--spacing-sm);
+  }
+}
+
+/* ------------------------------
+   基本の見た目（共通）
+------------------------------ */
+
+/* アイコンを自由に配置するための絶対位置指定 */
+.tip-item {
+    position: absolute;
+}
+
+/* アイコンの見た目（画像はあとで差し替えOK） */
+.tip-icon {
+    width: 450px;
+    height: auto;
+    cursor: pointer;
+}
+
+/* TIPSの吹き出し（最初は透明） */
+.tip-box {
+    position: absolute;
+    background: #ffffff;
+    border: 1px solid #a8d39c;       /* 薄い緑の線 */
+    padding: 8px 12px;
+    border-radius: 6px;
+    opacity: 0;                      /* 非表示 */
+    pointer-events: none;            /* マウスが反応しない */
+    transition: opacity 0.25s ease;  /* ふわっと出る */
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    font-family: "Shippori Mincho", serif;
+    white-space: nowrap;             /* 横一行に固定 */
+}
+
+/* 表示状態のクラス */
+.tip-box.show {
+    opacity: 1;
+}
+
+
+/* ------------------------------
+   ページごとの位置調整
+   body につけたクラスで切り替わる
+------------------------------ */
+
+/* ===== page-home（例：トップページ） ===== */
+
+/* アイコン1の位置 */
+.honn-icon {
+    top: 350px;
+    left: 800px;
+}
+
+/* アイコン1のTIPSの位置 */
+.honn-box {
+    top: -30px;      /* アイコンより上に出す */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* アイコン2の位置 */
+.kutoru-icon {
+    top: 500px;
+    left: 625px;
+}
+
+/* アイコン2のTIPSの位置 */
+.kutolu-box{
+    top: -50px;
+    left: 45%;
+    transform: translateX(-50%);
+}
+
+
+/* ===== page-about（別ページの例） ===== */
+
+/* アイコン1の位置（同じ icon1 でもページ別） */
+.daisu-icon {
+    top: 650px;
+    left: 800px;
+}
+
+.daisu-box {
+    top: -30px;        /* 下側に表示 */
+    left: -20%;
+}
+
+/* アイコン2の位置 */
+.wan-icon {
+    top: 225px;
+    left: 900px;
+}
+
+/* アイコン2のTIPS位置 */
+.wan-box {
+    top: -20px;
+    left: 0px;
+}
+
+/* アイコン2の位置 */
+.yuduru-icon {
+    top:1325px;
+    left: 1000px;
+}
+
+/* アイコン2のTIPS位置 */
+.yuduru-box {
+    top: -30px;
+    left: 30px;
+}
+
+
+/* アイコン2の位置 */
+.raira-icon {
+    top: -250px;
+    left: -150px;
+}
+
+/* アイコン2のTIPS位置 */
+.raira-box{
+    top: 200px;
+    left: 0px;
+}
+
+
+/* アイコン2の位置 */
+.page-about .icon2 {
+    top: 350px;
+    left: 500px;
+}
+
+/* アイコン2のTIPS位置 */
+.page-about .icon2 .tip-box {
+    top: 70px;
+    left: 0px;
+}

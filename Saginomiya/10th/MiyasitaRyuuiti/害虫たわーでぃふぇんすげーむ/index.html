@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Insect Tower Defense</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="board panel">
+      <div class="hud">
+        <div>
+          <h1>害虫たわーでぃふぇんす</h1>
+          <div class="stat">敵から巣を守ろう！</div>
+        </div>
+        <div style="text-align:right">
+          <div class="stat">ゴールド: <span id="gold">100</span></div>
+          <div class="stat">ライフ: <span id="life">10</span></div>
+        </div>
+      </div>
+
+      <canvas id="game" width="672" height="384"></canvas>
+
+      <!-- セーブ系ボタン（キャンバス直下） -->
+      <div style="display:flex;justify-content:center;gap:8px;margin-top:8px">
+        <button id="saveBtn">💾 セーブ</button>
+        <button id="loadBtn">📂 ロード</button>
+        <button id="clearBtn">🧹 セーブ削除</button>
+      </div>
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:8px">
+        <div class="muted">Wave: <span id="wave">0</span></div>
+        <div>
+          <button id="startWave">波を開始</button>
+          <button id="fast" class="secondary">速度 x1</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <div><b>ショップ</b><div class="muted">味方はゴキブリ(近接)と蚊(遠距離)</div></div>
+        <div class="muted">所持: <span id="owned">0</span></div>
+      </div>
+
+      <div class="shop" id="shop">
+        <div class="card" data-type="cockroach" data-cost="30" title="近接・高耐久">
+          <div style="font-size:28px">🪳</div>
+          <div class="meta"><b>ゴキブリ (近接)</b><div class="muted">コスト: 30 / 範囲: 1 / ダメージ: 15</div></div>
+          <button class="buy">設置</button>
+        </div>
+
+        <div class="card" data-type="mosquito" data-cost="45" title="遠距離・攻撃速度速い">
+          <div style="font-size:28px">🦟</div>
+          <div class="meta"><b>蚊 (遠距離)</b><div class="muted">コスト: 45 / 範囲: 3 / ダメージ: 8</div></div>
+          <button class="buy">設置</button>
+        </div>
+      </div>
+
+      <div style="margin-top:12px">
+        <b>ログ</b>
+        <div class="log" id="log"></div>
+      </div>
+
+      <div class="footer">
+        操作: ショップで「設置」をクリック -> ボード上の空きマスをクリックして配置。塔は売却/アップグレード可能。波ごとに敵が強くなります。
+      </div>
+    </div>
+  </div>
+
+  <!-- game.js をページ末尾で読み込む -->
+  <script src="game.js"></script>
+</body>
+</html>

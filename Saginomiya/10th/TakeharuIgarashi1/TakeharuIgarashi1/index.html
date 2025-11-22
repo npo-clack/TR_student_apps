@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>地理クイズゲーム</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- トップ画面（ここでクイズの種類を選びます） -->
+    <!-- 解説: HTML を分けておくと、画面ごとに表示・非表示で遷移を作りやすくなります。
+        代替案: SPA フレームワーク（React/Vue）を使うとルーティングで管理する手もありますが、
+        学習用途ではこのようなシンプルな切り替えが分かりやすいです。 -->
+    <div id="start-screen" class="screen">
+        <h1>地理クイズゲーム</h1>
+        <p>挑戦したいクイズを選んでください：</p>
+        <label for="question-count">出題数を選ぶ：</label>
+        <select id="question-count" aria-label="出題数">
+            <option value="5">5問</option>
+            <option value="10">10問</option>
+            <option value="20" selected>20問</option>
+            <option value="30">30問</option>
+            <option value="all">全問</option>
+        </select>
+        <button onclick="startQuiz('prefecture')">都道府県の県庁所在地</button>
+        <button onclick="startQuiz('capital')">世界の首都</button>
+    </div>
+
+    <!-- クイズ画面 -->
+    <div id="quiz-screen" class="screen" style="display: none;">
+        <!-- 解説: quiz-screen は最初は非表示にしておき、startQuiz() で表示します。
+             この方式はシンプルで直感的です。別の方法としてはクラス切替（.hidden）を使うやり方もあります。 -->
+        <h2>第<span id="question-number">1</span>問</h2>
+        <div id="question"></div>
+        <div id="choices"></div>
+    </div>
+
+    <!-- 結果画面 -->
+    <div id="result-screen" class="screen" style="display: none;">
+        <!-- 解説: 結果画面も同様に最初は非表示。showResult() で表示します。
+             結果の詳細は JavaScript 側で動的に生成して #detailed-results に挿入します。 -->
+        <h2>クイズ結果</h2>
+        <!-- 総問題数はスクリプトで動的に更新します -->
+        <p>
+            <span id="total-questions">20</span>問中 <span id="score">0</span>問正解！
+            <span id="percentage" class="percentage">(正答率: 0%)</span>
+        </p>
+        <!-- 各問題ごとの正誤を表示する領域（ここに 1問ずつ「あなたの答え / 正解」を表示します） -->
+        <div id="detailed-results"></div>
+        <button onclick="resetQuiz()">もう一度挑戦する</button>
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,244 @@
+body {
+  background: #111;
+  color: #fff;
+  font-family: "Segoe UI", sans-serif;
+  margin: 0;
+  overflow: hidden;
+  user-select: none;
+}
+
+#game {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* レーン配置 */
+.lanes {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  height: 80%;
+  width: 100%;
+  gap: 350px;
+}
+
+.lane-column {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 18px;
+}
+.lane {
+  position: relative;
+  width: 90px;
+  height: 100%;
+  border: 2px solid #111;
+  box-sizing: border-box;
+  background: rgba(255, 255, 255, 0.05);
+  left: -30px;
+}
+
+/* 判定ライン */
+.target {
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  width: 110px;
+  height: 110px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 1.0;
+}
+
+/* 各方向のターゲット画像 */
+[data-lane="o-left"]  .target,
+[data-lane="p-left"]  .target  { background-image: url("assets/img/arrow-offset-left.png"); }
+
+[data-lane="o-down"]  .target,
+[data-lane="p-down"]  .target  { background-image: url("assets/img/arrow-offset-down.png"); }
+
+[data-lane="o-up"]    .target,
+[data-lane="p-up"]    .target  { background-image: url("assets/img/arrow-offset-up.png"); }
+
+[data-lane="o-right"] .target,
+[data-lane="p-right"] .target { background-image: url("assets/img/arrow-offset-right.png"); }
+
+/* ===== ノーツ基本設定（差し替え） ===== */
+.note {
+  position: absolute;
+  width: 110px;
+  height: 110px;
+  /* bottom は絶対に書かない — JSで bottom を制御する */
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  z-index: 1000;
+}
+
+/* ノーツ画像 */
+.player-note.p-left  { background-image: url("assets/img/arrow-left.png"); }
+.player-note.p-down  { background-image: url("assets/img/arrow-down.png"); }
+.player-note.p-up    { background-image: url("assets/img/arrow-up.png"); }
+.player-note.p-right { background-image: url("assets/img/arrow-right.png"); }
+
+.opp-note.o-left  { background-image: url("assets/img/arrow-left.png"); opacity: 0.7; }
+.opp-note.o-down  { background-image: url("assets/img/arrow-down.png"); opacity: 0.7; }
+.opp-note.o-up    { background-image: url("assets/img/arrow-up.png"); opacity: 0.7; }
+.opp-note.o-right { background-image: url("assets/img/arrow-right.png"); opacity: 0.7; }
+
+
+#effects {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.hit-text {
+  position: absolute;
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 0 10px black;
+}
+
+#hud {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 20px;
+}
+
+#controls {
+  position: absolute;
+  bottom: 20px;
+}
+
+button {
+  background: #444;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+button:hover {
+  background: #666;
+}
+.judgement {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 2px 2px 10px black;
+  animation: fadeOut 0.6s ease forwards;
+  z-index: 1000;
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 0; transform: translate(-50%, -60%) scale(0.8); }
+}
+
+.hidden {
+  display: none;
+}
+
+#result {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.9);
+  border: 3px solid #fff;
+  border-radius: 12px;
+  padding: 40px;
+  text-align: center;
+  font-size: 24px;
+  z-index: 2000;
+}
+
+#result h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+#result button {
+  margin-top: 20px;
+  background: #444;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 20px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+#result button:hover {
+  background: #666;
+}
+#final-accuracy {
+  font-size: 28px;
+  font-weight: bold;
+  color: #00ffff;
+  margin-bottom: 10px;
+}
+
+.howto-panel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.7);
+  padding: 30px 50px;
+  border-radius: 20px;
+  text-align: center;
+  color: #fff;
+  font-size: 22px;
+  z-index: 9999;
+  box-shadow: 0 0 20px #000;
+}
+
+.howto-panel h2 {
+  margin-bottom: 10px;
+  font-size: 32px;
+  color: #00ffff;
+  text-shadow: 2px 2px 8px #000;
+}
+
+.howto-panel .small {
+  margin-top: 10px;
+  font-size: 18px;
+  color: #ccc;
+}
+
+/* 判定画像（SICK/GOOD/BAD/SHIT）の共通スタイル
+   - 位置は JS の設定（bottom）で上書きされます。
+   - 幅は JS の定数で上書きされますが、max-width はここで制御しますn */
+.judgement-img {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 9999;
+  max-width: 80vw;
+  height: auto;
+  will-change: transform, opacity;
+}
+
+/* 小さい画面で自動調整 */
+@media (max-width: 480px) {
+  .judgement-img { max-width: 90vw; }
+}

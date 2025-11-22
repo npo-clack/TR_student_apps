@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>恋みくじ 完全進化版（YouTube＋Spotify）</title>
+<style>
+body { font-family:"Noto Serif JP","Yu Mincho","serif"; background:#fff0f5; margin:0; padding:0; display:flex; justify-content:center; }
+.wrap { max-width:480px; width:100%; padding:12px; }
+h1 { text-align:center; color:#4a3c3d; }
+.card { background:#fffdfd; border-radius:12px; padding:18px; margin-bottom:14px; box-shadow:0 4px 12px rgba(0,0,0,0.08); }
+.input, .select { flex:1; padding:10px; border-radius:10px; border:1px solid #ccc; margin-bottom:10px; }
+.btn { width:100%; padding:12px; border-radius:14px; background:#ffeef0; border:none; cursor:pointer; font-weight:600; }
+.result { margin-top:12px; display:none; padding:12px; border-radius:12px; background:#fff8f9; }
+.history-item { padding:8px; background:#fff5f7; border-radius:10px; margin-bottom:6px; font-size:13px; }
+.stream-links a { margin-right:6px; font-size:13px; color:#e75480; text-decoration:none; }
+.stream-links a:hover { text-decoration:underline; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>恋みくじ 完全進化版（YouTube＋Spotify）</h1>
+  <div class="card">
+    <input id="age" class="input" type="number" placeholder="年齢（任意）">
+    <select id="gender" class="select">
+      <option value="female">女性</option>
+      <option value="male">男性</option>
+      <option value="other">その他</option>
+    </select>
+    <select id="loveStatus" class="select">
+      <option value="love">片思い</option>
+      <option value="mutual">両想い</option>
+      <option value="none">恋してない</option>
+    </select>
+    <button id="drawBtn" class="btn">恋みくじを引く</button>
+    <div id="result" class="result">
+      <div id="fortune"></div>
+      <div id="poem" style="font-style:italic; margin-top:8px;"></div>
+      <div id="color" style="margin-top:6px;"></div>
+      <div id="songArea" class="stream-links" style="margin-top:6px;"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <strong>履歴</strong>
+    <div id="history"></div>
+    <button id="clearBtn" class="btn" style="margin-top:6px;">履歴を消す</button>
+  </div>
+</div>
+
+<script>
+// ---------------- 設定 ----------------
+const fortunes=["大凶","凶","小吉","末吉","吉","中吉","大吉"];
+const colors={
+  "大凶":["チャコール","ダークネイビー"],
+  "凶":["チャコール","ダークグレー"],
+  "小吉":["スモーキーピンク","ラベンダーグレー"],
+  "末吉":["セージ","サンドベージュ"],
+  "吉":["ベージュ","ボルドー"],
+  "中吉":["ブルーグレー","ボルドー"],
+  "大吉":["ゴールド","クリーム"]
+};
+
+// ---------------- 条件別ポエム ----------------
+const poemSets = {
+  female: {
+    love: [
+      "素直な気持ちを言葉にしてみて。恋が動き出すかも。",
+      "彼の前で無理に強がらないで。優しさが伝わる日。",
+      "小さなLINEでも勇気を出して送ってみて。"
+    ],
+    mutual: [
+      "お互いの笑顔が未来を作る日。",
+      "一緒に過ごす時間を大切にして。",
+      "想いを伝え合うことで絆が深まる。"
+    ],
+    none: [
+      "焦らなくて大丈夫。今は自分磨きの時期。",
+      "恋よりも友情が輝く1日になりそう。",
+      "何気ない出会いが、後の運命になるかも。"
+    ]
+  },
+  male: {
+    love: [
+      "素直な言葉が一番刺さる日。",
+      "アプローチするなら今日がチャンス。",
+      "少し勇気を出せば距離が縮まる。"
+    ],
+    mutual: [
+      "相手の気持ちに寄り添えば、さらに信頼が深まる。",
+      "あなたの優しさが彼女を笑顔にします。",
+      "一緒に笑う時間を増やしてみて。"
+    ],
+    none: [
+      "恋よりも夢を追う時期かも。",
+      "今のあなたを見て惹かれる人が現れるかも。",
+      "無理せず、自然体が一番の魅力。"
+    ]
+  },
+  other: {
+    love: [
+      "心を閉ざさず、まっすぐな想いを信じて。",
+      "あなたらしい恋が実る予感。",
+      "勇気を出した人にしか見えない景色がある。"
+    ],
+    mutual: [
+      "相手の想いを大切にすることで絆が強くなる。",
+      "あなたの優しさが関係を温める。",
+      "お互いの歩幅を合わせて、ゆっくり進もう。"
+    ],
+    none: [
+      "自分を愛せる人が、素敵な恋を呼び寄せる。",
+      "まだ知らない“恋”があなたを待っている。",
+      "今日は自分を甘やかしてOK。"
+    ]
+  }
+};
+
+// ---------------- 曲（YouTube＋Spotify） ----------------
+const songs = [
+  {title:"夜に駆ける", youtube:"https://youtu.be/x8VYWazR5mE", spotify:"https://open.spotify.com/track/2nYJZqjK9kY7vVv8vgJ3lT"},
+  {title:"カタオモイ", youtube:"https://youtu.be/5t1ZzD6zJ6Y", spotify:"https://open.spotify.com/track/2cYqizR4lgvp4Qu6IQ3qGN"},
+  {title:"Pretender", youtube:"https://youtu.be/TQ8WlA2GXbk", spotify:"https://open.spotify.com/track/6fujklziTHa8uoM5OQSfIo"},
+  {title:"香水", youtube:"https://youtu.be/1yP9x2P8WvI", spotify:"https://open.spotify.com/track/7fBv7CLKzipRk6EC6TWHOB"},
+  {title:"ドライフラワー", youtube:"https://youtu.be/9mWJzxh1X0I", spotify:"https://open.spotify.com/track/5M7q1rY3R6zXq7nSx0gR3J"},
+  {title:"恋", youtube:"https://youtu.be/5Uo7y5nW1lA", spotify:"https://open.spotify.com/track/0OcbNK7kENdWZ7ECvHqbpv"},
+ {title:"マリーゴールド", youtube:"https://youtu.be/0xSiBpUdW4E", spotify:"https://open.spotify.com/track/2Z8WuEywRWYTKe1NybPQEW"},
+ {title:"織姫とBABY",youtube:"https://youtu.be/RyviHjvLIao?si=7xLAJYjLiJcNn3JO"},
+  {title:"恋人ごっこ",youtube:"https://youtu.be/323j5BRFi7s?si=z2iW5rowRy8ljvHe"},
+  {title:"貴方の恋人になりたいのです",youtube:"https://youtu.be/CS90aE8_dUQ?si=PVEcO5ayh9nRJF0q"},
+  {title:"melt bitter",youtube:"https://youtu.be/mwTmvdIeYnE?si=rVQe7mgzTvi8X2je"},
+  {title:"ハッピーエンド",youtube:"https://youtu.be/T8y_RsF4TSw?si=WIhoxWfT6TKPwNbu"},
+  {title:"me me she",youtube:"https://youtu.be/wvvItrHEfRA?si=9Gy-8dF57bE7ik7l"},
+  {title:"25ｺ目の染色体",youtube:"https://youtu.be/XRnX65LDRoU?si=hh1a7Ma1LM84OWLG"},
+  {title:"ブルーベリー・ナイツ",youtube:"https://youtu.be/Euf1-3WRino?si=ZYHXcpfqnlqjGfmS"},
+  {title:"10月無口な君を忘れる",youtube:"https://youtu.be/zO8yNYEsYTc?si=dCjUtNsGl9MqFgrE"},
+  {title:"今更だって僕は言うかな",youtube:"https://youtu.be/U8pJgoOhiDs?si=nbP1c3cN5kGlt_nB"},
+  {title:"ミスター・ブルースカイ",youtube:"https://youtu.be/8ooptXF4IDE?si=m5RpCwsjxkl5vFM3"},
+  {title:"リカ",youtube:"https://youtu.be/0zmK2-ioEGg?si=YUiRl9zXo0xFD0kN"},
+  {title:"愛ゆえに",youtube:"https://youtu.be/In7m-BrHaQo?si=p8LknKpoRV7qghse"},
+  {title:"長い髪",youtube:"https://youtu.be/1wfN863pJ-Y?si=k6hCA0-Do_0ZDxzu"},
+  {title:"夢をみせて",youtube:"https://youtu.be/8kiL6vN_bsM?si=E9JeZiI8bJv03h57"},
+  {title:"今日くらいさ",youtube:"https://youtu.be/1fC8wAwBqXc?si=wZbwg5qCOf0UOs72"},
+  {title:"紫苑",youtube:"https://youtu.be/3Yq58d2rsRk?si=3o1n3dMereYEsOwx"},
+  {title:"眠り姫",youtube:"https://youtu.be/GvL4bcNfSDg?si=I5bVu25fMPWeH860"},
+  {title:"センチメンタル・キス ",youtube:"https://youtu.be/ispTakQnfiI?si=1eYFvTLE4U1oqvDb"},
+
+];
+
+// ---------------- ロジック ----------------
+let history=[];
+let lastPoem="", lastSong="";
+
+function getRandomItem(arr, last){
+  let filtered = arr.filter(x => x!==last);
+  return filtered[Math.floor(Math.random()*filtered.length)];
+}
+
+document.getElementById("drawBtn").addEventListener("click", ()=>{
+  const gender = document.getElementById("gender").value;
+  const loveStatus = document.getElementById("loveStatus").value;
+
+  const fortune = fortunes[Math.floor(Math.random()*fortunes.length)];
+  const poem = getRandomItem(poemSets[gender][loveStatus], lastPoem);
+  lastPoem = poem;
+
+  const song = getRandomItem(songs, lastSong);
+  lastSong = song;
+
+  document.getElementById("fortune").innerText = "運勢: " + fortune;
+  document.getElementById("poem").innerText = '"' + poem + '"';
+  document.getElementById("color").innerText = "ラッキーカラー: " + getRandomItem(colors[fortune], "");
+  document.getElementById("songArea").innerHTML = `
+    🎧 おすすめ曲: <strong>${song.title}</strong><br>
+    <a href="${song.youtube}" target="_blank">YouTubeで聴く</a> /
+    <a href="${song.spotify}" target="_blank">Spotifyで聴く</a>
+  `;
+
+  const entry = `運勢: ${fortune}, "${poem}", 曲: ${song.title}`;
+  history.unshift(entry);
+  if(history.length>10) history.pop();
+  document.getElementById("history").innerHTML = history.map(h=>`<div class="history-item">${h}</div>`).join("");
+
+  document.getElementById("result").style.display="block";
+});
+
+document.getElementById("clearBtn").addEventListener("click", ()=>{
+  history=[];
+  document.getElementById("history").innerHTML="";
+});
+</script>
+</body>
+</html>

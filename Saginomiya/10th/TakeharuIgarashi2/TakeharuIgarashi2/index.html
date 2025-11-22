@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>Spookeez Nightmare</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="howto" class="howto-panel">
+  <h2>操作方法</h2>
+  <p>Enter：ゲーム開始</p>
+  <p>S：左ノーツ</p>
+  <p>D：下ノーツ</p>
+  <p>J：上ノーツ</p>
+  <p>K：右ノーツ</p>
+  <p class="small">※ Enter を押すとゲームがスタートします</p>
+</div>
+
+  <div id="result" class="hidden">
+  <h2>RESULT</h2>
+  <p id="final-score">Score: 0</p>
+  <p id="final-accuracy">Accuracy: 0%</p>
+  <p id="final-maxcombo">Max Combo: 0</p>
+  <p id="final-sick">SICK!: 0</p>
+  <p id="final-good">GOOD: 0</p>
+  <p id="final-bad">BAD: 0</p>
+  <p id="final-shit">SHIT: 0</p>
+  <p id="final-miss">MISS: 0</p>
+  <button id="retryBtn">Retry</button>
+</div>
+  <div id="game">
+    <div class="lanes">
+      <!-- 相手側レーン -->
+      <div class="lane-column opp-lanes">
+        <div class="lane" data-lane="o-left"><div class="target"></div></div>
+        <div class="lane" data-lane="o-down"><div class="target"></div></div>
+        <div class="lane" data-lane="o-up"><div class="target"></div></div>
+        <div class="lane" data-lane="o-right"><div class="target"></div></div>
+      </div>
+
+      <!-- プレイヤー側レーン -->
+      <div class="lane-column player-lanes">
+        <div class="lane" data-lane="p-left"><div class="target"></div></div>
+        <div class="lane" data-lane="p-down"><div class="target"></div></div>
+        <div class="lane" data-lane="p-up"><div class="target"></div></div>
+        <div class="lane" data-lane="p-right"><div class="target"></div></div>
+      </div>
+    </div>
+
+    <div id="effects"></div>
+
+    <div id="hud">
+      <span id="score">Score: 0</span> | <span id="combo">Combo: 0x</span>
+    </div>
+
+    <div id="controls">
+
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

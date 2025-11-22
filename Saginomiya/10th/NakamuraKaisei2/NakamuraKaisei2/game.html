@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ランキング</title>
+    <style>
+        body {
+            background-image: url("R.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            color: rgb(235, 1, 1);
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 32px;
+            box-sizing: border-box;
+        }
+
+        .container {
+            display: flex;
+            gap: 24px;
+            align-items: flex-start;
+            justify-content: center;
+        }
+
+        /* ランキングとプレビューの背景を透明にし、枠の余白を小さく */
+        .ranking {
+            width: 520px;
+            background: transparent;
+            padding: 12px;
+            /* 少し小さくした */
+            border-radius: 8px;
+            box-shadow: none;
+        }
+
+        .preview {
+            width: 360px;
+            height: 520px;
+            background: transparent;
+            padding: 6px;
+            /* ここを小さくして「水色の枠」を目立たなくする */
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: none;
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #8b0000;
+        }
+
+        /* 緑のランキングテーブル */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 100%;
+            background: #19ce0f;
+        }
+
+        th,
+        td {
+            padding: 8px 12px;
+            border: 1px solid #35bc0b;
+            text-align: left;
+            color: #031;
+            background: rgba(255, 255, 255, 0.0);
+        }
+
+        #controls {
+            margin-top: 12px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        button {
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 6px;
+            border: none;
+            background: #0ab128f7;
+            color: #fff;
+        }
+
+        button:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        #yourScore {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #8b0000;
+        }
+
+        /* preview canvas：背景は残す/必要なら透明にする */
+        #snowPreview {
+            width: 320px;
+            height: 480px;
+            background: transparent;
+            border-radius: 6px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+        }
+
+        #timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            color: #adadad;
+            font-size: 36px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 10px;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column-reverse;
+                align-items: center;
+                gap: 12px;
+                padding-bottom: 24px;
+            }
+
+            .ranking,
+            .preview {
+                width: 92%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>ランキング</h1>
+
+    <div class="container">
+        <div class="ranking">
+            <p id="yourScore"></p>
+
+            <div id="controls">
+                <button id="homeBtn">ホームに戻る</button>
+                <button id="resetBtn">ランキングをリセット</button>
+            </div>
+
+            <table id="rankingTable" aria-live="polite">
+                <thead>
+                    <tr>
+                        <th>順位</th>
+                        <th>名前</th>
+                        <th>スコア</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+        <div class="preview" aria-hidden="false">
+            <canvas id="snowPreview" width="320" height="480"></canvas>
+        </div>
+    </div>
+
+    <div id="timer">--</div>
+
+    <script>
+        (function () {
+            const rankingsKey = "rankings";
+            const name = localStorage.getItem("playerName") || "名無し";
+            const score = parseInt(localStorage.getItem("playerScore") || "0", 10) || 0;
+            document.getElementById("yourScore").textContent = `${ name }さんのスコア：${ score }点`;
+
+            // ランキング読み込み
+            let rankings = [];
+            try {
+                const raw = localStorage.getItem(rankingsKey);
+                rankings = raw ? JSON.parse(raw) : [];
+            } catch (e) {
+                console.warn('rankings 読み取りエラー', e);
+                rankings = [];
+            }
+
+            // 新しいスコアを追加
+            rankings.push({ name, score });
+
+            // 降順ソート
+            rankings.sort((a, b) => b.score - a.score);
+
+            // 保存（上位50件を保持）
+            const top = rankings.slice(0, 50);
+            try {
+                localStorage.setItem(rankingsKey, JSON.stringify(top));
+            } catch (e) {
+                console.warn('rankings 保存に失敗', e);
+            }
+
+            // テーブル表示
+            const tbody = document.querySelector("#rankingTable tbody");
+            tbody.innerHTML = "";
+            top.forEach((item, index) => {
+                const tr = document.createElement("tr");
+                tr.innerHTML = `<td>${ index + 1 }</td><td>${ escapeHtml(String(item.name)) }</td><td>${ Number(item.score) }</td>`;
+                tbody.appendChild(tr);
+            });
+
+            // ボタン動作
+            document.getElementById("homeBtn").addEventListener("click", () => {
+                location.href = "omikuji.html";
+            });
+            document.getElementById("resetBtn").addEventListener("click", () => {
+                if (!confirm("本当にランキングをリセットしますか？")) return;
+                try {
+                    localStorage.removeItem(rankingsKey);
+                    localStorage.removeItem('playerScore');
+                    localStorage.removeItem('lastStack');
+                } catch (e) {
+                    console.warn('localStorage 削除エラー', e);
+                }
+                tbody.innerHTML = "";
+                document.getElementById("yourScore").textContent = `名無しさんのスコア：0点`;
+                alert("ランキングをリセットしました");
+                location.reload();
+            });
+
+            function escapeHtml(s) {
+                return s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+            }
+
+            // --- preview canvas: lastStack を読み込んで描画 ---
+            const previewCanvas = document.getElementById('snowPreview');
+            const pctx = previewCanvas.getContext('2d');
+
+            let stack = [];
+            try {
+                const rawStack = localStorage.getItem('lastStack');
+                stack = rawStack ? JSON.parse(rawStack) : [];
+            } catch (e) {
+                console.warn('lastStack 読み取りエラー', e);
+                stack = [];
+            }
+
+            function drawPlaceholder() {
+                pctx.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
+                pctx.fillStyle = '#ffffff';
+                pctx.font = '16px Arial';
+                pctx.textAlign = 'center';
+                pctx.fillText('時間切れの雪だるまが', previewCanvas.width / 2, previewCanvas.height / 2 - 10);
+                pctx.fillText('ここに表示されます', previewCanvas.width / 2, previewCanvas.height / 2 + 18);
+            }
+
+            function drawStack(stackArray) {
+                pctx.clearRect(0, 0, previewCanvas.width, previewCanvas.height);
+                if (!stackArray || stackArray.length === 0) { drawPlaceholder(); return; }
+
+                const cx = previewCanvas.width / 2;
+                let y = previewCanvas.height - 24;
+                const positions = [];
+                for (let i = 0; i < stackArray.length; i++) {
+                    const r = stackArray[i].radius;
+                    if (i === 0) {
+                        y = Math.min(previewCanvas.height - r - 12, y);
+                        positions.push({ x: cx, y: y, r: r });
+                    } else {
+                        const prev = positions[i - 1];
+                        const overlap = Math.min(32, Math.round(r * 0.6));
+                        const nextY = prev.y - prev.r - r + overlap;
+                        positions.push({ x: cx, y: nextY, r: r });
+                    }
+                }
+
+                // If stack too tall compress vertically (unchanged)
+                const topmost = positions[positions.length - 1];
+                const overflow = Math.max(0, 12 - topmost.y);
+                if (overflow > 0) {
+                    const compress = 1 - Math.min(0.38, overflow / previewCanvas.height);
+                    const bottomY = positions[0].y;
+                    for (let p of positions) { p.y = bottomY - (bottomY - p.y) * compress; }
+                }
+
+                // draw only one shadow: under the bottom-most ball
+                const bottom = positions[0];
+                pctx.save();
+                pctx.fillStyle = 'rgba(0,0,0,0.12)';
+                pctx.beginPath();
+                pctx.ellipse(bottom.x + bottom.r * 0.08, bottom.y + bottom.r * 0.6, bottom.r * 1.25, bottom.r * 0.45, 0.25, 0, Math.PI * 2);
+                pctx.fill();
+                pctx.restore();
+
+                // draw balls (no per-ball shadow)
+                for (let i = 0; i < positions.length; i++) {
+                    const p = positions[i];
+                    // ball
+                    pctx.save();
+                    pctx.fillStyle = '#FFFFFF';
+                    pctx.beginPath();
+                    pctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+                    pctx.fill();
+                    pctx.lineWidth = Math.max(1, p.r * 0.03);
+                    pctx.strokeStyle = 'rgba(200,200,200,0.28)';
+                    pctx.stroke();
+                    pctx.restore();
+                }
+
+                // decorate topmost with eyes and carrot nose
+                const top = positions[positions.length - 1];
+                if (top) {
+                    const tr = top.r;
+                    const tcx = top.x;
+                    const tcy = top.y;
+                    const eyeOffsetX = tr * 0.28;
+                    const eyeOffsetY = -tr * 0.18;
+                    const eyeR = Math.max(2, tr * 0.09);
+                    pctx.fillStyle = 'rgba(30,30,30,0.95)';
+                    pctx.beginPath();
+                    pctx.arc(tcx - eyeOffsetX, tcy + eyeOffsetY, eyeR, 0, Math.PI * 2);
+                    pctx.fill();
+                    pctx.beginPath();
+                    pctx.arc(tcx + eyeOffsetX, tcy + eyeOffsetY, eyeR, 0, Math.PI * 2);
+                    pctx.fill();
+
+                    const noseBaseX = tcx + tr * 0.15;
+                    const noseBaseY = tcy;
+                    const noseLen = tr * 0.6;
+                    pctx.fillStyle = 'orange';
+                    pctx.beginPath();
+                    pctx.moveTo(noseBaseX, noseBaseY);
+                    pctx.lineTo(noseBaseX + noseLen, noseBaseY - tr * 0.12);
+                    pctx.lineTo(noseBaseX + noseLen, noseBaseY + tr * 0.12);
+                    pctx.closePath();
+                    pctx.fill();
+
+                    pctx.fillStyle = 'rgba(150,70,10,0.9)';
+                    pctx.beginPath();
+                    pctx.arc(noseBaseX + noseLen - tr * 0.08, noseBaseY, Math.max(1, tr * 0.04), 0, Math.PI * 2);
+                    pctx.fill();
+                }
+            }
+
+            drawStack(stack);
+            setInterval(() => drawStack(stack), 120);
+
+            // timer text: show "終了済"
+            document.getElementById('timer').textContent = '終了済';
+        })();
+    </script>
+</body>
+
+</html>

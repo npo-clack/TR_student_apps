@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>オセロ</title>
+</title>
+<style>
+  body { font-family: sans-serif; text-align: center; }
+  table { border-collapse: collapse; margin: 20px auto; }
+  td {
+    width: 50px; height: 50px;
+    background: lawngreen; border: 1px solid black;
+    position: relative; cursor: pointer;
+  }
+  .black, .white {
+    width: 80%; height: 80%; border-radius: 50%;
+    position: absolute; top: 10%; left: 10%;
+  }
+  .black { background: black; }
+  .white { background: white; border: 1px solid #888; }
+  </style>
+</head>
+<body>
+
+
+<h2>オセロ</h2>
+<p id="turn">手番：黒</p>
+<p id="score"></p>
+<table id="board"></table>
+
+
+<script>
+const SIZE = 8;
+let board = [];
+let turn = 1; // 1=黒, -1=白
+
+
+// 8方向
+const DIRS = [
+  [-1,-1],[0,-1],[1,-1],
+  [-1,0],        [1,0],
+  [-1,1],[0,1],[1,1]
+];
+
+
+// 初期化
+function init() {
+  board = Array.from({length: SIZE}, ()=>Array(SIZE).fill(0));
+  board[3][3] = board[4][4] = -1; // 白
+  board[3][4] = board[4][3] = 1;  // 黒
+  draw();
+}
+init();
+
+
+// 映像
+function draw() {
+  const tbl = document.getElementById("board");
+  tbl.innerHTML = "";
+  for (let y=0; y<SIZE; y++) {
+    const tr = document.createElement("tr");
+    for (let x=0; x<SIZE; x++) {
+      const td = document.createElement("td");
+      td.onclick = () => place(x,y);
+      if (board[y][x] === 1) td.innerHTML = '<div class="black"></div>';
+      if (board[y][x] === -1) td.innerHTML = '<div class="white"></div>';
+      tr.appendChild(td);
+    }
+    tbl.appendChild(tr);
+  }
+ 
+  // 石の数表示
+  const { black, white } = countStones();
+  document.getElementById("score").textContent = `黒：${black}個 白：${white}個`;
+ 
+  if (!isGameOver()) {
+    document.getElementById("turn").textContent = "手番：" + (turn==1?"黒":"白");
+  }
+}
+
+
+// 指定位置に置ける？
+function flips(x,y,p) {
+  if (board[y][x] !== 0) return [];
+  let res = [];
+  for (let [dx,dy] of DIRS) {
+    let path = [];
+    let nx = x+dx, ny = y+dy;
+    while (nx>=0 && nx<SIZE && ny>=0 && ny<SIZE && board[ny][nx]===-p) {
+      path.push([nx,ny]);
+      nx+=dx; ny+=dy;
+    }
+    if (path.length && nx>=0 && nx<SIZE && ny>=0 && ny<SIZE && board[ny][nx]===p)
+      res = res.concat(path);
+  }
+  return res;
+}
+// パス？
+function canPlay(player) {
+  for (let y = 0; y < SIZE; y++) {
+    for (let x = 0; x < SIZE; x++) {
+      if (flips(x, y, player).length > 0) return true;
+    }
+  }
+  return false;
+}
+
+
+// 石の数は？
+function countStones() {
+  let black = 0, white = 0;
+  for (let y = 0; y < SIZE; y++) {
+    for (let x = 0; x < SIZE; x++) {
+      if (board[y][x] === 1) black++;
+      if (board[y][x] === -1) white++;
+    }
+  }
+  return { black, white };
+}
+// ゲーム終了判定
+function isGameOver() {
+  return !canPlay(1) && !canPlay(-1);
+}
+// 勝者表示
+function showResult() {
+  const { black, white } = countStones();
+  let message;
+  if (black > white) {
+    message = `黒の勝ち！ (黒：${black} 白：${white})`;
+  } else if (white > black) {
+    message = `白の勝ち！ (黒：${black} 白：${white})`;
+  } else {
+    message = `引き分け！ (黒：${black} 白：${white})`;
+  }
+  document.getElementById("turn").textContent = message;
+}
+// 石を置く
+function place(x,y) {
+  const f = flips(x,y,turn);
+  if (f.length === 0) return; // 置けない
+  board[y][x] = turn;
+  for (const [fx,fy] of f) board[fy][fx] = turn;
+ 
+  turn *= -1;
+ 
+  if (!canPlay(turn)) {
+    turn *= -1;  
+    if (!canPlay(turn)) {  
+      draw();
+      showResult();  // 結果表示
+      return;
+    }
+  }
+ 
+  draw();
+}
+</script>
+<h3>ルール説明</h3>
+<p>オセロは2人で遊ぶボードゲームです。<br>
+  プレイヤーは交互に自分の色の石を置き、相手の石を挟むことで裏返します。<br>
+  最終的に盤面に多くの石を置いたプレイヤーが勝ちとなります。
+</p>
+<h3>操作方法</h3>
+<p>盤面の緑色のマスを触ってして、自分の石を置く。<br>
+  置ける場所は、相手の石を1個以上挟む位置のみ。<br>
+  石を置くと、自動的に挟んだ相手の石が自分の色に変わる。<br>
+  以上<br>
+  楽しくゲームを遊んでね！！
+</p>
+<h3>最後に</h3>
+<p>改善点や要望があれば、俺に教えてね！！次に置けるよ表示は無理！</p>
+<br><br><br>
+</body>
+</html>

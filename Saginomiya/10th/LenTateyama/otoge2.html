@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>4レーン音ゲー — アーケード風</title>
+  <link rel="stylesheet" href="otoge-2.css">
+</head>
+<body>
+  <div class="topbar">
+    <h1>4-Lane Arcade Rhythm</h1>
+    <div class="controls">
+      <select id="songSelect"></select>
+      <button id="loadSelected">曲を読み込む</button>
+      <label class="small">またはBase64(dataURI)を貼って追加：</label>
+      <textarea id="dataPaste" placeholder="data:audio/mpeg;base64,... (貼り付けて Add Song)"></textarea>
+      <input id="songTitle" placeholder="曲名（任意）">
+      <input id="songBpm" placeholder="BPM（例:120）" type="number" min="30" max="400">
+      <button id="addSong">Add Song</button>
+    </div>
+  </div>
+
+  <main id="gameWrap">
+    <div id="game">
+      <div id="lanes">
+        <div class="lane" data-lane="0"><div class="key">D</div></div>
+        <div class="lane" data-lane="1"><div class="key">F</div></div>
+        <div class="lane" data-lane="2"><div class="key">J</div></div>
+        <div class="lane" data-lane="3"><div class="key">K</div></div>
+        <div class="hitline">HIT</div>
+      </div>
+
+      <aside id="hud">
+        <div id="songInfo">No song</div>
+        <div id="score">Score: 0</div>
+        <div id="combo">Combo: 0</div>
+        <div id="judgeDisplay" class="judge">---</div>
+        <div id="timeDisplay">00:00 / 00:00</div>
+        <div class="help">Start: <strong>Space</strong> ・ Keys: <strong>D F J K</strong> ・ Hold 長押し判定対応</div>
+      </aside>
+    </div>
+  </main>
+
+  <audio id="audio" crossorigin="anonymous"></audio>
+
+  <!-- 終了時モーダル -->
+  <div id="resultModal" class="modal hidden">
+    <div class="modal-content">
+      <h2>RESULT</h2>
+      <div id="finalScore">Score: 0</div>
+      <div id="finalStats"></div>
+      <button id="closeResult">閉じる</button>
+    </div>
+  </div>
+
+  <script src="otoge-2.js"></script>
+</body>
+</html>

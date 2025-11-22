@@ -1,0 +1,174 @@
+:root{
+  --bg: #9dd2f3;
+  --panel: #e7e7b0;
+  --accent: #f0ffff;
+}
+
+/* reset */
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;padding:0;font-family:-apple-system, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", "Helvetica Neue", Arial;}
+
+body{
+  background-color:var(--bg); 
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding: 0;
+  min-height:100vh;
+}
+
+.hidden{display:none!important;}
+
+#startScreen{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: #9dd2f3;
+  z-index:3000;
+}
+
+#startBtn{
+  padding:30px 90px;
+  font-size:100px;
+  font-family: 'monospace';
+  color: #30280a;
+  border-radius:999px;
+  border: 3px solid #30280a;
+  background:#e7e7b0;
+  box-shadow:0 10px 30px rgba(20,30,60,0.12);
+  cursor:pointer;
+}
+
+/* main game container */
+#game{
+  width:100%;
+  max-width:980px;
+  height:100vh;
+  max-height:980px;
+  font-family: 'fantasy';
+  background:var(--panel);
+  border-radius:20px;
+  border: 3px solid #30280a;
+  box-shadow:0 10px 30px rgba(20,30,60,0.12);
+  overflow:hidden;
+  position:relative;
+  padding:12px;
+  display:flex;
+  flex-direction:column;
+  color: #30280a;
+  font-size: 20px;
+
+}
+
+#topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:6px 12px;
+}
+
+#playArea{
+  flex:1;
+  margin:8px;
+  border-radius:12px;
+  background:linear-gradient(180deg,#fff,#fbfdff);
+  position:relative;
+  overflow:hidden;
+}
+
+/* number buttons */
+.num{
+  position:absolute;
+  width:60px;
+  height:60px;
+  display:flex;
+  font-size: 17px;
+  font-family: 'fantasy';
+  color: #30280a;
+  align-items:center;
+  justify-content:center;
+  background:#9dd2f3;
+  border-radius:999px;
+  cursor:pointer;
+  border: 3px solid #30280a;
+  font-weight:700;
+  box-shadow:4px 4px 10px #2e2e28(20,30,60,0.06),
+  0 5px 0 #c5d0e0
+  transitiontransform .18s ease, opacity .25s ease;
+  z-index:10;
+}
+
+.num.done{
+  transform:scale(.92);
+  opacity:.6;
+  pointer-events:none;
+}
+
+/* timer bottom-right */
+#timer{
+  position:absolute;
+  right:18px;
+  bottom:18px;
+  background:#ffffffcc;
+  padding:8px 14px;
+  border-radius:10px;
+  box-shadow:0 6px 20px rgba(20,30,60,0.08);
+  font-size:18px;
+  z-index:120;
+}
+
+/* overlay (game over / win) */
+#overlay{
+  position:fixed;
+  inset:0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:14px;
+  background:rgba(10,10,20,0.35);
+  z-index:2000;
+}
+
+#overlay.hidden{display:none}
+#overlayContent{
+  background:#e7e7b0;
+  padding:26px 36px;
+  border-radius:14px;
+  font-size:36px;
+  font-weight:900;
+  border: 3px solid #30280a;
+  color:#30280a;
+  text-align:center;
+  box-shadow:0 20px 60px rgba(10,20,50,0.28);
+  min-width:220px;
+}
+/* smaller line under the main overlay title to show the elapsed time */
+.final-time{
+  display:block;
+  margin-top:8px;
+  font-size:22px;
+  color: #30280a;
+  font-weight:800;
+}
+
+/* restart button */
+#restartBtn{
+  padding:8px 18px;
+  border-radius:8px;
+  border:none;
+  background:#9dd2f3;
+  color: #30280a;
+  font-size:17px;
+  cursor:pointer;
+  box-shadow:0 8px 20px rgba(20,30,60,0.12);
+}
+
+/* responsive tweaks */
+@media (max-width:640px){
+  #game{height:100vh; max-width:100%;}
+  .num{width:48px;height:48px;font-size:14px}
+  #overlayContent{font-size:28px}
+}

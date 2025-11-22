@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8" />
+    <title>雪だるまロールゲーム（松を右端から出す・隕石改良）</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #bfefff
+        }
+
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px
+        }
+
+        #score {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: #052d4b
+        }
+
+        canvas {
+            background: linear-gradient(#CFEFFF, #E6F7FF);
+            border: 1px solid #88c;
+            touch-action: none;
+            display: block
+        }
+
+        .controls {
+            margin-top: 8px;
+            display: flex;
+            gap: 12px;
+            align-items: center
+        }
+
+        .info {
+            font-size: 14px;
+            color: #034
+        }
+
+        input[type=range] {
+            width: 180px
+        }
+
+        #timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 10px;
+            z-index: 1000;
+            pointer-events: none
+        }
+
+        #outOverlay {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.65);
+            z-index: 2000
+        }
+
+        #outBox {
+            background: rgba(200, 30, 30, 0.95);
+            padding: 28px;
+            border-radius: 12px;
+            text-align: center;
+            color: #fff
+        }
+
+        #outBox button {
+            margin: 8px;
+            padding: 10px 14px;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer
+        }
+
+        #outRetry {
+            background: #fff;
+            color: #b02020
+        }
+
+        #outToRanking {
+            background: #222;
+            color: #fff
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="score">得点: 0</div>
+        <canvas id="game" width="630" height="420"></canvas>
+
+        <div class="controls">
+            <div class="info">Enter: 開始/停止</div>
+            <label class="info">速度</label>
+            <input id="speed" type="range" min="5" max="20" value="6">
+            <div id="status" class="info">状態: 停止</div>
+        </div>
+
+        <div id="timer">30</div>
+    </div>
+
+    <div id="outOverlay">
+        <div id="outBox">
+            <h2>アウト！</h2>
+            <p id="outMsg">レーザーに触れました。</p>
+            <div>
+                <button id="outRetry">やり直す</button>
+                <button id="outToRanking">ランキングへ</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        /*
+          Changes implemented:
+          - All pine-related objects (pine_seed and actual pine trees) spawn from the right edge (worldX = cameraX + canvas.width + ...)
+          - Increased pine_seed spawn probability (50%)
+          - When player touches pine_seed: reset player's snowball to initial state and start pineSpawner that spawns trees from the right edge (~2/sec)
+          - Meteor event: every 15s spawn a fast "falling" meteor visual; after it falls (short fall animation), the screen becomes fully yellow for 2 seconds
+          - Other behavior preserved (hazards, shrink-by-touch-time, laser-out)
+          - Cleaned up variable usage and ordering so the file runs as a single self-contained page
+        */
+
+        const canvas = document.getElementById('game');
+        const ctx = canvas.getContext('2d');
+        const scoreEl = document.getElementById('score');
+        const statusEl = document.getElementById('status');
+        const speedInput = document.getElementById('speed');
+        const timerEl = document.getElementById('timer');
+        const outOverlay = document.getElementById('outOverlay');
+        const outMsg = document.getElementById('outMsg');
+        const outRetry = document.getElementById('outRetry');
+        const outToRanking = document.getElementById('outToRanking');
+
+        let score = 0;
+        function updateScore() { scoreEl.textContent = `得点: ${ score }`; try { localStorage.setItem('playerScore', String(score)); } catch (e) { } }
+
+        /* world/player */
+        let groundY = Math.floor(canvas.height * 0.4);
+        const startX = 120;
+        let running = false;
+        let gameOver = false;
+        let active = {
+            x: startX,
+            y: Math.floor(groundY + (canvas.height - groundY) * 0.5),
+            baseRadius: 16,
+            radius: 16,
+            distance: 0,
+            vx: 0,
+            vy: 0,
+            angle: 0,
+            rollAngle: 0
+        };
+        const completed = [];
+        const growthPerPixel = 0.024;
+        const completionRadius = 72;
+
+        /* camera auto-scroll */
+        let cameraX = 0;
+        let cameraSpeed = 100;
+        let cameraEnabled = true;
+
+        /* laser */
+        const laserWidth = 28;
+        const laserColor = 'rgba(255,40,40,0.95)';
+
+        /* audio (optional) */
+        const audio = new Audio('bad_piggies.mp3');
+        audio.loop = false;
+        audio.volume = 0.75;
+        function tryPlayAudio() { audio.play().catch(() => { }); }
+        window.addEventListener('load', tryPlayAudio);
+        const resumeAudio = () => { if (audio.paused) audio.play().catch(() => { }); window.removeEventListener('pointerdown', resumeAudio); window.removeEventListener('keydown', resumeAudio); };
+        window.addEventListener('pointerdown', resumeAudio);
+        window.addEventListener('keydown', resumeAudio);
+
+        /* snowflakes visuals */
+        const snowflakes = [];
+        const snowflakeCount = 180;
+        function createSnowflakes() { snowflakes.length = 0; for (let i = 0; i < snowflakeCount; i++) { snowflakes.push({ x: Math.random() * canvas.width, y: Math.random() * canvas.height, r: Math.random() * 2 + 0.8, speed: Math.random() * 0.4 + 0.12, sway: Math.random() * 0.6 - 0.3, phase: Math.random() * Math.PI * 2 }); } }
+        function updateSnowflakes(dt) { const t = Date.now() / 1000; for (const s of snowflakes) { s.y += s.speed * (dt / 16); s.x += Math.sin(t * 0.6 + s.phase) * s.sway * (dt / 16); if (s.y > canvas.height + 8) { s.y = -8; s.x = Math.random() * canvas.width; } if (s.x < -40) s.x = canvas.width + 40; if (s.x > canvas.width + 40) s.x = -40; } }
+
+        /* input handling */
+        let pointerDown = false, dragStart = null, dragPos = null, draggingOnBall = false;
+        function screenToCanvas(e) { const rect = canvas.getBoundingClientRect(); const cx = e.clientX ?? (e.touches && e.touches[0] && e.touches[0].clientX); const cy = e.clientY ?? (e.touches && e.touches[0] && e.touches[0].clientY); return { x: cx - rect.left, y: cy - rect.top }; }
+        canvas.addEventListener('pointerdown', ev => { const p = screenToCanvas(ev); pointerDown = true; dragStart = p; dragPos = p; const dx = p.x - (active.x - cameraX), dy = p.y - active.y; draggingOnBall = Math.hypot(dx, dy) <= active.radius + 8; try { canvas.setPointerCapture(ev.pointerId); } catch (e) { } });
+        canvas.addEventListener('pointermove', ev => { if (!pointerDown) return; dragPos = screenToCanvas(ev); });
+        canvas.addEventListener('pointerup', ev => { if (!pointerDown) return; pointerDown = false; if (draggingOnBall && dragStart && dragPos) { const dx = dragPos.x - dragStart.x, dy = dragPos.y - dragStart.y; active.vx += dx * 0.02; active.vy += dy * 0.02; active.vx = Math.max(Math.min(active.vx, 28), -100); active.vy = Math.max(Math.min(active.vy, 28), -100); active.distance += (Math.abs(dx) + Math.abs(dy)) * 0.38; active.rollAngle += dx * 0.04; } dragStart = null; dragPos = null; draggingOnBall = false; });
+        canvas.addEventListener('contextmenu', e => e.preventDefault());
+        const keys = { w: false, a: false, s: false, d: false };
+        document.addEventListener('keydown', e => { const k = e.key.toLowerCase(); if (k === 'enter') { running = !running; if (running) last = 0; } if (k in keys) { keys[k] = true; e.preventDefault(); } });
+        document.addEventListener('keyup', e => { const k = e.key.toLowerCase(); if (k in keys) { keys[k] = false; e.preventDefault(); } });
+
+        /* drawing helpers */
+        function drawShadow(screenX, y, r, bob = 0) { ctx.save(); ctx.fillStyle = 'rgba(0,0,0,0.20)'; ctx.beginPath(); ctx.ellipse(screenX + r * 0.08, y + r * 0.6 + bob * 0.2, r * 1.25 + Math.abs(bob) * 0.8, r * 0.45 + Math.abs(bob) * 0.25, 0.25, 0, Math.PI * 2); ctx.fill(); ctx.restore(); }
+        function drawBall(screenX, y, r, angle = 0, rollAngle = 0, bob = 0) { ctx.save(); const vy = -(bob || 0); const flatten = Math.min(0.12, Math.abs(rollAngle) * 0.03); ctx.translate(screenX, y + vy); ctx.scale(1, 1 - flatten); ctx.fillStyle = '#FFFFFF'; ctx.beginPath(); ctx.arc(0, 0, r, 0, Math.PI * 2); ctx.fill(); ctx.strokeStyle = 'rgba(200,200,200,0.28)'; ctx.lineWidth = Math.max(1, r * 0.03) / (1 - flatten); ctx.beginPath(); ctx.arc(0, 0, r - ctx.lineWidth * 0.5, 0, Math.PI * 2); ctx.stroke(); ctx.restore(); }
+
+        /* pusher visual (unchanged) */
+        let walkPhase = 0;
+        function drawPusher(ballScreenX, ballY, ballR, vx, vy, dragging) {
+            const scale = Math.min(1.12, Math.max(0.6, ballR / 44));
+            let pushAngle; const speed = Math.hypot(vx, vy);
+            if (speed > 0.25) pushAngle = Math.atan2(vy, vx) + Math.PI; else pushAngle = -Math.PI * 0.25;
+            const sideOffset = ballR * 0.5 + 28 * scale;
+            const px = ballScreenX + Math.cos(pushAngle) * sideOffset;
+            const py = (ballY - ballR * 0.42) + Math.sin(pushAngle) * (ballR * 0.28);
+            const faceAngle = Math.atan2(ballY - py, (ballScreenX) - px);
+            const stepSpeed = Math.max(0.4, speed * 0.2) + (dragging ? 0.4 : 0);
+            walkPhase += stepSpeed * 0.08;
+            const stepAmp = Math.min(12, 4 + speed * 8);
+            const rot = faceAngle + Math.PI / 2;
+            const torsoBaseLocal = { x: 0, y: 6 * scale };
+            const toWorldLocal = (lx, ly) => { const wx = px + Math.cos(rot) * lx - Math.sin(rot) * ly; const wy = py + Math.sin(rot) * lx + Math.cos(rot) * ly; return { x: wx, y: wy }; };
+            const torsoBase = toWorldLocal(torsoBaseLocal.x, torsoBaseLocal.y);
+            const legLength = 20 * scale;
+            const perpAngle = faceAngle + Math.PI / -5;
+            const footSep = 10 * scale;
+            const forwardOffset = Math.sin(walkPhase) * stepAmp * 0.28;
+            const faceDir = { x: Math.cos(faceAngle), y: Math.sin(faceAngle) };
+            const leftFoot = { x: px + Math.cos(perpAngle) * (-footSep) + faceDir.x * forwardOffset, y: torsoBase.y + legLength };
+            const rightFoot = { x: px + Math.cos(perpAngle) * footSep + faceDir.x * (-forwardOffset), y: torsoBase.y + legLength };
+
+            ctx.save(); ctx.translate(px, py); ctx.rotate(rot);
+            const torsoGrad = ctx.createLinearGradient(-8 * scale, -10 * scale, 8 * scale, 14 * scale); torsoGrad.addColorStop(0, '#F6E3C3'); torsoGrad.addColorStop(1, '#E0B671');
+            ctx.fillStyle = torsoGrad; ctx.beginPath(); ctx.ellipse(0, -4 * scale, 10 * scale, 16 * scale, -0.28, 0, Math.PI * 2); ctx.fill(); ctx.strokeStyle = 'rgba(80,60,40,0.9)'; ctx.lineWidth = 1.2 * scale; ctx.stroke();
+            const headGrad = ctx.createRadialGradient(-2 * scale, -22 * scale, 1 * scale, 0, -20 * scale, 7 * scale); headGrad.addColorStop(0, '#FFF7EA'); headGrad.addColorStop(1, '#FFF7EA');
+            ctx.fillStyle = headGrad; ctx.beginPath(); ctx.ellipse(0, -20 * scale, 7 * scale, 6 * scale, -0.08, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+            ctx.save(); ctx.strokeStyle = 'rgba(80,60,40,0.95)'; ctx.lineWidth = 3.4 * scale; ctx.lineCap = 'round';
+            const localBallX = Math.cos(-rot) * ((ballScreenX) - px) - Math.sin(-rot) * (ballY - py);
+            const localBallY = Math.sin(-rot) * ((ballScreenX) - px) + Math.cos(-rot) * (ballY - py);
+            const desiredArmX = localBallX * 0.72, desiredArmY = localBallY * 0.72;
+            ctx.beginPath(); ctx.moveTo(0, -8 * scale); ctx.quadraticCurveTo(desiredArmX * 0.35, desiredArmY * 0.45 - 4 * scale, desiredArmX, desiredArmY - 4 * scale); ctx.stroke();
+            ctx.fillStyle = '#F5D8B4'; ctx.beginPath(); ctx.ellipse(desiredArmX, desiredArmY - 4 * scale, 4 * scale, 3 * scale, -0.2, 0, Math.PI * 2); ctx.fill(); ctx.stroke(); ctx.restore(); ctx.restore();
+
+            ctx.strokeStyle = 'rgba(80,60,40,0.95)'; ctx.lineWidth = 2 * scale; ctx.lineCap = 'round';
+            ctx.beginPath(); ctx.moveTo(torsoBase.x, torsoBase.y); ctx.lineTo(leftFoot.x, leftFoot.y); ctx.moveTo(torsoBase.x, torsoBase.y); ctx.lineTo(rightFoot.x, rightFoot.y); ctx.stroke();
+            ctx.fillStyle = '#4B3B2A'; ctx.beginPath(); ctx.ellipse(leftFoot.x, leftFoot.y, 6 * scale, 3.6 * scale, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.beginPath(); ctx.ellipse(rightFoot.x, rightFoot.y, 6 * scale, 3.6 * scale, 0, 0, Math.PI * 2); ctx.fill();
+            ctx.fillStyle = 'rgba(0,0,0,0.06)'; ctx.beginPath(); ctx.ellipse(px, torsoBase.y + legLength + 6 * scale, 12 * scale, 5 * scale, 0, 0, Math.PI * 2); ctx.fill();
+        }
+
+        /* hazards system (spike + pine_seed) */
+        const hazards = [];
+        const hazardSpawnIntervalMs = 2000;
+        const hazardLifetimeMs = 9000;
+        const hazardBaseShrinkPerSec = 18.0;
+        const hazardSizeFactor = 0.12;
+        const hazardInitialMinR = 20;
+        const hazardInitialMaxR = 38;
+        let hazardSpawnerId = null;
+        const PINE_SEED_PROB = 0.5; // 50% chance
+
+        function spawnHazardsPair() {
+            for (let i = 0; i < 2; i++) {
+                if (Math.random() < PINE_SEED_PROB) {
+                    // spawn pine_seed at right edge (world coords)
+                    const r = Math.random() * 10 + 14;
+                    const x = cameraX + canvas.width + r + 6; // right edge off-screen
+                    const yMin = Math.max(r, groundY + 20);
+                    const yMax = canvas.height - r - 10;
+                    const y = Math.random() * (Math.max(yMax, yMin) - yMin) + yMin;
+                    hazards.push({ x, y, r, kind: 'pine_seed', createdAt: Date.now(), life: hazardLifetimeMs, wobblePhase: Math.random() * Math.PI * 2 });
+                } else {
+                    // spike moving hazard (spawn mostly on-screen to be immediate threat)
+                    const r = Math.random() * (hazardInitialMaxR - hazardInitialMinR) + hazardInitialMinR;
+                    const x = cameraX + Math.random() * (canvas.width - r * 2) + r;
+                    const yMin = Math.max(r, groundY + 20);
+                    const yMax = canvas.height - r - 10;
+                    const y = Math.random() * (Math.max(yMax, yMin) - yMin) + yMin;
+                    const angle = Math.random() * Math.PI * 2;
+                    const speed = Math.random() * 240 + 180;
+                    const vx = Math.cos(angle) * speed;
+                    const vy = Math.sin(angle) * speed * 0.5;
+                    hazards.push({ x, y, r, vx, vy, kind: 'spike', createdAt: Date.now(), life: hazardLifetimeMs, wobblePhase: Math.random() * Math.PI * 2, touching: false, touchingAccum: 0 });
+                }
+            }
+        }
+        function startHazardSpawner() { if (hazardSpawnerId !== null) return; spawnHazardsPair(); hazardSpawnerId = setInterval(spawnHazardsPair, hazardSpawnIntervalMs); }
+        function stopHazardSpawner() { if (hazardSpawnerId !== null) { clearInterval(hazardSpawnerId); hazardSpawnerId = null; } }
+
+        function updateHazards(dt) {
+            const now = Date.now();
+            for (let i = hazards.length - 1; i >= 0; i--) {
+                const h = hazards[i];
+                if (h.kind === 'spike') {
+                    h.wobblePhase += 0.015 * (dt / 16);
+                    const jitter = Math.sin(h.wobblePhase * 3) * 24;
+                    h.vx += (Math.random() - 0.5) * 120 * (dt / 1000);
+                    h.vy += (Math.random() - 0.5) * 60 * (dt / 1000);
+                    h.x += h.vx * (dt / 1000) + Math.cos(h.wobblePhase) * (jitter * 0.02);
+                    h.y += h.vy * (dt / 1000) + Math.sin(h.wobblePhase) * (jitter * 0.01);
+                    const pad = h.r + 4;
+                    if (h.x < cameraX + pad) { h.x = cameraX + pad; h.vx = Math.abs(h.vx) * 0.5; }
+                    if (h.x > cameraX + canvas.width - pad) { h.x = cameraX + canvas.width - pad; h.vx = -Math.abs(h.vx) * 0.5; }
+                    if (h.y < pad) { h.y = pad; h.vy = Math.abs(h.vy) * 0.6; }
+                    if (h.y > canvas.height - pad) { h.y = canvas.height - pad; h.vy = -Math.abs(h.vy) * 0.6; }
+                } else if (h.kind === 'pine_seed') {
+                    // slight wobble but spawn off right edge: drift left slowly so it enters view naturally
+                    h.wobblePhase += 0.01 * (dt / 16);
+                    h.x -= 30 * (dt / 1000); // drift left at modest speed so it becomes collectible
+                    h.x += Math.cos(h.wobblePhase) * 0.2;
+                    h.y += Math.sin(h.wobblePhase) * 0.2;
+                }
+                if (now - h.createdAt > h.life) hazards.splice(i, 1);
+            }
+        }
+
+        function drawHazard(h) {
+            const screenX = h.x - cameraX;
+            if (screenX < -h.r * 2 || screenX > canvas.width + h.r * 2) return;
+            if (h.kind === 'spike') {
+                ctx.save(); ctx.translate(screenX, h.y);
+                const spikes = Math.max(6, Math.floor(6 + h.r / 8));
+                ctx.beginPath();
+                for (let a = 0; a < spikes; a++) { const ang = (a / spikes) * Math.PI * 2; const rad = h.r * (a % 2 === 0 ? 1.15 : 0.75); const px = Math.cos(ang) * rad, py = Math.sin(ang) * rad; if (a === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py); }
+                ctx.closePath(); ctx.fillStyle = 'rgba(160,40,40,0.95)'; ctx.fill();
+                ctx.beginPath(); ctx.arc(0, 0, Math.max(5, h.r * 0.45), 0, Math.PI * 2); ctx.fillStyle = 'rgba(120,20,20,0.98)'; ctx.fill();
+                if (h.touching) { ctx.strokeStyle = 'rgba(255,220,0,0.9)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(0, 0, h.r * 0.9, 0, Math.PI * 2); ctx.stroke(); }
+                ctx.restore();
+            } else if (h.kind === 'pine_seed') {
+                ctx.save(); ctx.translate(screenX, h.y);
+                const r = h.r;
+                ctx.fillStyle = '#6b3e16'; ctx.fillRect(-r * 0.15, r * 0.4, r * 0.3, r * 0.4);
+                ctx.fillStyle = '#0b7a2c';
+                ctx.beginPath(); ctx.moveTo(0, -r * 0.6); ctx.lineTo(-r * 0.9, r * 0.1); ctx.lineTo(r * 0.9, r * 0.1); ctx.closePath(); ctx.fill();
+                ctx.beginPath(); ctx.moveTo(0, -r * 0.2); ctx.lineTo(-r * 0.7, r * 0.6); ctx.lineTo(r * 0.7, r * 0.6); ctx.closePath(); ctx.fill();
+                ctx.fillStyle = 'rgba(255,255,255,0.85)'; ctx.beginPath(); ctx.arc(0, -r * 0.5, Math.max(2, r * 0.18), 0, Math.PI * 2); ctx.fill();
+                ctx.restore();
+            }
+        }
+
+        /* pine trees spawner: spawn from right edge (world coords) */
+        const pineTrees = [];
+        let pineSpawnerId = null;
+        function startPineSpawner() {
+            if (pineSpawnerId !== null) return;
+            pineSpawnerId = setInterval(() => {
+                const r = Math.random() * 8 + 12;
+                const x = cameraX + canvas.width + r + 6; // right edge world coord
+                const yMin = groundY + r + 12;
+                const yMax = canvas.height - r - 10;
+                const y = Math.random() * (Math.max(yMax, yMin) - yMin) + yMin;
+                pineTrees.push({ x, y, r, createdAt: Date.now(), life: 12000 });
+            }, 500);
+        }
+        function stopPineSpawner() { if (pineSpawnerId !== null) { clearInterval(pineSpawnerId); pineSpawnerId = null; } }
+        function updatePineTrees(dt) { const now = Date.now(); for (let i = pineTrees.length - 1; i >= 0; i--) { const t = pineTrees[i]; if (now - t.createdAt > t.life) pineTrees.splice(i, 1); } }
+        function drawPineTree(t) { const screenX = t.x - cameraX; if (screenX < -t.r * 2 || screenX > canvas.width + t.r * 2) return; ctx.save(); ctx.translate(screenX, t.y); ctx.fillStyle = '#6b3e16'; ctx.fillRect(-t.r * 0.14, t.r * 0.4, t.r * 0.28, t.r * 0.6); ctx.fillStyle = '#1f7f3b'; ctx.beginPath(); ctx.moveTo(0, -t.r); ctx.lineTo(-t.r * 0.9, t.r * 0.2); ctx.lineTo(t.r * 0.9, t.r * 0.2); ctx.closePath(); ctx.fill(); ctx.beginPath(); ctx.moveTo(0, -t.r * 0.3); ctx.lineTo(-t.r * 0.7, t.r * 0.8); ctx.lineTo(t.r * 0.7, t.r * 0.8); ctx.closePath(); ctx.fill(); ctx.restore(); }
+
+        /* meteor system: spawn every 15s a fast falling meteor, after fall triggers 2s full-yellow flash */
+        const METEOR_INTERVAL_MS = 15000;
+        const METEOR_FALL_MS = 400;   // short, fast fall animation
+        const METEOR_FLASH_MS = 2000; // flash duration requested by user
+        let meteorIntervalId = null;
+        const meteors = []; // active meteors (falling -> after fall will cause flash)
+
+        function spawnMeteor() {
+            // spawn meteor at random x above screen (right-heavy)
+            const startX = cameraX + Math.random() * canvas.width;
+            const startY = -40;
+            const targetY = Math.random() * (groundY * 0.66); // somewhere in upper area
+            const now = performance.now();
+            meteors.push({
+                sx: startX,
+                sy: startY,
+                tx: startX + (Math.random() * 200 - 100), // small horizontal drift
+                ty: targetY,
+                startAt: now,
+                fallDuration: METEOR_FALL_MS,
+                flashed: false,
+                flashUntil: 0
+            });
+        }
+
+        function startMeteorLoop() {
+            if (meteorIntervalId !== null) return;
+            // spawn first meteor shortly, then every METEOR_INTERVAL_MS
+            spawnMeteor();
+            meteorIntervalId = setInterval(() => { spawnMeteor(); }, METEOR_INTERVAL_MS);
+        }
+        function stopMeteorLoop() { if (meteorIntervalId !== null) { clearInterval(meteorIntervalId); meteorIntervalId = null; } }
+
+        function updateMeteors(dt) {
+            const now = performance.now();
+            for (let i = meteors.length - 1; i >= 0; i--) {
+                const m = meteors[i];
+                const elapsed = now - m.startAt;
+                if (elapsed < m.fallDuration) {
+                    // falling phase - we just animate; no flash yet
+                    const t = elapsed / m.fallDuration;
+                    // linear
+                    m.cx = m.sx + (m.tx - m.sx) * t;
+                    m.cy = m.sy + (m.ty - m.sy) * t;
+                } else {
+                    // fall finished -> trigger flash (if not yet)
+                    if (!m.flashed) {
+                        m.flashed = true;
+                        m.flashUntil = now + METEOR_FLASH_MS;
+                        // set global meteorActive by storing flash times in this meteor
+                    }
+                    // if flash expired, remove meteor entry
+                    if (now > m.flashUntil) {
+                        meteors.splice(i, 1);
+                    }
+                }
+            }
+        }
+
+        /* Determine whether screen should be in meteor flash state (if any meteor is flashing) */
+        function isMeteorFlashing() {
+            const now = performance.now();
+            for (const m of meteors) {
+                if (m.flashed && m.flashUntil > now) return true;
+            }
+            return false;
+        }
+
+        /* main update */
+        function update(dt) {
+            if (gameOver) return;
+            if (cameraEnabled) cameraX += cameraSpeed * (dt / 1000);
+
+            const speedSetting = parseFloat(speedInput.value);
+            const accel = 0.28 * (dt / 16);
+            if (keys.w) active.vy -= accel;
+            if (keys.s) active.vy += accel;
+            if (keys.a) active.vx -= accel;
+            if (keys.d) active.vx += accel;
+            if (!pointerDown && running) {
+                active.vx -= 0.002 * speedSetting * (dt / 16);
+                active.vy -= 0.002 * speedSetting * (dt / 16);
+                active.vx = Math.max(Math.min(active.vx, 28), -28);
+                active.vy = Math.max(Math.min(active.vy, 28), -28);
+            }
+
+            const dx = active.vx * (dt / 16) * 0.85;
+            const dy = active.vy * (dt / 16) * 0.85;
+            active.x += dx; active.y += dy;
+            active.distance += Math.abs(dx) + Math.abs(dy);
+
+            updateHazards(dt);
+            updatePineTrees(dt);
+            updateMeteors(dt);
+
+            // hazard collisions
+            for (let i = hazards.length - 1; i >= 0; i--) {
+                const h = hazards[i];
+                const dist = Math.hypot(active.x - h.x, active.y - h.y);
+                const threshold = active.radius + h.r * 0.9;
+                if (dist < threshold) {
+                    if (h.kind === 'pine_seed') {
+                        // reset player
+                        resetActive();
+                        // start pine spawner sending trees from right edge
+                        startPineSpawner();
+                        hazards.splice(i, 1);
+                        continue;
+                    } else if (h.kind === 'spike') {
+                        h.touching = true;
+                        h.touchingAccum = (h.touchingAccum || 0) + (dt / 1000);
+                        const shrinkRate = hazardBaseShrinkPerSec + (h.r * hazardSizeFactor);
+                        const shrink = shrinkRate * (dt / 1000);
+                        active.baseRadius = Math.max(4, active.baseRadius - shrink);
+                    }
+                } else {
+                    if (h.kind === 'spike') h.touching = false;
+                }
+            }
+
+            // pine trees removal when touching laser (left edge)
+            for (let i = pineTrees.length - 1; i >= 0; i--) {
+                const t = pineTrees[i];
+                if (t.x - t.r < cameraX + laserWidth) {
+                    pineTrees.splice(i, 1);
+                }
+            }
+
+            active.radius = active.baseRadius + active.distance * growthPerPixel;
+            const rollSpeed = Math.hypot(active.vx, active.vy) * 0.5;
+            active.rollAngle += (dx + dy) * 0.18 + rollSpeed * 0.08;
+            active.angle += (dx + dy * 0.35) * 0.05;
+
+            const minX = cameraX + active.radius, maxX = cameraX + canvas.width - active.radius;
+            const minY = active.radius, maxY = canvas.height - active.radius;
+            active.x = Math.max(minX, Math.min(maxX, active.x));
+            active.y = Math.max(minY, Math.min(maxY, active.y));
+
+            const f = 1 - Math.max(0, 0.05 * (dt / 16));
+            active.vx *= f; active.vy *= f;
+
+            // completion stacking
+            if (active.radius >= completionRadius) {
+                let x, y;
+                if (completed.length === 0) { x = active.x; y = canvas.height - active.radius - 6; }
+                else { const prev = completed[completed.length - 1]; x = prev.x; const overlap = Math.min(32, Math.round(active.radius * 0.6)); y = prev.y - prev.radius - active.radius + overlap; }
+                completed.push({ x, y, radius: active.radius, angle: active.angle, placeAnim: 0 });
+                score += 10; updateScore();
+                active.baseRadius = 12; resetActive();
+            }
+
+            // wrapping
+            if (active.x + active.radius < cameraX) active.x = cameraX + canvas.width - 40;
+            else if (active.x - active.radius > cameraX + canvas.width) active.x = cameraX + 40;
+
+            // laser collision for player (circle-rect)
+            if (active.x - active.radius < cameraX + laserWidth) {
+                triggerOut('レーザーに触れました');
+            }
+        }
+
+        /* trigger out */
+        function triggerOut(message) {
+            if (gameOver) return;
+            gameOver = true;
+            try { localStorage.setItem('playerScore', String(score || 0)); } catch (e) { }
+            try { localStorage.setItem('lastStack', JSON.stringify(completed.map(b => ({ radius: b.radius })))); } catch (e) { }
+            outMsg.textContent = message;
+            outOverlay.style.display = 'flex';
+            stopHazardSpawner();
+            stopPineSpawner();
+            stopMeteorLoop();
+        }
+
+        /* rendering */
+        let last = 0;
+        function loop(ts) {
+            const dt = last ? ts - last : 16;
+            last = ts;
+            update(dt);
+            updateSnowflakes(dt);
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // sky & ground
+            const skyGrad = ctx.createLinearGradient(0, 0, 0, groundY);
+            skyGrad.addColorStop(0, '#edf0f3f7'); skyGrad.addColorStop(1, '#edf0f3f7');
+            ctx.fillStyle = skyGrad; ctx.fillRect(0, 0, canvas.width, groundY);
+            const groundGrad = ctx.createLinearGradient(0, groundY, 0, canvas.height);
+            groundGrad.addColorStop(0, '#edf0f3f7'); groundGrad.addColorStop(1, '#edf0f3f7');
+            ctx.fillStyle = groundGrad; ctx.fillRect(0, groundY, canvas.width, canvas.height - groundY);
+
+            // decorative dots
+            ctx.fillStyle = 'rgba(255,255,255,0.02)';
+            for (let i = 0; i < 120; i++) { const baseX = (i * 53); const gx = ((baseX - cameraX) % canvas.width + canvas.width) % canvas.width; const gy = groundY + ((i * 27) % (canvas.height - groundY)); ctx.beginPath(); ctx.arc(gx, gy, 6, 0, Math.PI * 2); ctx.fill(); }
+
+            // left laser
+            ctx.save(); ctx.fillStyle = laserColor; ctx.fillRect(0, 0, laserWidth, canvas.height); ctx.globalCompositeOperation = 'lighter'; ctx.fillStyle = 'rgba(255,120,120,0.06)'; ctx.fillRect(0, 0, laserWidth, canvas.height); ctx.restore();
+
+            // hazards
+            for (const h of hazards) drawHazard(h);
+
+            // pine trees
+            for (const t of pineTrees) drawPineTree(t);
+
+            // draw meteors falling and flash if any meteor in flash phase
+            // draw falling meteors (non-flash)
+            for (const m of meteors) {
+                if (!m.flashed) {
+                    // draw a simple streak
+                    const tFrac = Math.min(1, (performance.now() - m.startAt) / m.fallDuration);
+                    const cx = m.sx + (m.tx - m.sx) * tFrac;
+                    const cy = m.sy + (m.ty - m.sy) * tFrac;
+                    ctx.save();
+                    ctx.translate(cx - cameraX, cy);
+                    ctx.rotate(Math.atan2(m.ty - m.sy, m.tx - m.sx));
+                    ctx.fillStyle = 'rgba(255,200,80,0.95)';
+                    ctx.beginPath();
+                    ctx.ellipse(0, 0, 6, 18, 0, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+                }
+            }
+            // if any meteor is flashing, overlay full-screen yellow
+            const flashActive = meteors.some(m => m.flashed && performance.now() < m.flashUntil);
+            if (flashActive) {
+                ctx.save();
+                ctx.fillStyle = 'rgba(255,230,120,0.55)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.restore();
+            }
+
+            // completed stack (shadow bottom only)
+            if (completed.length > 0) {
+                const bottom = completed[0];
+                const screenX_bottom = bottom.x - cameraX;
+                if (screenX_bottom > -bottom.radius * 2 && screenX_bottom < canvas.width + bottom.radius * 2) drawShadow(screenX_bottom, bottom.y, bottom.radius, 0);
+            }
+            for (let i = 0; i < completed.length; i++) {
+                const b = completed[i];
+                const decorBob = Math.sin((Date.now() / 800) + i * 0.6) * 1.2;
+                if (b.placeAnim === undefined) b.placeAnim = 1;
+                if (b.placeAnim < 1) b.placeAnim = Math.min(1, b.placeAnim + (dt / 260));
+                const ease = 1 - Math.pow(1 - b.placeAnim, 3);
+                const placeBob = (1 - ease) * Math.min(14, b.radius * 0.5);
+                const placeRoll = (1 - ease) * 10;
+                const totalBob = placeBob + decorBob * (0.2 + 0.8 * b.placeAnim);
+                const screenX = b.x - cameraX;
+                if (screenX < -b.radius * 2 || screenX > canvas.width + b.radius * 2) continue;
+                drawBall(screenX, b.y, b.radius, b.angle || 0, placeRoll, totalBob);
+            }
+
+            // active ball
+            const activeScreenX = active.x - cameraX;
+            const activeBob = Math.sin(active.rollAngle * 0.9) * Math.min(8, active.radius * 0.08) + Math.sin(active.distance * 0.04) * 0.6;
+            drawShadow(activeScreenX, active.y, active.radius, activeBob);
+            drawBall(activeScreenX, active.y, active.radius, active.angle, active.rollAngle, activeBob);
+
+            // pusher
+            const pushing = draggingOnBall && pointerDown;
+            drawPusher(activeScreenX, active.y, active.radius, active.vx, active.vy, pushing);
+
+            // drag line
+            if (draggingOnBall && dragStart && dragPos) {
+                ctx.strokeStyle = 'rgba(0,80,200,0.9)'; ctx.beginPath(); ctx.moveTo(activeScreenX, active.y - active.radius * 0.2); ctx.lineTo(activeScreenX + (dragPos.x - dragStart.x), active.y - active.radius * 0.2 + (dragPos.y - dragStart.y)); ctx.stroke();
+            }
+
+            // snowflakes parallax
+            for (const s of snowflakes) { const sx = ((s.x - (cameraX % canvas.width)) % canvas.width + canvas.width) % canvas.width; ctx.fillStyle = 'rgba(255,255,255,0.95)'; ctx.beginPath(); ctx.arc(sx, s.y, s.r, 0, Math.PI * 2); ctx.fill(); ctx.fillStyle = 'rgba(255,255,255,0.06)'; ctx.beginPath(); ctx.arc(sx, s.y, s.r * 2.2, 0, Math.PI * 2); ctx.fill(); }
+
+            statusEl.textContent = `状態: ${ running ? '転がし中' : '停止' }  完成数: ${ completed.length }  速さ:${ speedInput.value }  妨害:${ hazards.length }  松:${ pineTrees.length }`;
+
+            if (!gameOver) requestAnimationFrame(loop);
+        }
+
+        /* save stack preview */
+        function saveCompletedStack() { try { const stack = completed.map(b => ({ radius: b.radius })); localStorage.setItem('lastStack', JSON.stringify(stack)); } catch (e) { } }
+
+        /* countdown */
+        let timeLeft = 30;
+        function startCountdown() {
+            timerEl.textContent = timeLeft;
+            const timerInterval = setInterval(() => {
+                timeLeft--; timerEl.textContent = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    try { localStorage.setItem('playerScore', String(score || 0)); } catch (e) { }
+                    saveCompletedStack();
+                    alert('時間切れ！ランキング画面へ移動します。');
+                    window.location.href = 'game.html';
+                }
+            }, 1000);
+        }
+
+        /* init helpers */
+        function resetActive() { groundY = Math.floor(canvas.height * 0.4); active.x = startX; active.y = Math.floor(groundY + (canvas.height - groundY) * 0.5); active.distance = 0; active.baseRadius = 16; active.radius = active.baseRadius; active.vx = 0; active.vy = 0; active.angle = 0; active.rollAngle = 0; }
+
+        /* start systems */
+        resetActive();
+        createSnowflakes();
+        updateScore();
+        startHazardSpawner();
+        startMeteorLoop();
+        requestAnimationFrame(loop);
+        window.addEventListener('load', () => { startCountdown(); });
+        window.addEventListener('resize', () => { groundY = Math.floor(canvas.height * 0.4); });
+        window.addEventListener('beforeunload', () => { stopHazardSpawner(); stopPineSpawner(); stopMeteorLoop(); });
+
+        /* out overlay actions */
+        outRetry.addEventListener('click', () => { outOverlay.style.display = 'none'; location.reload(); });
+        outToRanking.addEventListener('click', () => { window.location.href = 'game.html'; });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,24 @@
+body {
+  margin: 0;
+  background: #edf2f4;
+  font-family: "Arial", sans-serif;
+  text-align: center;
+}
+
+.title {
+  margin: 10px 0;
+  color: #2b2d42;
+}
+
+canvas {
+  display: block;
+  margin: 0 auto;
+  background: #bde0fe;
+  border: 2px solid #2b2d42;
+}
+
+.ui {
+  color: #2b2d42;
+  font-size: 18px;
+  margin-top: 8px;
+}

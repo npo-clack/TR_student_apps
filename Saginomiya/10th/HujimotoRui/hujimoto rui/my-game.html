@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ブロック崩し</title>
+<link rel="stylesheet" href="my-game.css">
+</head>
+<body>
+
+<div id="startScreen">
+  <h1>ブロック崩し</h1>
+  <button id="startBtn">スタート</button>
+</div>
+
+<div id="levelSelect" style="display:none;">
+  <h2>レベル選択</h2>
+  <button class="levelBtn" data-level="1">レベル1</button>
+  <button class="levelBtn" data-level="2">レベル2</button>
+  <button class="levelBtn" data-level="3">レベル3</button>
+  <button class="levelBtn" data-level="5">エンドレス</button>
+</div>
+
+<canvas id="gameCanvas" width="800" height="600"></canvas>
+
+<script src="my-game.js"></script>
+</body>
+</html>

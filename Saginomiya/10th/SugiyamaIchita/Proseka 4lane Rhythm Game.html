@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>初音ミクの消失 音ゲー（改良版）</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 左下クレジット（この行ごとコピーして貼ってください） -->
+<div id="credit">
+  <div>Artist: cosMo＠暴走P / CHEMICAL SYSTEM</div>
+  <div>Web: <a href="http://chemsys.cc" target="_blank" rel="noopener">http://chemsys.cc</a></div>
+  <div>Music: <a href="https://youtu.be/VWVtIg5cdDU?si=GNqoGljIUXDh4PF1" target="_blank" rel="noopener">YouTube</a></div>
+</div>
+
+<canvas id="gameCanvas" width="640" height="900"></canvas>
+
+<div id="ui">
+  <button id="startBtn">スタート (Space)</button>
+  <button id="restartBtn">リスタート</button>
+  <label>速度:
+    <input type="range" id="speed" min="0.5" max="3.0" step="0.1" value="1.0">
+    <span id="speedValue">1.0</span>
+  </label>
+  <br>
+  <label>オフセット (ms):
+    <input type="range" id="offset" min="-200" max="200" step="1" value="0">
+    <span id="offsetValue">0</span>
+  </label>
+  <div class="small">※スペースでスタート／押しっぱなしでロングノーツ保持</div>
+  <div class="small">曲ファイルは <code>./【初音ミク】初音ミクの消失　【高音質・full】.mp3</code> を想定</div>
+</div>
+
+<div id="combo">COMBO: 0</div>
+<div id="judgement">PERFECT</div>
+<div id="result"></div>
+<div id="overlay"></div>
+
+<audio id="bgm" src="./【初音ミク】初音ミクの消失　【高音質・full】.mp3" preload="auto"></audio>
+<audio id="tapSound" src="https://cdn.pixabay.com/download/audio/2021/08/04/audio_c2d8f5e5f0.mp3?filename=beep-6293.mp3"></audio>
+
+<script src="game.js"></script>
+
+</body>
+</html>

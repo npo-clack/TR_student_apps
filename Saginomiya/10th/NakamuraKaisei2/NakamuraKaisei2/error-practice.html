@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8" />
+    <title>雪だるまロールゲーム（斜め上視点・転がり改善・歩行+得点）</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #bfefff;
+        }
+
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px;
+        }
+
+        #score {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: #052d4b;
+        }
+
+        canvas {
+            background: linear-gradient(#CFEFFF, #E6F7FF);
+            border: 1px solid #88c;
+            touch-action: none;
+        }
+
+        .controls {
+            margin-top: 8px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .info {
+            font-size: 14px;
+            color: #034;
+        }
+
+        input[type=range] {
+            width: 180px;
+        }
+
+        #timer {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            font-size: 40px;
+            font-weight: bold;
+            padding: 10px 20px;
+            border-radius: 10px;
+            z-index: 1000;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="score">得点: 0</div>
+        <canvas id="game" width="630" height="420"></canvas>
+        <div class="controls">
+            <div class="info">Enter: 開始/停止</div>
+            <label class="info">速度</label>
+            <input id="speed" type="range" min="5" max="20" value="6">
+            <div id="status" class="info">状態: 停止</div>
+        </div>
+        <div id="timer">30</div>
+    </div>
+    <script>
+        const canvas = document.getElementById('game');
+        const ctx = canvas.getContext('2d');
+        const statusEl = document.getElementById('status');
+        const speedInput = document.getElementById('speed');
+        const scoreEl = document.getElementById('score');
+        let score = 0;
+        function updateScore() {
+            scoreEl.textContent = `得点: ${ score }`;
+        }
+
+        // ground cover: 60% of screen is ground (snow)
+        let groundY = Math.floor(canvas.height * 0.4); // sky top 40%, ground bottom 60%
+        const startX = 120;
+        let running = false;
+        // active rolling ball (位置 x,y、半径、速度 vx,vy、回転角 angle)
+        let active = {
+            x: startX,
+            y: Math.floor(groundY + (canvas.height - groundY) * 0.5),
+            baseRadius: 16,
+            radius: 16,
+            distance: 0,
+            vx: 0,
+            vy: 0,
+            angle: 0,
+            rollAngle: 0
+        };
+        const completed = [];
+        const growthPerPixel = 0.024;
+        const completionRadius = 72;
+        // 雪（スノーフレーク）
+        const snowflakes = [];
+        const snowflakeCount = 180;
+        function createSnowflakes() {
+            snowflakes.length = 0;
+            for (let i = 0; i < snowflakeCount; i++) {
+                snowflakes.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    r: Math.random() * 2 + 0.8,
+                    speed: Math.random() * 0.4 + 0.12,
+                    sway: Math.random() * 0.6 - 0.3,
+                    phase: Math.random() * Math.PI * 2
+                });
+            }
+        }
+        function updateSnowflakes(dt) {
+            const t = Date.now() / 1000;
+            for (let s of snowflakes) {
+                s.y += s.speed * (dt / 16);
+                s.x += Math.sin(t * 0.6 + s.phase) * s.sway * (dt / 16);
+                if (s.y > canvas.height + 8) {
+                    s.y = -8;
+                    s.x = Math.random() * canvas.width;
+                }
+                if (s.x < -10) s.x = canvas.width + 10;
+                if (s.x > canvas.width + 10) s.x = -10;
+            }
+        }
+        // pointer & drag
+        let pointerDown = false;
+        let dragStart = null;
+        let dragPos = null;
+        let draggingOnBall = false;
+        function screenToCanvas(e) {
+            const rect = canvas.getBoundingClientRect();
+            const clientX = e.clientX ?? (e.touches && e.touches[0] && e.touches[0].clientX);
+            const clientY = e.clientY ?? (e.touches && e.touches[0] && e.touches[0].clientY);
+            return { x: clientX - rect.left, y: clientY - rect.top };
+        }
+        canvas.addEventListener('pointerdown', (ev) => {
+            const p = screenToCanvas(ev);
+            pointerDown = true;
+            dragStart = p;
+            dragPos = p;
+            const dx = p.x - active.x;
+            const dy = p.y - active.y;
+            draggingOnBall = Math.hypot(dx, dy) <= active.radius + 8;
+            canvas.setPointerCapture(ev.pointerId);
+        });
+        canvas.addEventListener('pointermove', (ev) => {
+            if (!pointerDown) return;
+            dragPos = screenToCanvas(ev);
+        });
+        canvas.addEventListener('pointerup', (ev) => {
+            if (!pointerDown) return;
+            pointerDown = false;
+            if (draggingOnBall && dragStart && dragPos) {
+                const dx = dragPos.x - dragStart.x;
+                const dy = dragPos.y - dragStart.y;
+                // drag -> impulse (小さめ)
+                active.vx += dx * 0.02;
+                active.vy += dy * 0.02;
+                active.vx = Math.max(Math.min(active.vx, 28), -100);
+                active.vy = Math.max(Math.min(active.vy, 28), -100);
+                active.distance += (Math.abs(dx) + Math.abs(dy)) * 0.38;
+                active.rollAngle += (dx * 0.04);
+            }
+            dragStart = null;
+            dragPos = null;
+            draggingOnBall = false;
+        });
+        canvas.addEventListener('contextmenu', e => e.preventDefault());
+        // WASD（低速）
+        const keys = { w: false, a: false, s: false, d: false };
+        document.addEventListener('keydown', e => {
+            const k = e.key.toLowerCase();
+            if (k === 'enter') { running = !running; if (running) last = 0; }
+            if (k in keys) { keys[k] = true; e.preventDefault(); }
+        });
+        document.addEventListener('keyup', e => {
+            const k = e.key.toLowerCase();
+            if (k in keys) { keys[k] = false; e.preventDefault(); }
+        });
+        // walk phase for pusher animation
+        let walkPhase = 0;
+        // drawing helpers
+        function drawShadow(x, y, r, bob = 0) {
+            ctx.save();
+            ctx.fillStyle = 'rgba(0,0,0,0.20)';
+            ctx.beginPath();
+            ctx.ellipse(x + r * 0.08, y + r * 0.6 + bob * 0.2, r * 1.25 + Math.abs(bob) * 0.8, r * 0.45 + Math.abs(bob) * 0.25, 0.25, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.restore();
+        }
+        function drawBall(x, y, r, angle = 0, rollAngle = 0, bob = 0) {
+            ctx.save();
+            const vy = - (bob || 0);
+            const flatten = Math.min(0.12, Math.abs(rollAngle) * 0.03);
+            ctx.translate(x, y + vy);
+            ctx.scale(1, 1 - flatten);
+            ctx.fillStyle = '#FFFFFF';
+            ctx.beginPath();
+            ctx.arc(0, 0, r, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(200,200,200,0.28)';
+            ctx.lineWidth = Math.max(1, r * 0.03) / (1 - flatten);
+            ctx.beginPath();
+            ctx.arc(0, 0, r - ctx.lineWidth * 0.5, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.restore();
+        }
+        function drawSnowman(x, y, r, angle = 0) {
+            ctx.save();
+            ctx.fillStyle = '#FFFFFF';
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(200,200,200,0.28)';
+            ctx.lineWidth = Math.max(1, r * 0.03);
+            ctx.beginPath();
+            ctx.arc(x, y, r - ctx.lineWidth * 0.5, 0, Math.PI * 2);
+            ctx.stroke();
+            ctx.restore();
+        }
+        function drawPusher(ballX, ballY, ballR, vx, vy, dragging) {
+            const scale = Math.min(1.12, Math.max(0.6, ballR / 44));
+            let pushAngle;
+            const speed = Math.hypot(vx, vy);
+            if (speed > 0.25) {
+                pushAngle = Math.atan2(vy, vx) + Math.PI;
+            } else {
+                pushAngle = -Math.PI * 0.25;
+            }
+            const sideOffset = ballR * 0.5 + 28 * scale;
+            const px = ballX + Math.cos(pushAngle) * sideOffset;
+            const py = (ballY - ballR * 0.42) + Math.sin(pushAngle) * (ballR * 0.28);
+            const faceAngle = Math.atan2(ballY - py, ballX - px);
+            const stepSpeed = Math.max(0.4, speed * 0.2) + (dragging ? 0.4 : 0);
+            walkPhase += stepSpeed * 0.08;
+            const stepAmp = Math.min(12, 4 + speed * 8);
+            const rot = faceAngle + Math.PI / 2;
+            const torsoBaseLocal = { x: 0, y: 6 * scale };
+            const toWorld = (lx, ly) => {
+                const wx = px + Math.cos(rot) * lx - Math.sin(rot) * ly;
+                const wy = py + Math.sin(rot) * lx + Math.cos(rot) * ly;
+                return { x: wx, y: wy };
+            };
+            const torsoBase = toWorld(torsoBaseLocal.x, torsoBaseLocal.y);
+            const perpAngle = faceAngle + Math.PI / -5;
+            const footSep = 10 * scale;
+            const forwardOffset = Math.sin(walkPhase) * stepAmp * 0.28;
+            const faceDir = { x: Math.cos(faceAngle), y: Math.sin(faceAngle) };
+            const leftFoot = {
+                x: px + Math.cos(perpAngle) * (-footSep) + faceDir.x * forwardOffset,
+                y: canvas.height - 14 // 地面一番下に合わせる
+            };
+            const rightFoot = {
+                x: px + Math.cos(perpAngle) * footSep + faceDir.x * (-forwardOffset),
+                y: canvas.height - 14
+            };
+            ctx.save();
+            ctx.translate(px, py);
+            ctx.rotate(rot);
+            const torsoGrad = ctx.createLinearGradient(-8 * scale, -10 * scale, 8 * scale, 14 * scale);
+            torsoGrad.addColorStop(0, '#F6E3C3');
+            torsoGrad.addColorStop(1, '#E0B671');
+            ctx.fillStyle = torsoGrad;
+            ctx.beginPath();
+            ctx.ellipse(0, -4 * scale, 10 * scale, 16 * scale, -0.28, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.strokeStyle = 'rgba(80,60,40,0.9)';
+            ctx.lineWidth = 1.2 * scale;
+            ctx.stroke();
+            const headGrad = ctx.createRadialGradient(-2 * scale, -22 * scale, 1 * scale, 0, -20 * scale, 7 * scale);
+            headGrad.addColorStop(0, '#FFF7EA');
+            headGrad.addColorStop(1, '#FFF7EA');
+            ctx.fillStyle = headGrad;
+            ctx.beginPath();
+            ctx.ellipse(0, -20 * scale, 7 * scale, 6 * scale, -0.08, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            ctx.save();
+            ctx.strokeStyle = 'rgba(80,60,40,0.95)';
+            ctx.lineWidth = 3.4 * scale;
+            ctx.lineCap = 'round';
+            const localBallX = Math.cos(-rot) * (ballX - px) - Math.sin(-rot) * (ballY - py);
+            const localBallY = Math.sin(-rot) * (ballX - px) + Math.cos(-rot) * (ballY - py);
+            const desiredArmX = localBallX * 0.72;
+            const desiredArmY = localBallY * 0.72;
+            const armLen = dragging ? Math.max(20 * scale, Math.hypot(desiredArmX, desiredArmY)) : Math.min(28 * scale, Math.hypot(desiredArmX, desiredArmY));
+            ctx.beginPath();
+            ctx.moveTo(0, -8 * scale);
+            ctx.quadraticCurveTo(desiredArmX * 0.35, desiredArmY * 0.45 - 4 * scale, desiredArmX, desiredArmY - 4 * scale);
+            ctx.stroke();
+            ctx.fillStyle = '#F5D8B4';
+            ctx.beginPath();
+            ctx.ellipse(desiredArmX, desiredArmY - 4 * scale, 4 * scale, 3 * scale, -0.2, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            ctx.restore();
+            ctx.restore();
+            ctx.strokeStyle = 'rgba(80,60,40,0.95)';
+            ctx.lineWidth = 2 * scale;
+            ctx.lineCap = 'round';
+            ctx.beginPath();
+            ctx.moveTo(torsoBase.x, torsoBase.y);
+            ctx.lineTo(leftFoot.x, leftFoot.y);
+            ctx.moveTo(torsoBase.x, torsoBase.y);
+            ctx.lineTo(rightFoot.x, rightFoot.y);
+            ctx.stroke();
+            ctx.fillStyle = '#4B3B2A';
+            ctx.beginPath();
+            ctx.ellipse(leftFoot.x, leftFoot.y, 6 * scale, 3.6 * scale, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.ellipse(rightFoot.x, rightFoot.y, 6 * scale, 3.6 * scale, 0, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.fillStyle = 'rgba(0,0,0,0.06)';
+            ctx.beginPath();
+            ctx.ellipse(px, canvas.height - 10, 12 * scale, 5 * scale, 0, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        function resetActive() {
+            groundY = Math.floor(canvas.height * 0.4);
+            active.x = startX;
+            active.y = Math.floor(groundY + (canvas.height - groundY) * 0.5);
+            active.distance = 0;
+            active.radius = active.baseRadius;
+            active.vx = 0;
+            active.vy = 0;
+            active.angle = 0;
+            active.rollAngle = 0;
+        }
+        // --- 変更ここから ---
+        // 雪だるま完成時処理
+        function onSnowmanCompleted() {
+            score += 1;
+            updateScore();
+            localStorage.setItem('score', score);
+
+            // その後、game.htmlに遷移
+            location.href = 'game.html';
+        }
+        // --- 変更ここまで ---
+        function update(dt) {
+            const speedSetting = parseFloat(speedInput.value);
+            const accel = 0.28 * (dt / 16);
+            if (keys.w) active.vy -= accel;
+            if (keys.s) active.vy += accel;
+            if (keys.a) active.vx -= accel;
+            if (keys.d) active.vx += accel;
+            if (!pointerDown && running) {
+                active.vx -= 0.002 * speedSetting * (dt / 16);
+                active.vy -= 0.002 * speedSetting * (dt / 16);
+                active.vx = Math.max(Math.min(active.vx, 28), -28);
+                active.vy = Math.max(Math.min(active.vy, 28), -28);
+            }
+            const dx = active.vx * (dt / 16) * 0.85;
+            const dy = active.vy * (dt / 16) * 0.85;
+            active.x += dx;
+            active.y += dy;
+            active.distance += Math.abs(dx) + Math.abs(dy);
+            active.radius = active.baseRadius + active.distance * growthPerPixel;
+            const rollSpeed = Math.hypot(active.vx, active.vy) * 0.5;
+            active.rollAngle += (dx + dy) * 0.18 + rollSpeed * 0.08;
+            active.angle += (dx + dy * 0.35) * 0.05;
+            // --- 歩行範囲: 画面全体に修正 ---
+            const minX = active.radius;
+            const maxX = canvas.width - active.radius;
+            const minY = active.radius;
+            const maxY = canvas.height - active.radius;
+            active.x = Math.max(minX, Math.min(maxX, active.x));
+            active.y = Math.max(minY, Math.min(maxY, active.y));
+            // friction
+            const f = 1 - Math.max(0, 0.05 * (dt / 16));
+            active.vx *= f;
+            active.vy *= f;
+            // 完成&積み上げ
+            if (active.radius >= completionRadius) {
+                let x, y;
+                if (completed.length === 0) {
+                    x = active.x;
+                    y = canvas.height - active.radius - 6;
+                } else {
+                    const prev = completed[completed.length - 1];
+                    x = prev.x;
+                    const overlap = Math.min(32, Math.round(active.radius * 0.6));
+                    y = prev.y - prev.radius - active.radius + overlap;
+                }
+                completed.push({ x, y, radius: active.radius, angle: active.angle, placeAnim: 0 });
+                onSnowmanCompleted(); // ←ここで得点加算
+                active.baseRadius = 12;
+                resetActive();
+            }
+            if (active.x + active.radius < 0) active.x = canvas.width - 40;
+            else if (active.x - active.radius > canvas.width) active.x = 40;
+        }
+        let last = 0;
+        function loop(ts) {
+            const dt = last ? ts - last : 16;
+            last = ts;
+            update(dt);
+            updateSnowflakes(dt);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // sky
+            const skyGrad = ctx.createLinearGradient(0, 0, 0, groundY);
+            skyGrad.addColorStop(0, '#edf0f3f7');
+            skyGrad.addColorStop(1, '#edf0f3f7');
+            ctx.fillStyle = skyGrad;
+            ctx.fillRect(0, 0, canvas.width, groundY);
+            // ground
+            const groundGrad = ctx.createLinearGradient(0, groundY, 0, canvas.height);
+            groundGrad.addColorStop(0, '#edf0f3f7');
+            groundGrad.addColorStop(1, '#edf0f3f7');
+            ctx.fillStyle = groundGrad;
+            ctx.fillRect(0, groundY, canvas.width, canvas.height - groundY);
+            ctx.fillStyle = 'rgba(255,255,255,0.02)';
+            for (let i = 0; i < 120; i++) {
+                const gx = (i * 53) % canvas.width;
+                const gy = groundY + ((i * 27) % (canvas.height - groundY));
+                ctx.beginPath();
+                ctx.arc(gx, gy, 6, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            for (let i = 0; i < completed.length; i++) {
+                const b = completed[i];
+                const decorBob = Math.sin((Date.now() / 800) + i * 0.6) * 1.2;
+                if (b.placeAnim === undefined) b.placeAnim = 1;
+                if (b.placeAnim < 1) {
+                    b.placeAnim = Math.min(1, b.placeAnim + (dt / 260));
+                }
+                const ease = 1 - Math.pow(1 - b.placeAnim, 3);
+                const placeBob = (1 - ease) * Math.min(14, b.radius * 0.5);
+                const placeRoll = (1 - ease) * 10;
+                const totalBob = placeBob + decorBob * (0.2 + 0.8 * b.placeAnim);
+                drawBall(b.x, b.y, b.radius, b.angle || 0, placeRoll, totalBob);
+                if (i < completed.length - 1) {
+                    const top = completed[i + 1];
+                    const dx = top.x - b.x;
+                    const dy = top.y - b.y;
+                    const dist = Math.hypot(dx, dy) || 1;
+                    const overlap = Math.max(0, b.radius + top.radius - dist);
+                    if (overlap > 0.5) {
+                        const dirx = dx / dist, diry = dy / dist;
+                        const contactX = b.x + dirx * (b.radius - overlap * 0.6);
+                        const contactY = b.y + diry * (b.radius - overlap * 0.6);
+                        const ang = Math.atan2(diry, dirx) + Math.PI / 2;
+                        ctx.save();
+                        ctx.translate(contactX, contactY);
+                        ctx.rotate(ang);
+                        const rx = Math.min(b.radius * 0.7, overlap * 1.45 + 8);
+                        const ry = Math.min(b.radius * 0.36, overlap * 1.2 + 4);
+                        ctx.fillStyle = 'rgba(0,0,0,0.16)';
+                        ctx.beginPath();
+                        ctx.ellipse(0, 0, rx, ry, 0, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.fillStyle = 'rgba(0,0,0,0.09)';
+                        ctx.beginPath();
+                        ctx.ellipse(0, 0, rx * 0.5, ry * 0.5, 0, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.restore();
+                    }
+                }
+            }
+            const activeBob = Math.sin(active.rollAngle * 0.9) * Math.min(8, active.radius * 0.08) + Math.sin(active.distance * 0.04) * 0.6;
+            drawShadow(active.x, active.y, active.radius, activeBob);
+            drawBall(active.x, active.y, active.radius, active.angle, active.rollAngle, activeBob);
+            const pushing = draggingOnBall && pointerDown;
+            drawPusher(active.x, active.y, active.radius, active.vx, active.vy, pushing);
+            if (draggingOnBall && dragStart && dragPos) {
+                ctx.strokeStyle = 'rgba(0,80,200,0.9)';
+                ctx.beginPath();
+                ctx.moveTo(active.x, active.y - active.radius * 0.2);
+                ctx.lineTo(active.x + (dragPos.x - dragStart.x), active.y - active.radius * 0.2 + (dragPos.y - dragStart.y));
+                ctx.stroke();
+            }
+            for (let s of snowflakes) {
+                ctx.fillStyle = 'rgba(255,255,255,0.95)';
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.fillStyle = 'rgba(255,255,255,0.06)';
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.r * 2.2, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            statusEl.textContent = `状態: ${ running ? '転がし中' : '停止' }  完成数: ${ completed.length }  速さ:${ speedInput.value }`;
+            requestAnimationFrame(loop);
+        }
+        resetActive();
+        createSnowflakes();
+        updateScore();
+        requestAnimationFrame(loop);
+        window.addEventListener('resize', () => {
+            groundY = Math.floor(canvas.height * 0.4);
+        });
+    </script>
+    </div>
+    <script>
+        // === 30秒カウントダウンして終了後に game.html へ移動 ===
+        let timeLeft = 30; // 秒数
+        const timerElement = document.getElementById("timer");
+
+        function startCountdown() {
+            const timerInterval = setInterval(() => {
+                timeLeft--;
+                timerElement.textContent = timeLeft;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+
+                    // カウント終了時の処理（エフェクト表示やサウンドなどもここに入れられる）
+                    alert("時間切れ！ランキング画面へ移動します。");
+
+                    // game.html に移動
+                    window.location.href = "game.html";
+                }
+            }, 1000);
+        }
+
+        // ページが読み込まれたらカウントダウン開始
+        window.addEventListener("load", startCountdown);
+    </script>
+
+
+</html>
