@@ -1,0 +1,356 @@
+@import "bourbon";
+@import "neat";
+
+$base-duration: 500ms;
+
+// Colors
+$color-1: #444;
+$color-2: #3498db;
+$color-3: #2ecc71;
+
+// Breakpoints
+$sm: new-breakpoint(min-width 320px);
+$med: new-breakpoint(min-width 768px);
+$lg: new-breakpoint(min-width 1024px);
+
+*, *:before, *:after {
+  box-sizing: border-box;
+  outline: none;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 16px;
+  font-smooth: auto;
+  font-weight: 300;
+  line-height: 1.75;
+  color: $color-1;
+  overflow-x: hidden;
+}
+
+.menu {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  border-radius: 50%;
+  //box-shadow: 0 0 20px rgba(black,0.2);
+  transition: transform 250ms ease;
+  cursor: pointer;
+  z-index: 200;
+  
+  span {
+    position: relative;
+    display: block;
+    width: 50%;
+    height: 2px;
+    background-color: $color-1;
+    float: left;
+    transform-origin: center center;
+    transition: transform 250ms ease;
+    z-index: 200;
+    
+    &:nth-of-type(1) {
+      transform: translateY(-5px);
+    }
+    
+    &:nth-of-type(3) {
+      transform: translateY(5px);
+    }
+  }
+}
+
+#menu {
+  display: none;
+  
+  &:checked ~ .menu {
+    background-color: transparent;
+    transform: rotate(360deg);
+    transition: transform 250ms ease;
+    
+    span {
+      background-color: white;
+      transition: transform 250ms ease;
+      
+      &:nth-of-type(1) {
+        transform: translateY(1px) rotate(45deg);
+      }
+      
+      &:nth-of-type(2) {
+        display: none;
+      }
+      
+      &:nth-of-type(3) {
+        transform: translateY(-1px) rotate(-45deg);
+      }
+    }
+  }
+  
+  &:checked ~ .nav {
+    left: 0px;
+    transition: left $base-duration ease;
+  }
+  
+  &:checked ~ main {
+    transform: translateX(250px);
+    transition: transform $base-duration ease;
+  }
+}
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: -210px;
+  width: 300px;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  background-color: $color-1;
+  transition: left $base-duration ease;
+  z-index: 0;
+  
+  ul {
+    position: relative;
+    list-style-type: none;
+    margin: 100px 0;
+    padding: 0;
+    
+    li {
+      position: relative;
+      display: block;
+      border-bottom: 5px solid rgba(white,1);
+      
+      a {
+        position: relative;
+        display: block;
+        margin: 0;
+        padding: 15px 20px;
+        color: white;
+        font-size: 14px;
+        font-weight: bold;
+        text-decoration: none;
+        text-transform: uppercase;
+        
+        &:before {
+          position: absolute;
+          content: '';
+          top: 0;
+          left: 0;
+          width: 0;
+          height: 100%;
+          transition: width 250ms ease;
+          z-index: -1;
+        }
+        
+        &:hover {
+          color: #444;
+          
+          &:before {
+            width: 100%;
+            height: 100%;
+            background-color: rgba(white,1);
+            transition: width 250ms ease;
+          }
+        }
+      }
+    }
+  }
+}
+
+.container {
+  width: 75%;
+  margin: 0 auto;
+}
+
+main {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  box-shadow: 0 0 20px rgba(black,0.5);
+  transform: translateX(0px);
+  transition: transform $base-duration ease;
+  z-index: 0;
+    
+  header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 300px;
+    background-color: whitesmoke;
+//    background-image: url('https://static.pexels.com/photos/110186/pexels-photo-110186.jpeg');
+//    background-position: center center;
+//    background-repeat: no-repeat;
+//    background-size: cover;
+    
+//    &:after {
+//      position: absolute;
+//      content: '';
+//      top: 0;
+//      left: 0;
+//      width: 100%;
+//      height: 100%;
+//      background-color: rgba(white,0.5);
+//      z-index: 0;
+//    }
+    
+    h1 {
+      color: #ccc;
+      z-index: 3;
+    }
+  }
+  
+  section {
+    position: relative;
+    display: block;
+    margin: 0;
+    padding: 50px 0;
+    background-color: white;
+    z-index: 100;
+    
+    p {
+      margin-bottom: 30px;
+    }
+  }
+  
+  .img {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 300px;
+    background-color: $color-1;
+    // background-image: url('https://static.pexels.com/photos/108023/pexels-photo-108023.jpeg');
+    // background-position: center center;
+    // background-repeat: no-repeat;
+    // background-size: cover;
+    
+    h1 {
+      color: rgba(white,0.2);
+    }
+  }
+  
+  footer {
+    @include clearfix;
+    position: relative;
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 20px 20px 20px;
+    background-color: $color-1;
+
+    .logo {
+      font-size: 28px;
+      color: whitesmoke;
+      line-height: 0;
+      margin-bottom: 8px;
+      margin-right: 4px;
+
+      @include media($lg) {
+        float: left;
+        margin-bottom: 0;
+      }
+    }
+
+    ul {
+      @include clearfix;
+      line-height: 1.5;
+      margin: 0 0 16px 0;
+      padding: 0;
+
+      @include media($lg) {
+        @include clearfix;
+        float: left;
+        line-height: 1.8;
+        margin-bottom: 0;
+        margin-left: 16px;
+      }
+      
+      li {
+        list-style: none;
+        padding-right: 16px;
+
+        @include media($lg) {
+          display: inline;
+          text-align: left;
+        }
+        
+        a {
+          color: rgba(white,0.7);
+          font-size: 14px;
+          font-weight: bold;
+          text-decoration: none;
+
+          &:focus,
+          &:hover {
+            color: rgba(white,1);
+          }
+        }
+      }
+    }
+
+    .secondary-links {
+      @include media($lg) {
+        float: right;
+      }
+
+      li {
+        
+        a {
+          font-size: 12px;
+          font-weight: 100 !important;
+        }
+      }
+
+      .social {
+        margin: 1em 0 0 0;
+
+        @include media($lg) {
+          float: right;
+          margin-top: 0;
+        }
+
+        li {
+          float: left;
+          font-size: 1em;
+          line-height: 0;
+          margin: 0;
+          padding-right: 0.7em;
+
+          &:last-child {
+            padding-right: 0;
+          }
+          
+          > a {
+            position: relative;
+            display: block;
+            width: 30px;
+            height: 30px;
+            background-color: rgba(white,0.7);
+            border-radius: 50%;
+            color: $color-1;
+            text-align: center;
+            line-height: 30px;
+            
+            &:hover {
+              background-color: rgba(white,1);
+            }
+          }
+        }
+      }
+    }
+  }
+}

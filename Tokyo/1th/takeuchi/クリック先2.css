@@ -1,0 +1,14 @@
+.font20px
+{
+    font-size: 100px;
+    text-align: center
+}
+body {
+    background: -moz-linear-gradient(top, #FFF, #FFC778 30%, #F89174 60%, #748af8);
+    background: -webkit-linear-gradient(top, #FFF, #FFC778 30%, #F89174 60%, #748af8);
+    background: linear-gradient(to bottom, #FFF, #FFC778 30%, #F89174 60%, #748af8);
+}
+.top2 {
+    font-size: 55px;
+    text-align: center;
+}

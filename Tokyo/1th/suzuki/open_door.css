@@ -1,0 +1,91 @@
+.leftCurtainbg,
+.rightCurtainbg {
+	display: block;
+	content: "";
+	position: fixed;
+	z-index: 999;
+	width: 100%;
+	height: 100vh;
+	top: 0;
+	background-color: #313131;
+	animation-duration: 1.2s;
+	animation-timing-function: ease-in-out;
+	animation-fill-mode: forwards;
+}
+
+.leftCurtainbg {
+	right: 50%;
+	transform: scaleX(0);
+	animation-name: curtainAnimeLeft;
+}
+
+.rightCurtainbg {
+	left: 50%;
+	transform: scaleX(1);
+	animation-name: curtainAnimeRight;
+}
+
+@keyframes curtainAnimeLeft {
+	0% {
+		transform-origin: right;
+		transform: scaleX(1);
+	}
+
+	50% {
+		transform-origin: left;
+	}
+
+	100% {
+		transform-origin: left;
+		transform: scaleX(0);
+	}
+}
+
+@keyframes curtainAnimeRight {
+	0% {
+		transform-origin: left;
+		transform: scaleX(1);
+	}
+
+	50% {
+		transform-origin: right;
+	}
+
+	100% {
+		transform-origin: right;
+		transform: scaleX(0);
+	}
+}
+
+.fadeout {
+	animation: fadeOut 0.8s;
+	animation-fill-mode: both;
+}
+
+@keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}
+
+body.pageOn #container {
+	animation-name: PageAnimeOn;
+	animation-duration: 1s;
+	animation-delay: 0.2s;
+	animation-fill-mode: forwards;
+	opacity: 0;
+}
+
+@keyframes PageAnimeOn {
+	0% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}

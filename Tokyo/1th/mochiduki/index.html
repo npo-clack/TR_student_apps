@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="stylesheet.css">
+    <title>CHARACTER</title>
+</head>
+<body>
+<!--ページトップボタン-->
+    <button id="scroll-to-top-btn">TOP</button>
+<!--タイトル-->
+<div class="page">
+    <h1>~Character~</h1>
+<!--チャプターボタン-->
+    <button class="gotobutton" id="button1">Chapter 1</button>
+    <button class="gotobutton" id="button2">Chapter 2</button>
+    <button class="gotobutton" id="button3">Chapter 3</button>
+    <button class="gotobutton" id="button4">Chapter 4</button>
+
+<!--キャラ紹介基本ページ-->
+    <div class="header" id="content1">Chapter 1</div>
+    <table>
+        <tr>
+            <td><img src="Flare1.png" alt="Flare" class="pic" onclick="showDialog('Flare2.png')"></td>
+            <td><img src="Frosty1.png" alt="Frosty" class="pic" onclick="showDialog('Frosty2.png')"></td>
+            <td><img src="Stella1.png" alt="Stella" class="pic" onclick="showDialog('Stella2.png')"></td>
+        </tr>
+        <tr>
+            <td class="name">フレア</td>
+            <td class="name">フロスティ</td>
+            <td class="name">ステラ</td>
+        </tr>
+    </table>
+
+    <div class="header" id="content2">Chapter 2</div>
+    <table>
+        <tr>
+            <td><img src="Akane1.png" alt="ShirayukiAkane" class="pic" onclick="showDialog('Akane2.png')"></td>
+            <td><img src="Toa1.png" alt="ShirayukiToa" class="pic" onclick="showDialog('Toa2.png')"></td>
+            <td><img src="Ayato1.png" alt="MamiyaAyato" class="pic" onclick="showDialog('Ayato2.png')"></td>
+        </tr>
+        <tr>
+            <td class="name">白雪 紅音</td>
+            <td class="name">白雪 冬空</td>
+            <td class="name">真宮 菖人</td>
+        </tr>
+    </table>  
+
+    <div class="header" id="content3">Chapter 3</div>
+    <table>
+        <tr>
+            <td><img src="Khair1.png" alt="KhairSperanza" class="pic" onclick="showDialog('Khair2.png')"></td>
+            <td><img src="Liebe1.png" alt="LiebeEngelGrazie" class="pic" onclick="showDialog('Liebe2.png')"></td>
+            <td><img src="Albert1.png" alt="AlbertSperanza" class="pic" onclick="showDialog('Albert2.png')"></td>
+        </tr>
+        <tr>
+            <td class="name">ハイル・スペランツァ</td>
+            <td class="name">リーベ=E=グラツィア</td>
+            <td class="name">アルバート・スペランツァ</td>
+        </tr>
+    </table>        
+
+    <div class="header" id="content4">Chapter 4</div>
+    <table>
+        <tr>
+            <td><img src="Ritter1.png" alt="RitterAgnos" class="pic" onclick="showDialog('Ritter2.png')"></td>
+            <td><img src="Fault1.png" alt="Fault" class="pic" onclick="showDialog('Fault2.png')"></td>
+            <td><img src="Fatalita1.png" alt="FatalitaScelta" class="pic" onclick="showDialog('Fatalita2.png')"></td>
+        </tr>
+        <tr>
+            <td class="name">リッター・アグノス</td>
+            <td class="name">フォルト</td>
+            <td class="name">ファタリタ=シェルタ</td>
+        </tr>
+    </table>
+
+</div>
+<script src="main.js"></script>
+<!--クリック後の画面-->
+<div id="myDialog" class="hide">
+    <div id="DialogBackground"></div>
+    <div id="DialogFrame"><img id="imgName" src="17.png" alt="No image">
+    <button id="DialogButton" onclick="closeDialog()">CLOSE</button></div>
+</div>
+</body>
+</html>

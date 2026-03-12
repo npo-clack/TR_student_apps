@@ -1,0 +1,416 @@
+@charset "utf-8";
+
+/*==================================================
+スライダーのためのcss
+===================================*/
+.slider {/*横幅94%で左右に余白を持たせて中央寄せ*/
+    width:94%;
+    margin:0 auto;
+}
+
+
+.slider img {
+    width: 400px;/*スライダー内の画像を60vwにしてレスポンシブ化*/
+    height:auto;
+}
+
+.slider .slick-slide {
+  transform: scale(0.8);/*左右の画像のサイズを80%に*/
+  transition: all .5s;/*拡大や透過のアニメーションを0.5秒で行う*/
+  opacity: 0.5;/*透過50%*/
+}
+
+.slider .slick-slide.slick-center{
+  transform: scale(1);/*中央の画像のサイズだけ等倍に*/
+  opacity: 1;/*透過なし*/
+}
+
+
+/*矢印の設定*/
+
+/*戻る、次へ矢印の位置*/
+.slick-prev, 
+.slick-next {
+    position: absolute;/*絶対配置にする*/
+    top: 42%;
+    cursor: pointer;/*マウスカーソルを指マークに*/
+    outline: none;/*クリックをしたら出てくる枠線を消す*/
+    border-top: 2px solid #666;/*矢印の色*/
+    border-right: 2px solid #666;/*矢印の色*/
+    height: 15px;
+    width: 15px;
+}
+
+.slick-prev {/*戻る矢印の位置と形状*/
+    left: -1.5%;
+    transform: rotate(-135deg);
+}
+
+.slick-next {/*次へ矢印の位置と形状*/
+    right: -1.5%;
+    transform: rotate(45deg);
+}
+
+/*ドットナビゲーションの設定*/
+
+.slick-dots {
+    text-align:center;
+  margin:20px 0 0 0;
+}
+
+.slick-dots li {
+    display:inline-block;
+  margin:0 5px;
+}
+
+.slick-dots button {
+    color: transparent;
+    outline: none;
+    width:8px;/*ドットボタンのサイズ*/
+    height:8px;/*ドットボタンのサイズ*/
+    display:block;
+    border-radius:50%;
+    background:rgb(74, 84, 88);/*ドットボタンの色*/
+}
+
+.slick-dots .slick-active button{
+    background:#333;/*ドットボタンの現在地表示の色*/
+}
+
+
+/*========= レイアウトのためのCSS ===============*/
+
+body{
+  background:rgb(154, 220, 231);
+}
+
+h2,p {
+    text-align:center;
+    padding:20px;
+}
+.title{
+    font-size: 50px; font-family:Times;
+}
+.title2{
+  font-size: 30px; font-family:Times; 
+}
+.title3{
+  font-size: 60px; font-family:Times;
+}
+.title4{
+  font-size: 60px; font-family:Times;
+  margin-left:80px;
+}
+.rinku{
+  font-size: 20px; font-family:Times; 
+}
+.mafura-{
+  width: 300px; height: 300px;
+}
+.mafura-2{
+  width: 300px; height: 300px; 
+}
+.mafura-3{
+  width: 300px; height: 300px; 
+}
+.mafura-4{
+  width: 300px; height: 300px; 
+}
+.mafura-5{
+  width: 300px; height: 300px; 
+}
+.mafura-6{
+  width: 300px; height: 300px; 
+}
+.MAFURA-7{
+  width: 300px; height: 300px; 
+}
+.mafura-8{
+  width: 300px; height: 300px; 
+}
+ul{
+  margin:0;
+  padding: 0;
+  list-style: none;
+}
+
+a{
+  color: #333;
+}
+
+a:hover,
+a:active{
+  text-decoration: none;
+}
+
+.snow {
+  /*雪の色*/
+  color: snow;
+  /*雪の大きさ*/
+  font-size: 10px;
+  /*初期位置*/
+  position: fixed;
+  top: -5%;
+  /*雪を適当な幅で降らせる*/
+  text-shadow:
+  5vw   -100px 2px,
+  10vw  -400px 3px,
+  20vw  -500px 4px,
+  30vw  -580px 1px,
+  39vw  -250px 2px,
+  42vw  -340px 5px,
+  56vw  -150px 2px,
+  63vw  -180px 0,
+  78vw  -220px 4px,
+  86vw  -320px 9px,
+  94vw  -170px 7px;
+  /*雪アニメーション1*/
+  animation: roll 5s linear infinite;
+}
+  /*2つめの雪アニメーション*/
+.snow2nd{animation: anim 8s linear infinite;}
+
+@keyframes roll {
+    0% {transform:rotate(0deg);}
+   90% {opacity:1;}
+   100% {transform:rotate(20deg);top:100%;opacity:0;}
+}
+@keyframes anim {
+  100% {color:transparent;top:150%;}
+}
+
+.scroll {
+  display: inline-block;
+  padding-top: 100px;
+  position: fixed; /* 今の位置を基準 */
+top: 500px; /* 上から10px */
+left: 650px; /* 左から20px */
+}
+.scroll::before {
+  animation: scroll 3.5s infinite;
+  border: solid rgb(8, 8, 8);
+  border-width: 0 0 1px 1px;
+  content: "";
+  display: inline-block;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  transform: rotate(-45deg);
+  width: 20px;
+  height: 20px;
+}
+@keyframes scroll {
+  0% {
+    transform: rotate(-45deg) translate(0, 0);
+  }
+  80% {
+    transform: rotate(-45deg) translate(-30px, 30px);
+  }
+  0%, 80%, 100% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 1;
+  }
+}
+
+
+/*ボタン外側※レイアウトによってpositionや形状は適宜変更してください*/
+.openbtn4{
+  position: relative;/*ボタン内側の基点となるためrelativeを指定*/
+  background:#1f1c1d;
+  cursor: pointer;
+    width: 50px;
+    height:50px;
+  border-radius: 5px;
+}
+
+/*ボタン内側*/
+.openbtn4 span{
+    display: inline-block;
+    transition: all .4s;/*アニメーションの設定*/
+    position: absolute;
+    left: 14px;
+    height: 2px;
+    border-radius: 5px;
+  background: rgb(236, 239, 240);
+    width: 45%;
+  }
+
+
+.openbtn4 span:nth-of-type(1) {
+  top:13px; 
+}
+
+.openbtn4 span:nth-of-type(2) {
+  top:19px;
+}
+
+.openbtn4 span:nth-of-type(3) {
+  top:25px;
+}
+
+.openbtn4 span:nth-of-type(3)::after {
+  content:"Menu";/*3つ目の要素のafterにMenu表示を指定*/
+  position: absolute;
+  top:5px;
+  left:-2px;
+  color: rgb(233, 242, 247);
+  font-size: 0.6rem;
+  text-transform: uppercase;
+}
+
+/*activeクラスが付与されると線が回転して×になり、Menu⇒Closeに変更*/
+
+.openbtn4.active span:nth-of-type(1) {
+    top: 14px;
+    left: 18px;
+    transform: translateY(6px) rotate(-45deg);
+    width: 30%;
+}
+
+.openbtn4.active span:nth-of-type(2) {
+  opacity: 0;
+}
+
+.openbtn4.active span:nth-of-type(3){
+    top: 26px;
+    left: 18px;
+    transform: translateY(-6px) rotate(45deg);
+    width: 30%;
+}
+
+.openbtn4.active span:nth-of-type(3)::after {
+  content:"Close";/*3つ目の要素のafterにClose表示を指定*/
+    transform: translateY(0) rotate(-45deg);
+  top:5px;
+  left:4px;
+}
+
+/*========= レイアウトのためのCSS ===============*/
+
+body{
+  background:rgb(120, 182, 201);
+}
+
+/*========= 検索窓のためのCSS ===============*/
+
+/*検索窓のエリア*/
+ #search-wrap {
+     position: absolute;/*絶対配置にして*/
+   z-index: 2;/*最前面に設定。数字は変更可*/
+   top:10px;
+   right:10px;
+}
+
+/*テキスト入力input設定*/
+ #search-text{
+
+  width: 60px;/*テキスト入力エリアが伸びる前の横幅*/
+  height: 60px;
+    padding: 20px;
+  border: none;
+  background:#fff url("https://coco-factory.jp/ugokuweb/wp-content/themes/ugokuweb/data/7-2-3/img/icon_search.svg") no-repeat 17px center;/*虫眼鏡アイコンを背景に表示*/
+  background-size: 25px 25px;
+  transition: all 0.5s;/*transitionを使ってスムースに伸ばす*/
+  outline: none;
+  cursor: pointer;/*カーソルを指マークに*/
+}
+
+/*テキスト入力inputにフォーカスした時の形状*/
+ #search-text:focus {
+  width: 250px;/*テキスト入力エリアが伸びる後の横幅*/
+  padding: 20px 0 20px 60px;
+  box-shadow: 0 2px rgba(6,0,1,.26);
+}
+
+
+/*検索窓のエリア*/
+ #search-wrap {
+     position: absolute;/*絶対配置にして*/
+	 z-index: 2;/*最前面に設定。数字は変更可*/
+	 top:10px;
+	 right:10px;
+}
+
+/*テキスト入力input設定*/
+ #search-text{
+	-webkit-appearance:none;/*SafariやChromeのデフォルトの設定を無効*/
+	width: 60px;/*テキスト入力エリアが伸びる前の横幅*/
+	height: 60px;
+    padding: 20px;
+	border: none;
+	background:#fff url("./icon_search.svg") no-repeat 17px center;/*虫眼鏡アイコンを背景に表示*/
+	background-size: 25px 25px;
+	transition: all 0.5s;/*transitionを使ってスムースに伸ばす*/
+	outline: none;
+	cursor: pointer;/*カーソルを指マークに*/
+}
+
+/*テキスト入力inputにフォーカスした時の形状*/
+ #search-text:focus {
+	width: 250px;/*テキスト入力エリアが伸びる後の横幅*/
+	padding: 20px 0 20px 60px;
+	box-shadow: 0 2px rgba(6,0,1,.26);
+}
+
+
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+html {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 62.5%;
+}
+
+.btn,
+a.btn,
+button.btn {
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.5;
+  position: relative;
+  display: inline-block;
+  padding: 1rem 4rem;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  color: #212529;
+  border-radius: 0.5rem;
+}
+
+.btn--orange,
+a.btn--orange {
+  color: #fff;
+  background-color: #11100f;
+}
+
+.btn--orange:hover,
+a.btn--orange:hover {
+  color: #fff;
+  background: #928b86;
+}
+
+a.btn--radius {
+  border-radius: 100vh;
+}
+
+.btn{
+  margin-left:1150px;
+}
