@@ -1,0 +1,114 @@
+
+
+h1{
+    font-size:38px;
+    text-align: center;
+    font-family: 'Fjalla One', sans-serif;
+}
+
+.header  li{
+    list-style:none;
+    float:left;
+    width:calc(100%/3);
+    text-align:center;
+    font-family: 'Fjalla One', sans-serif;
+
+}
+
+.header-list ul{
+    padding-inline-start: 0px; /*googlechromeの初期値でulで書くと左に初期値４０pxあいてた*/
+    font-size:20px;
+}
+
+
+
+.index{
+
+    border:#2f46a336 3px double; /*境界線の指定*/
+    padding:10px;
+    padding:10px;
+
+}
+
+.index h2{
+    font-family: 'Fjalla One', sans-serif;
+    text-align: center;
+    margin:0;
+    padding:0;
+   font-size:30px;
+   color:rgb(47, 46, 46);
+
+}
+
+.index li{
+
+    text-align: center;
+    list-style: none;
+    font-size: 20px;
+}
+
+
+.kikai h1{
+    text-align:center;
+    font-size:30px;
+    font-family: 'Fjalla One', sans-serif;
+
+}
+
+.kikai p{
+    text-align: center;
+    font-size: 19px;
+}
+
+.kiaki span{
+    display:block;
+    border: #2f46a336;
+    font-size: 30px;
+}
+
+.kikai h2{
+    text-align:center;
+    font-size:25px;
+    
+
+}
+
+.kikai ul {
+    text-align: center;
+    list-style: none;
+    font-size: 20px;
+    padding:0;
+}
+
+.footer {
+    color: #000000;
+    background: #e8f1ff;
+    text-align: center;
+    padding: 30px;
+   }
+   .footer a {
+    color: #060606;
+    text-decoration: none;
+   }
+
+   /*テキストのアンダーラインを消す。*/
+   .footer a:hover {
+    text-decoration: underline;
+   }
+   
+   .footer .menu {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    justify-content: center; /*よくわからんけどこれで真ん中に治った*/
+   }
+   .footer .menu li {
+    margin: 0;
+    padding: 0 20px;
+   }
+   .footer .copyright {
+    margin: 0;
+    padding: 20px 0 0 0;
+   }
+   

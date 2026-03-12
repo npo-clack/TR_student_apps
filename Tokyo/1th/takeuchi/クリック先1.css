@@ -1,0 +1,80 @@
+.font20px1
+{
+    font-size: 100px;
+    text-align: center
+}
+body {
+    background: -moz-linear-gradient(top, rgb(179, 162, 162), #5f6897 30%, #F89174 60%, #748af8);
+    background: -webkit-linear-gradient(top, rgb(179,162,162),  30%, #F89174 60%, #748af8);
+    background: linear-gradient(to bottom, rgb(179,162,162),  30%, #F89174 60%, #748af8);
+}
+.font20px2{
+    font-size: 28px;
+    text-align: left;
+    color: black;
+}
+.flex{
+    display: flex;
+    justify-content: space-between;
+}
+.flex>p{
+    width: 100%;
+}
+.flex2{
+    display: flex;
+    justify-content: space-between;
+}
+.flex2>p{
+    width: 100%;
+}
+.flex3{
+    display: flex;
+    justify-content: space-between;
+}
+.flex3>p{
+    width: 100%;
+}
+.flex4{
+    display: flex;
+    justify-content: space-between;
+}
+.flex4>p{
+    width: 100%;
+}
+.flex5{
+    display: flex;
+    justify-content: space-between;
+}
+.flex5>p{
+    width: 100%;
+}
+.flex6{
+    display: flex;
+    justify-content: space-between;
+}
+.flex6>p{
+    width: 100%;
+}
+.flex7{
+    display: flex;
+    justify-content: space-between;
+}
+.flex7>p{
+    width: 100%;
+}
+.flex8{
+    
+   
+    padding: 400px;
+    font-size: 150%;
+    line-height: 180%
+}
+.flex8 ul{
+    padding-top:50px ;
+    padding-right: 160px;
+    width: 1000px;
+}
+.top1 {
+    font-size: 55px;
+    text-align: center;
+}

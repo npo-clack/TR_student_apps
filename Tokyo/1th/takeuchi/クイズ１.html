@@ -1,0 +1,126 @@
+<html>
+<head>
+<script>
+let Q = [//クイズ
+'Q.日本で一番高い山は？',
+' onclick="Q_(1);" >富士山',
+' onclick="Q_(2);" >北岳', 
+' onclick="Q_(2);" >奥穂高岳', 
+'日本で一番高い山は富士山。なんと3,776Mもあります。',
+
+'Q.日本で最も流域面積が大きい川はどこでしょう？', 
+' onclick="Q_(2);" >信濃川',
+' onclick="Q_(1);" >利根川',
+' onclick="Q_(2);" >淀川',
+'信濃川は日本一長い川ではありますが、流域面積に関しては利根川のほうが大きいです。',
+
+'Q.次の中で海に面していない都道府県はどこですか？', 
+' onclick="Q_(2);" >京都府',
+' onclick="Q_(1);" >滋賀県',
+' onclick="Q_(2);" >大阪府',
+'滋賀県は最も大きい湖である琵琶湖を持っているのですが、海には面していません。',
+
+'Q.群馬県の県庁所在地は？', 
+' onclick="Q_(2);" >館林市',
+' onclick="Q_(2);" >高崎市',
+' onclick="Q_(1);" >前橋市',
+'高崎市と間違われやすいですが、群馬県の県庁所在地は前橋市です。',
+
+'Q.熊本県にある世界一のカルデラを持つ山はどこ？', 
+' onclick="Q_(2);" >桜島',
+' onclick="Q_(1);" >阿蘇山',
+' onclick="Q_(2);" >比叡山',
+'桜島は鹿児島県、比叡山は長崎県にあります。',
+
+'Q.瀬戸内海での気候として正しいものはどれか？', 
+' onclick="Q_(2);" >雨が多い',
+' onclick="Q_(1);" >雨が少ない',
+' onclick="Q_(2);" >台風がよく通過する',
+'瀬戸内海は海に囲まれているため、雨が少なく、暖かいです',
+
+'Q.琵琶湖は滋賀県の何分の一の大きさか？', 
+' onclick="Q_(2);" >10分の1',
+' onclick="Q_(1);" >6分の1',
+' onclick="Q_(2);" >4分の1',
+'一つの県の6分の1も埋めるなんてすごいですね',
+
+'Q.中京工業地帯で盛んな産業は何か？', 
+' onclick="Q_(2);" >精密機械業',
+' onclick="Q_(2);" >石油化学工業',
+' onclick="Q_(1);" >自動車業',
+'精密機械業は戦後に諏訪盆地で盛んになり、石油化学業は京葉工業地域で盛んです。',
+
+'Q.東京都の人口は日本の人口の何分の一か', 
+' onclick="Q_(1);" >10分の1',
+' onclick="Q_(2);" >5分の1',
+' onclick="Q_(2);" >20分の1',
+'すっごい多いい',
+
+'Q.梅雨から夏の盛りに向かう時期に、海を渡って北東から吹いてくる冷たく湿った風のことをなんという？', 
+' onclick="Q_(2);" >からっ風',
+' onclick="Q_(1);" >やませ',
+' onclick="Q_(2);" >モンスーン',
+'からっ風は山を越えて吹きつける下降気流のことを指し群馬県での冬の名物でもあります。<br>また、モンスーンは夏は海洋から大陸に、冬は大陸から海洋へと季節によってほぼ正反対にかつ広範囲に吹いている風です。',
+
+'Q.北海道内にある大規模な酪農地帯である台地はどこか？', 
+' onclick="Q_(2);" >武蔵野台地',
+' onclick="Q_(2);" >シラス台地',
+' onclick="Q_(1);" >根釧台地',
+'武蔵野台地は関東地方にあり、シラス台地は九州地方にあります。',
+];
+
+let r_1 = Q.length / 5;//クイズを出すための変数
+let r_2 = Math.floor( Math.random() * r_1 ) ;
+let R = (r_2 * 5) ;//クイズを出すための変数
+
+
+//次の問題を表示するためのプログラムです
+function Q_(oxq) {
+
+	if (oxq === 0){
+	
+	 r_1 = Q.length / 5;
+	 r_2 = Math.floor( Math.random() * r_1 );
+	 R = (r_2 * 5);
+
+ 	 document.getElementById("ox").innerHTML = '';
+	 document.getElementById("quiz").innerHTML = '';
+
+	 quiz = document.getElementById('quiz');
+	 quiz.insertAdjacentHTML('afterbegin', '<p>'+Q[R]+'</p>');
+	 quiz.insertAdjacentHTML('beforeend', '<button'+Q[R+1]+'</button><br/>');
+	 quiz.insertAdjacentHTML('beforeend', '<button'+Q[R+2]+'</button><br/>');
+	 quiz.insertAdjacentHTML('beforeend', '<button'+Q[R+3]+'</button><br/>');
+
+	} else if (oxq === 1) {//正解時の実行プログラムです
+ 	 document.getElementById("ox").innerHTML = '<p>正解！</p>';
+	 document.getElementById("quiz").innerHTML = '<p>'+Q[R+4]+'</p>';
+ 	 document.getElementById("next").innerHTML = '<p><button onClick="Q_(0);">次の問題へ</button></p>';
+
+	} else if (oxq === 2) {//失敗時の実行プログラムです
+ 	 document.getElementById("ox").innerHTML = '<p>不正解！</p>';
+	 document.getElementById("quiz").innerHTML = '<p>'+Q[R+4]+'</p>';
+ 	 document.getElementById("next").innerHTML = '<p><button onClick="Q_(0);">次の問題へ</button></p>';
+	}
+}
+
+</script>
+</head>
+<body>
+
+<script>
+document.write('<p id="ox"></p>');
+
+document.write('<p id="quiz">');
+document.write(Q[R+0] +'<br/>');
+document.write('<button'+ Q[R+1] +'</button><br/>');
+document.write('<button'+ Q[R+2] +'</button><br/>');
+document.write('<button'+ Q[R+3] +'</button><br/>');
+document.write('</p>');
+
+document.write('<p id="next"><button onClick="Q_(0);">次の問題へ</button></p>');
+</script>
+
+
+</body>
+</html>

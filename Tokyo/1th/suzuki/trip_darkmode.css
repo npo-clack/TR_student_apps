@@ -1,0 +1,32 @@
+.btn1 {
+	cursor: pointer;
+	display: grid;
+	place-items: center;
+	width: 300px;
+	/*margin: 1em auto 0;*/
+	padding: 35px;
+	border: 0;
+	border-radius: 16px;
+	color: ghostwhite;
+	font-size: 2em;
+	font-family: "Ubuntu Condensed", sans-serif;
+	letter-spacing: .06em;
+	background: #2d2d2d;
+	transition: color .3s, background .3s;
+}
+.btn1:hover {
+	color: white;
+	background: hsl(0, 0%, 18%);
+	animation: poyo .6s;
+}
+.btn1:active {
+	color: gainsboro;
+	background: hsl(0, 0%, 27%);
+	transition-duration: .1s;
+}
+@keyframes poyo {
+	10% { transform: scale(1.2); }
+	40% { transform: scale(.9); }
+	60% { transform: scale(1.04); }
+	80% { transform: scale(.98); }
+}

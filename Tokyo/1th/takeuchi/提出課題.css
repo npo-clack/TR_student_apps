@@ -1,0 +1,90 @@
+body {
+    background-color: rgb(65, 177, 214);
+}
+li {
+    list-style-type: square;
+    margin: 10px;
+}
+a {
+    font-weight: bold;
+}
+h1 {
+     background-color: rgb(84, 17, 240);
+}
+.my-parts {
+	display: inline-block;
+	transition: all .3s ease 0s;
+	text-decoration: none;
+}
+.my-parts:hover {
+	cursor: pointer;
+	transform: scale(1.2);
+}
+
+.japan{
+  display: inline-block;
+  transition: all .3s ease 0s;
+  text-decoration: none;
+}
+.japan:hover {
+cursor: pointer;
+transform: scale(1.5);
+}
+.asia{
+  display: inline-block;
+  transition: all .3s ease 0s;
+  text-decoration: none;
+}
+.asia:hover {
+cursor: pointer;
+transform: scale(1.9);
+}
+.northamerica{
+  display: inline-block;
+  transition: all .3s ease 0s;
+  text-decoration: none;
+}
+.northamerica:hover {
+cursor: pointer;
+transform: scale(1.5);
+}
+.australia{
+  display: inline-block;
+  transition: all .3s ease 0s;
+  text-decoration: none;
+}
+.australia:hover {
+cursor: pointer;
+transform: scale(1.5);
+}
+.europe{
+  display: inline-block;
+  transition: all .3s ease 0s;
+  text-decoration: none;
+}
+.europe:hover {
+cursor: pointer;
+transform: scale(1.5);
+}
+.africa{
+  display: inline-block;
+  transition: all .3s ease 0s;
+  text-decoration: none;
+}
+.africa:hover {
+cursor: pointer;
+transform: scale(1.5);
+}
+.southamerica{
+  display: inline-block;
+  transition: all .3s ease 0s;
+  text-decoration: none;
+}
+.southamerica:hover {
+cursor: pointer;
+transform: scale(1.5);
+}
+.top {
+  font-size: 55px;
+  text-align: center;
+}

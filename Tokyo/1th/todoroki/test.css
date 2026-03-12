@@ -1,0 +1,15 @@
+ 
+  html{
+    height: 100%;
+}
+body{
+    background: linear-gradient(black,red);
+}
+.white{
+    color: white;
+    font-family: "ＭＳ Ｐ明朝";
+   
+}
+.title{
+  font-size: 60px;
+}
