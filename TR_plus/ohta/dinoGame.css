@@ -1,0 +1,150 @@
+.game-wrap {
+  position: relative;
+  width: 800px;
+  height: 450px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.bg-layer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* 空の背景 */
+.bg-layer.sky {
+  background: linear-gradient(#87CEEB 0%, #bfe9ff 60%, #FFF 100%);
+  z-index: 0;
+}
+#canvas{
+  position: relative;
+  z-index: 10;
+  background: transparent;
+  display: block;
+}
+
+/* 雲 */
+.bg-layer.clouds {
+  z-index: 1;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  --cloud-duration: 34s;
+  --cloud-duration-slow: 58s;
+}
+/*　大きなふわっとした雲帯を２枚作る　*/
+.bg-layer.clouds::before,
+.bg-layer.clouds::after {
+  content: "";
+  position: absolute;
+  left: -30%;
+  width: 160%;
+  height: 220px;
+  background-repeat: repeat-x;
+  background-size: 700px 100%;
+  filter: blur(6px);
+  opacity: 0.98;
+  transform-origin: left center;
+  will-change: transform;
+}
+/* 上の雲帯 */
+.bg-layer.clouds::before {
+  top: 6%; /* 雲の高さ */
+  background-image:      /* %は雲の位置 */                 
+  radial-gradient(circle at 8% 55%, rgba(255,255,255,0.98) 0 46px, transparent 47px), /* 雲のサイズ　*/
+  radial-gradient(circle at 24% 48%, rgba(255,255,255,0.96) 0 54px, transparent 55px),
+  radial-gradient(circle at 44% 60%, rgba(255,255,255,0.97) 0 68px, transparent 69px),
+  radial-gradient(circle at 68% 50%, rgba(255,255,255,0.95) 0 50px, transparent 51px),
+  radial-gradient(circle at 90% 56%, rgba(255,255,255,0.94) 0 42px,transparent 43px);
+  animation: cloudMove var(--cloud-duration) linear infinite; /* 雲の動き速度 */
+}
+/*　下の雲帯　*/
+.bg-layer.clouds::after {
+  top: 18%;
+  height: 160px;
+  background-image:
+  radial-gradient(circle at 6% 60%, rgba(255,255,255,0.95) 0 36px, transparent 37px), /* 雲のサイズ　*/
+  radial-gradient(circle at 28% 56%, rgba(255,255,255,0.93) 0 44px, transparent 45px),
+  radial-gradient(circle at 52% 60%, rgba(255,255,255,0.94) 0 52px, transparent 53px),
+  radial-gradient(circle at 78% 54%, rgba(255,255,255,0.92) 0 40px, transparent 41px),
+  radial-gradient(circle at 94% 58%, rgba(255,255,255,0.9) 0 34px, transparent 35px);
+  animation: cloudMoveSlow var(--cloud-duration-slow) linear infinite;
+  opacity: 0.92;
+  transform: scale(0.95);
+}
+/* 雲のアニメーション */
+@keyframes cloudMove {
+  from { transform: translateX(0); }
+  to { transform: translateX(-40%); }
+}
+@keyframes cloudMoveSlow {
+  from { transform: translateX(0); }
+  to { transform: translateX(-28%); }
+}
+
+/* 山レイヤー  */
+.bg-layer.mountains {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+/*　大きい山 */
+.bg-layer.mountains::before {
+  content: "";
+  position: absolute;
+  left: -10%;
+  bottom: 0;
+  width: 170%; /* サイズ */
+  height: 65%;
+  background: linear-gradient(180deg,#2f8e2f 0%, #67b26b 100%);
+  clip-path: polygon(
+    0% 100%, 8% 62%, 20% 78%,
+    34% 30%, 48% 76%, 62% 28%,
+    76% 66%, 92% 44%, 100% 100%
+  );
+  filter: drop-shadow(0 -6px 8px rgba(0,0,0,0.08));
+  opacity: 0.98;
+  will-change: transform;
+  animation: mountainsShift 40s linear infinite alternate;
+}
+/*　小さい山 */
+.bg-layer.bg-layer.mountains::after {
+  content: "";
+  position: absolute;
+  left: -5%;
+  bottom: 0;
+  width: 160%;
+  height: 50%;
+  background: linear-gradient(180deg,#4fac4f 0%, #9fdb88 100%);
+  clip-path: polygon(
+    0% 100%, 6% 54%, 18% 74%,
+    32% 46%, 46% 78%, 60% 44%,
+    74% 70%, 88% 50%, 100% 100%
+  );
+  transform: translateY(6%);
+  filter: drop-shadow(0 -4px 6px rgba(0,0,0,0.06));
+  opacity: 0.99;
+  will-change: transform;
+  animation: mountainsShiftslow 60s linear infinite alternate;
+}
+/* 山のアニメーション */
+@keyframes mountainsShift {
+  from { transform: translateX(0); }
+  to { transform: translateX(-1.5%); }
+}
+@keyframes mountainsShiftslow {
+  from { transform: translateX(0); }
+  to { transform: translateX(-0.8%); }
+} 
+/* キャンバス */
+#canvas {
+  position: relative;
+  z-index: 10;
+  background: transparent;
+  display: block;
+}
